@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AKF - Homepage</title>
+
+        <!-- SEO Meta Tags -->
+        <meta name="description" content="A modern, spiritual, and educational organization dedicated to wisdom and community.">
+        <meta name="keywords" content="spiritual, education, meditation, yoga, community, sanctum">
+
+        <!-- Google Fonts: Poppins -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+        <!-- AOS.js (Animate on Scroll) CSS -->
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+        <!-- Bootstrap Icons (for nav icons) -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+        <!-- Custom Stylesheet -->
+        <link rel="stylesheet" href="style.css">
+        <style>
+            .header-brand {
+                /* Gives the link container proper layout properties */
+                display: inline-block;
+                vertical-align: middle;
+                /* Helps align the logo with the nav links */
+            }
+
+            /* This styles the actual logo image (<img>) */
+            .header-brand img {
+                /* 
+    ** THIS IS THE MOST IMPORTANT PART **
+    Set the maximum height for your logo. It will never get taller than this.
+    */
+                max-height: 50px;
+
+                /* <<< ADJUST THIS VALUE TO YOUR LIKING */
+
+                /* This ensures the image width scales down proportionally and never stretches */
+                width: auto;
+
+                /* Helps the image render smoothly when scaled down */
+                image-rendering: -webkit-optimize-contrast;
+            }
+
+
+
+            /* --- Daily Wisdom Ticker Section --- */
+
+            #daily-wisdom {
+                padding-top: 0;
+                /* Removing top padding to bring it closer to the section above */
+            }
+
+            .wisdom-ticker-wrapper {
+                background: var(--glass-bg);
+                /* Uses the same glass effect as other cards */
+                backdrop-filter: blur(5px);
+                border: 1px solid rgba(212, 175, 55, 0.2);
+                /* Subtle gold border */
+                border-radius: 15px;
+                padding: 25px 30px;
+                text-align: center;
+            }
+
+            .ticker-title {
+                font-size: 1.5rem;
+                font-weight: 600;
+                color: var(--color-accent-gold);
+                margin-bottom: 20px;
+            }
+
+            .ticker-viewport {
+                width: 100%;
+                overflow: hidden;
+                /* This hides the content that goes outside the box */
+                white-space: nowrap;
+                /* Ensures all quotes stay on a single line */
+            }
+
+            .ticker-content {
+                display: inline-block;
+                /* The magic animation that scrolls the text */
+                animation: scroll-left 120s linear infinite;
+            }
+
+            /* On hover, the animation will pause so users can read */
+            .ticker-content:hover {
+                animation-play-state: paused;
+                cursor: default;
+            }
+
+            /* Defines the scrolling animation */
+            @keyframes scroll-left {
+                from {
+                    transform: translateX(0%);
+                }
+
+                to {
+                    /* Scrolls exactly half the width (since we duplicated the content) */
+                    transform: translateX(-50%);
+                }
+            }
+
+            .quote-item {
+                display: inline-block;
+                /* Lays out each quote horizontally */
+                font-size: 1.1rem;
+                color: var(--color-text-light);
+                margin: 0 40px;
+                /* Space between each quote */
+            }
+
+            .quote-source {
+                color: var(--color-accent-gold);
+                font-style: italic;
+                margin-left: 10px;
+                font-weight: 300;
+            }
+
+        </style>
+    </head>
+
+    <body>
+
+        <!-- 🌟 Animated Loader -->
+        <div id="loader">
+            <!-- Hidden audio that plays automatically -->
+            <audio id="omAudio" autoplay hidden>
+                <source src="om.mp3" type="audio/wav">
+                Your browser does not support the audio element.
+            </audio>
+
+            <div class="sun-container">
+                <div class="sun"></div>
+                <div class="om-symbol">ॐ</div>
+            </div>
+
+
+
+        </div>
+
+
+        <!-- Main Content Wrapper -->
+        <main id="main-content">
+            <header id="desktop-header">
+                <div class="container header-container">
+                    <!-- <a href="#hero" class="header-brand">Arya Kalyan Foundation</a> -->
+                    <!-- <a href="#hero" class="header-brand">AKF</a> -->
+                    <a href="#hero" class="header-brand">
+                        <img src="bg.png" alt="Arya Kalyan Foundation Logo">
+                    </a>
+
+                    <nav class="desktop-nav">
+                        <a href="#hero" class="nav-link active" data-nav-link="hero">Home</a>
+                        <a href="#events" class="nav-link" data-nav-link="events">Events</a>
+                        <a href="#courses" class="nav-link" data-nav-link="courses">Courses</a>
+                        <a href="#blog" class="nav-link" data-nav-link="blog">Blog</a>
+                        <a href="#donate" class="nav-link" data-nav-link="donate">Donate</a>
+                    </nav>
+                </div>
+            </header>
+            <!-- 1. Hero Section -->
+
+
+            <!-- 2. Organization Intro Section -->
+            <section id="intro" class="page-section">
+                <div class="container">
+                    <div class="intro-grid">
+                        <div class="intro-image" data-aos="fade-right" data-aos-duration="1000">
+                            <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=1820&auto=format&fit=crop" alt="Meditation Pose">
+                        </div>
+                        <div class="intro-text" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+                            <h2 class="section-title">Welcome to AFK</h2>
+                            <p>We are a global community committed to sharing timeless spiritual wisdom in a modern context. Our mission is to provide a supportive environment for personal growth,
+                                learning, and mindful living.</p>
+                            <a href="#" class="btn">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================= -->
+            <!-- Daily Wisdom Ticker Section (দৈনিক বেদবাণী)     -->
+            <!-- ============================================= -->
+            <section id="daily-wisdom" class="home-section">
+                <div class="container">
+                    <!-- The main container for the ticker widget -->
+                    <div class="wisdom-ticker-wrapper" data-aos="fade-up" data-aos-duration="1000">
+                        <h3 class="ticker-title">Daily Vedabani</h3>
+
+                        <!-- This container creates the scrolling effect -->
+                        <div class="ticker-viewport">
+                            <!-- The content that will scroll. Notice it's duplicated for a seamless loop -->
+                            <div class="ticker-content">
+                                <!-- First Set of Quotes -->
+                                <div class="quote-item">এই সমগ্র সংসার নিরোগ এবং শুভচিন্তা যুক্ত হোক । <span class="quote-source">যজুর্বেদ ১৬.৪</span></div>
+                                <div class="quote-item">সূর্য-এর আলোয় স্বয়ং আলোহীন চাঁদ আলোকিত হয় । <span class="quote-source">ঋগ্বেদ ৫.৪০.৫</span></div>
+                                <div class="quote-item">প্রশংসনীয় সংস্কৃতি, জ্ঞান-বিজ্ঞান ও মাতৃভূমি— এই ত্রয়ী সুখ-সমৃদ্ধি প্রদান করে। <span class="quote-source">ঋগ্বেদ ১.১৩.৯</span></div>
+                                <div class="quote-item">উত্তম জীবন লাভের জন্য আমাদের জ্ঞানীদের সাহচর্যে চলা উচিৎ। <span class="quote-source">ঋগ্বেদ ১.১২.১৬</span></div>
+                                <div class="quote-item">যে ব্যক্তি সম্পদ বা সুখ বা জ্ঞান নিঃস্বার্থভাবে দান করে, সে-ই প্রকৃত মিত্র। <span class="quote-source">ঋগ্বেদ ২.৩০.৭</span></div>
+                                <div class="quote-item">মানুষ কর্ম দ্বারাই জগতে মহত্ত্ব ও প্রসিদ্ধি লাভ করে। <span class="quote-source">ঋগ্বেদ ৩.৩৬.১</span></div>
+                                <div class="quote-item">হে পতি! তোমার স্ত্রীই গৃহ, স্ত্রীই সন্তানের আশ্রয়। <span class="quote-source">ঋগ্বেদ ৩.৫৩.৪</span></div>
+                                <div class="quote-item">পরমাত্মার নিয়ম বিনষ্ট হয় না; তা অটুট, অচল ও অপরিবর্তনীয়। <span class="quote-source">ঋগ্বেদ ৩.৫৪.১৮</span></div>
+                                <div class="quote-item">এই ধর্মের মার্গই সনাতন, এই পথে চলেই মানবগণ উন্নতি লাভ করে। <span class="quote-source">ঋগ্বেদ ৪.১৮.১</span></div>
+                                <div class="quote-item">পরমাত্মার নিকট কোনো মানুষই বড় বা ছোট নয়। সকল মানুষই সমান এবং পরস্পরের ভ্রাতৃস্বরূপ। <span class="quote-source">ঋগ্বেদ ৫.৬০.৫</span></div>
+
+                                <!-- Second (Duplicate) Set of Quotes for Seamless Loop -->
+                                <div class="quote-item">এই সমগ্র সংসার নিরোগ এবং শুভচিন্তা যুক্ত হোক । <span class="quote-source">যজুর্বেদ ১৬.৪</span></div>
+                                <div class="quote-item">সূর্য-এর আলোয় স্বয়ং আলোহীন চাঁদ আলোকিত হয় । <span class="quote-source">ঋগ্বেদ ৫.৪০.৫</span></div>
+                                <div class="quote-item">প্রশংসনীয় সংস্কৃতি, জ্ঞান-বিজ্ঞান ও মাতৃভূমি— এই ত্রয়ী সুখ-সমৃদ্ধি প্রদান করে। <span class="quote-source">ঋগ্বেদ ১.১৩.৯</span></div>
+                                <div class="quote-item">উত্তম জীবন লাভের জন্য আমাদের জ্ঞানীদের সাহচর্যে চলা উচিৎ। <span class="quote-source">ঋগ্বেদ ১.১২.১৬</span></div>
+                                <div class="quote-item">যে ব্যক্তি সম্পদ বা সুখ বা জ্ঞান নিঃস্বার্থভাবে দান করে, সে-ই প্রকৃত মিত্র। <span class="quote-source">ঋগ্বেদ ২.৩০.৭</span></div>
+                                <div class="quote-item">মানুষ কর্ম দ্বারাই জগতে মহত্ত্ব ও প্রসিদ্ধি লাভ করে। <span class="quote-source">ঋগ্বেদ ৩.৩৬.১</span></div>
+                                <div class="quote-item">হে পতি! তোমার স্ত্রীই গৃহ, স্ত্রীই সন্তানের আশ্রয়। <span class="quote-source">ঋগ্বেদ ৩.৫৩.৪</span></div>
+                                <div class="quote-item">পরমাত্মার নিয়ম বিনষ্ট হয় না; তা অটুট, অচল ও অপরিবর্তনীয়। <span class="quote-source">ঋগ্বেদ ৩.৫৪.১৮</span></div>
+                                <div class="quote-item">এই ধর্মের মার্গই সনাতন, এই পথে চলেই মানবগণ উন্নতি লাভ করে। <span class="quote-source">ঋগ্বেদ ৪.১৮.১</span></div>
+                                <div class="quote-item">পরমাত্মার নিকট কোনো মানুষই বড় বা ছোট নয়। সকল মানুষই সমান এবং পরস্পরের ভ্রাতৃস্বরূপ। <span class="quote-source">ঋগ্বেদ ৫.৬০.৫</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- 3. Running Events Section -->
+            <section id="events" class="page-section">
+                <div class="container">
+                    <h2 class="section-title" data-aos="fade-up">Upcoming Events</h2>
+                    <div class="events-grid">
+                        <!-- Event Card 1 -->
+                        <div class="event-card" data-aos="fade-up" data-aos-delay="100">
+                            <div class="event-date"><span>25</span>DEC</div>
+                            <h3 class="event-title">Mindfulness Meditation Retreat</h3>
+                            <p class="event-description">A full-day immersive retreat to deepen your practice.</p>
+                            <a href="#" class="card-link">Register Now <i class="bi bi-arrow-right-short"></i></a>
+                        </div>
+                        <!-- Event Card 2 -->
+                        <div class="event-card" data-aos="fade-up" data-aos-delay="200">
+                            <div class="event-date"><span>10</span>JAN</div>
+                            <h3 class="event-title">Live Q&A: The Art of Letting Go</h3>
+                            <p class="event-description">Join our live-streamed session with spiritual guides.</p>
+                            <a href="#" class="card-link">Join Live <i class="bi bi-arrow-right-short"></i></a>
+                        </div>
+                        <!-- Event Card 3 -->
+                        <div class="event-card" data-aos="fade-up" data-aos-delay="300">
+                            <div class="event-date"><span>05</span>FEB</div>
+                            <h3 class="event-title">Community Yoga Session</h3>
+                            <p class="event-description">An all-levels yoga class to harmonize body and mind.</p>
+                            <a href="#" class="card-link">View Details <i class="bi bi-arrow-right-short"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. Popular Courses Section -->
+            <section id="courses" class="page-section">
+                <div class="container">
+                    <h2 class="section-title" data-aos="fade-up">Popular Courses</h2>
+                    <div class="courses-grid">
+                        <!-- Course Card 1 -->
+                        <div class="course-card" data-aos="zoom-in" data-aos-delay="100">
+                            <img src="img.png" alt="Course 1">
+                            <div class="course-info">
+                                <h3>Foundations of Vedanta</h3>
+                                <p>12-week online course</p>
+                            </div>
+                        </div>
+                        <!-- Course Card 2 -->
+                        <div class="course-card" data-aos="zoom-in" data-aos-delay="200">
+                            <img src="img2.jpg" alt="Course 2">
+                            <div class="course-info">
+                                <h3>Mindful Breathing Techniques</h3>
+                                <p>4-week practical workshop</p>
+                            </div>
+                        </div>
+                        <!-- Course Card 3 -->
+                        <div class="course-card" data-aos="zoom-in" data-aos-delay="300">
+                            <img src="img3.jpg" alt="Course 3">
+                            <div class="course-info">
+                                <h3>The Philosophy of Yoga</h3>
+                                <p>8-week deep dive</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. Blog Preview Section -->
+            <section id="blog" class="page-section container">
+                <div class="container">
+                    <h2 class="section-title" data-aos="fade-up">From Our Blog</h2>
+                </div>
+                <div class="blog-scroller" data-aos="fade-up" data-aos-delay="200">
+                    <!-- Blog Post Card -->
+                    <div class="blog-card">
+                        <h4>Finding Stillness in a Noisy World</h4>
+                        <p>Explore three practical steps to cultivate inner peace amidst daily chaos...</p>
+                        <a href="#" class="card-link">Read More</a>
+                    </div>
+                    <!-- Blog Post Card -->
+                    <div class="blog-card">
+                        <h4>The Power of Gratitude</h4>
+                        <p>How a simple daily practice can transform your perspective and well-being...</p>
+                        <a href="#" class="card-link">Read More</a>
+                    </div>
+                    <!-- Blog Post Card -->
+                    <div class="blog-card">
+                        <h4>What is Dharma? An Introduction</h4>
+                        <p>Unpacking the profound concept of purpose and righteous living...</p>
+                        <a href="#" class="card-link">Read More</a>
+                    </div>
+                    <!-- Blog Post Card -->
+                    <div class="blog-card">
+                        <h4>Meditation for Beginners</h4>
+                        <p>A simple guide to starting your meditation journey today...</p>
+                        <a href="#" class="card-link">Read More</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. Donation Section -->
+            <section id="donate" class="page-section">
+                <div class="container">
+                    <div class="donate-banner" data-aos="flip-up" data-aos-duration="1000">
+                        <h2>Support Our Vision</h2>
+                        <p>Your contribution helps us create and share resources for a more conscious world. Every gift makes a difference.</p>
+                        <a href="#" class="btn btn-donate">Donate Now</a>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- 📱 Mobile Bottom Navigation -->
+        <nav id="bottom-nav">
+            <a href="#hero" class="nav-item active">
+                <i class="bi bi-house-door-fill"></i>
+            </a>
+            <a href="#events" class="nav-item">
+                <i class="bi bi-calendar-event-fill"></i>
+            </a>
+            <a href="#courses" class="nav-item">
+                <i class="bi bi-journal-bookmark-fill"></i>
+            </a>
+            <a href="#blog" class="nav-item">
+                <i class="bi bi-chat-square-text-fill"></i>
+            </a>
+            <a href="#donate" class="nav-item">
+                <i class="bi bi-heart-fill"></i>
+            </a>
+        </nav>
+
+        <!-- Footer -->
+        <!-- ============================================= -->
+        <!-- Footer Section                                -->
+        <!-- ============================================= -->
+        <footer id="footer" class="site-footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <!-- Column 1: Brand & Tagline -->
+                    <div class="footer-column">
+                        <h3 class="footer-brand">AKF</h3>
+                        <p class="footer-tagline">A sanctuary for peace, wisdom, and connection in the digital age.</p>
+                    </div>
+
+                    <!-- Column 2: Quick Links -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Quick Links</h5>
+                        <ul class="footer-links">
+                            <li><a href="#hero">Home</a></li>
+                            <li><a href="#introduction">About Us</a></li>
+                            <li><a href="#courses">Courses</a></li>
+                            <li><a href="#blog">Blog</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 3: Support -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Support</h5>
+                        <ul class="footer-links">
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#donate">Donate</a></li>
+                            <li><a href="#">Community Guidelines</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 4: Follow Us -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Follow Us</h5>
+                        <div class="social-icons">
+                            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                            <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>© 2024 AKF. All Rights Reserved.</p>
+                    <div class="footer-legal-links">
+                        <a href="#">Privacy Policy</a>
+                        <span>•</span>
+                        <a href="#">Terms of Service Sammo</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Scripts -->
+        <!-- Howler.js for Audio -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
+        <!-- AOS.js for Scroll Animations -->
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <!-- Custom JavaScript -->
+        <script src="script.js"></script>
+    </body>
+
+</html>
