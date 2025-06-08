@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 3. Active Nav Link on Scroll (using Intersection Observer) ---
     const sections = document.querySelectorAll('.page-section, .full-screen-section');
-    const navItems = document.querySelectorAll('#bottom-nav .nav-item');
+    // const navItems = document.querySelectorAll('#bottom-nav .nav-item');
 
     const observerOptions = {
         root: null, // relative to the viewport
