@@ -22,106 +22,9 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
         <!-- Custom Stylesheet -->
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="css/style.css">
         <style>
-            .header-brand {
-                /* Gives the link container proper layout properties */
-                display: inline-block;
-                vertical-align: middle;
-                /* Helps align the logo with the nav links */
-            }
-
-            /* This styles the actual logo image (<img>) */
-            .header-brand img {
-                /* 
-    ** THIS IS THE MOST IMPORTANT PART **
-    Set the maximum height for your logo. It will never get taller than this.
-    */
-                max-height: 50px;
-
-                /* <<< ADJUST THIS VALUE TO YOUR LIKING */
-
-                /* This ensures the image width scales down proportionally and never stretches */
-                width: auto;
-
-                /* Helps the image render smoothly when scaled down */
-                image-rendering: -webkit-optimize-contrast;
-            }
-
-
-
-            /* --- Daily Wisdom Ticker Section --- */
-
-            #daily-wisdom {
-                padding-top: 0;
-                /* Removing top padding to bring it closer to the section above */
-            }
-
-            .wisdom-ticker-wrapper {
-                background: var(--glass-bg);
-                /* Uses the same glass effect as other cards */
-                backdrop-filter: blur(5px);
-                border: 1px solid rgba(212, 175, 55, 0.2);
-                /* Subtle gold border */
-                border-radius: 15px;
-                padding: 25px 30px;
-                text-align: center;
-            }
-
-            .ticker-title {
-                font-size: 1.5rem;
-                font-weight: 600;
-                color: var(--color-accent-gold);
-                margin-bottom: 20px;
-            }
-
-            .ticker-viewport {
-                width: 100%;
-                overflow: hidden;
-                /* This hides the content that goes outside the box */
-                white-space: nowrap;
-                /* Ensures all quotes stay on a single line */
-            }
-
-            .ticker-content {
-                display: inline-block;
-                /* The magic animation that scrolls the text */
-                animation: scroll-left 120s linear infinite;
-            }
-
-            /* On hover, the animation will pause so users can read */
-            .ticker-content:hover {
-                animation-play-state: paused;
-                cursor: default;
-            }
-
-            /* Defines the scrolling animation */
-            @keyframes scroll-left {
-                from {
-                    transform: translateX(0%);
-                }
-
-                to {
-                    /* Scrolls exactly half the width (since we duplicated the content) */
-                    transform: translateX(-50%);
-                }
-            }
-
-            .quote-item {
-                display: inline-block;
-                /* Lays out each quote horizontally */
-                font-size: 1.1rem;
-                color: var(--color-text-light);
-                margin: 0 40px;
-                /* Space between each quote */
-            }
-
-            .quote-source {
-                color: var(--color-accent-gold);
-                font-style: italic;
-                margin-left: 10px;
-                font-weight: 300;
-            }
+            
 
         </style>
     </head>
@@ -132,7 +35,7 @@
         <div id="loader">
             <!-- Hidden audio that plays automatically -->
             <audio id="omAudio" autoplay hidden>
-                <source src="om.mp3" type="audio/wav">
+                <source src="audio/om.mp3" type="audio/wav">
                 Your browser does not support the audio element.
             </audio>
 
@@ -140,9 +43,6 @@
                 <div class="sun"></div>
                 <div class="om-symbol">ॐ</div>
             </div>
-
-
-
         </div>
 
 
@@ -153,15 +53,16 @@
                     <!-- <a href="#hero" class="header-brand">Arya Kalyan Foundation</a> -->
                     <!-- <a href="#hero" class="header-brand">AKF</a> -->
                     <a href="#hero" class="header-brand">
-                        <img src="bg.png" alt="Arya Kalyan Foundation Logo">
+                        <img src="images/bg.png" alt="Arya Kalyan Foundation Logo">
                     </a>
 
                     <nav class="desktop-nav">
-                        <a href="#hero" class="nav-link active" data-nav-link="hero">Home</a>
-                        <a href="#events" class="nav-link" data-nav-link="events">Events</a>
-                        <a href="#courses" class="nav-link" data-nav-link="courses">Courses</a>
-                        <a href="#blog" class="nav-link" data-nav-link="blog">Blog</a>
-                        <a href="#donate" class="nav-link" data-nav-link="donate">Donate</a>
+                        <a href="index.html" class="nav-link">Home</a>
+                        <a href="about.html" class="nav-link">About Us</a>
+                        <a href="index.html#events" class="nav-link" data-nav-link="events">Events</a>
+                        <a href="index.html#courses" class="nav-link" data-nav-link="courses">Courses</a>
+                        <a href="index.html#blog" class="nav-link" data-nav-link="blog">Blog</a>
+                        <a href="index.html#donate" class="nav-link" data-nav-link="donate">Donate</a>
                     </nav>
                 </div>
             </header>
@@ -263,7 +164,7 @@
                     <div class="courses-grid">
                         <!-- Course Card 1 -->
                         <div class="course-card" data-aos="zoom-in" data-aos-delay="100">
-                            <img src="img.png" alt="Course 1">
+                            <img src="images/img.png" alt="Course 1">
                             <div class="course-info">
                                 <h3>Foundations of Vedanta</h3>
                                 <p>12-week online course</p>
@@ -271,7 +172,7 @@
                         </div>
                         <!-- Course Card 2 -->
                         <div class="course-card" data-aos="zoom-in" data-aos-delay="200">
-                            <img src="img2.jpg" alt="Course 2">
+                            <img src="images/img2.jpg" alt="Course 2">
                             <div class="course-info">
                                 <h3>Mindful Breathing Techniques</h3>
                                 <p>4-week practical workshop</p>
@@ -279,7 +180,7 @@
                         </div>
                         <!-- Course Card 3 -->
                         <div class="course-card" data-aos="zoom-in" data-aos-delay="300">
-                            <img src="img3.jpg" alt="Course 3">
+                            <img src="images/img3.jpg" alt="Course 3">
                             <div class="course-info">
                                 <h3>The Philosophy of Yoga</h3>
                                 <p>8-week deep dive</p>
@@ -339,6 +240,9 @@
         <nav id="bottom-nav">
             <a href="#hero" class="nav-item active">
                 <i class="bi bi-house-door-fill"></i>
+            </a>
+            <a href="about.html" class="nav-item ">
+                <i class="bi bi-info-circle-fill"></i> <!-- Changed Icon for About -->
             </a>
             <a href="#events" class="nav-item">
                 <i class="bi bi-calendar-event-fill"></i>
@@ -418,7 +322,7 @@
         <!-- AOS.js for Scroll Animations -->
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
         <!-- Custom JavaScript -->
-        <script src="script.js"></script>
+        <script src="js/script.js"></script>
     </body>
 
 </html>

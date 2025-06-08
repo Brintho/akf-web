@@ -40,6 +40,15 @@ body {
 }
 
 
+/* --- 1. General About Page Styles --- */
+
+/* Apply Bengali font to elements that need it */
+.section-title,
+.mission-text,
+.timeline-content {
+    font-family: 'Hind Siliguri', 'Poppins', sans-serif;
+}
+
 /* --- 1. Desktop Header (Hidden by default) --- */
 #desktop-header {
     display: none;
@@ -73,6 +82,106 @@ body {
 .desktop-nav {
     display: flex;
     gap: 40px;
+}
+
+
+.header-brand {
+    /* Gives the link container proper layout properties */
+    display: inline-block;
+    vertical-align: middle;
+    /* Helps align the logo with the nav links */
+}
+
+/* This styles the actual logo image (<img>) */
+.header-brand img {
+    /* 
+    ** THIS IS THE MOST IMPORTANT PART **
+    Set the maximum height for your logo. It will never get taller than this.
+    */
+    max-height: 50px;
+
+    /* <<< ADJUST THIS VALUE TO YOUR LIKING */
+
+    /* This ensures the image width scales down proportionally and never stretches */
+    width: auto;
+
+    /* Helps the image render smoothly when scaled down */
+    image-rendering: -webkit-optimize-contrast;
+}
+
+
+
+/* --- Daily Wisdom Ticker Section --- */
+
+#daily-wisdom {
+    padding-top: 0;
+    /* Removing top padding to bring it closer to the section above */
+}
+
+.wisdom-ticker-wrapper {
+    background: var(--glass-bg);
+    /* Uses the same glass effect as other cards */
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    /* Subtle gold border */
+    border-radius: 15px;
+    padding: 25px 30px;
+    text-align: center;
+}
+
+.ticker-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-accent-gold);
+    margin-bottom: 20px;
+}
+
+.ticker-viewport {
+    width: 100%;
+    overflow: hidden;
+    /* This hides the content that goes outside the box */
+    white-space: nowrap;
+    /* Ensures all quotes stay on a single line */
+}
+
+.ticker-content {
+    display: inline-block;
+    /* The magic animation that scrolls the text */
+    animation: scroll-left 120s linear infinite;
+}
+
+/* On hover, the animation will pause so users can read */
+.ticker-content:hover {
+    animation-play-state: paused;
+    cursor: default;
+}
+
+/* Defines the scrolling animation */
+@keyframes scroll-left {
+    from {
+        transform: translateX(0%);
+    }
+
+    to {
+        /* Scrolls exactly half the width (since we duplicated the content) */
+        transform: translateX(-50%);
+    }
+}
+
+.quote-item {
+    display: inline-block;
+    /* Lays out each quote horizontally */
+    font-size: 1.1rem;
+    color: var(--color-text-light);
+    margin: 0 40px;
+    /* Space between each quote */
+}
+
+.quote-source {
+    color: var(--color-accent-gold);
+    font-style: italic;
+    margin-left: 10px;
+    font-weight: 300;
 }
 
 .desktop-nav .nav-link {
@@ -482,6 +591,7 @@ body {
 }
 
 .btn-donate {
+    margin-top: 10px;
     background-color: var(--color-accent-gold);
     color: var(--color-primary-dark);
     font-size: 1.1rem;
@@ -539,37 +649,185 @@ body {
     color: var(--color-accent-gold);
 }
 
-/* --- 10. Responsive Media Queries --- */
-@media (max-width: 992px) {
-    .section-title {
-        font-size: 2.2rem;
-    }
 
-    .hero-title {
-        font-size: 3rem;
-    }
+/* about page  */
 
-    .intro-grid {
-        grid-template-columns: 1fr;
-    }
 
-    .intro-image {
-        order: 1;
-    }
-
-    .intro-text {
-        order: 2;
-        text-align: center;
-    }
-
-    .intro-text h2 {
-        text-align: center;
-    }
-
-    .courses-grid {
-        grid-template-columns: 1fr 1fr;
-    }
+.about-page-section {
+    padding: 100px 0;
+    overflow: hidden;
 }
+
+#about-header {
+    min-height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(rgba(22, 22, 24, 0.8), rgba(22, 22, 24, 0.8)), url('https://images.unsplash.com/photo-1508921340878-ba53e1f416ec?q=80&w=1770&auto=format&fit=crop') no-repeat center center/cover;
+    position: relative;
+    text-align: center;
+}
+
+.about-page-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.about-page-subtitle {
+    font-size: 1.2rem;
+    color: var(--color-text-medium);
+    margin-top: 10px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- 3. Mission & Vision Section --- */
+#mission {
+    background-color: #1a1a1d;
+    /* Slightly different dark shade */
+}
+
+.mission-grid {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 50px;
+    align-items: center;
+    background: var(--glass-bg);
+    border: var(--glass-border);
+    border-radius: 20px;
+    padding: 50px;
+}
+
+.mission-icon {
+    text-align: center;
+}
+
+.mission-icon i {
+    font-size: 80px;
+    color: var(--color-accent-gold);
+    text-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
+}
+
+.mission-text h3 {
+    color: var(--color-accent-gold);
+    font-weight: 600;
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+}
+
+.mission-text p {
+    color: var(--color-text-medium);
+    line-height: 2;
+    /* Increased line-height for readability */
+    margin-bottom: 25px;
+    font-size: 1.1rem;
+}
+
+/* --- 4. History / Timeline Section --- */
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* The vertical line in the middle */
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 3px;
+    background-color: rgba(212, 175, 55, 0.2);
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -1.5px;
+}
+
+.timeline-item {
+    padding: 10px 40px;
+    position: relative;
+    width: 50%;
+}
+
+/* The circle on the timeline */
+.timeline-dot {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    right: -9px;
+    top: 25px;
+    background-color: var(--color-primary-dark);
+    border: 4px solid var(--color-accent-gold);
+    border-radius: 50%;
+    z-index: 1;
+}
+
+/* Place items on the left side */
+.timeline-item:nth-child(odd) {
+    left: 0;
+    padding-right: 70px;
+}
+
+/* Place items on the right side */
+.timeline-item:nth-child(even) {
+    left: 50%;
+    padding-left: 70px;
+}
+
+/* Adjust dot for even items */
+.timeline-item:nth-child(even) .timeline-dot {
+    left: -9px;
+}
+
+.timeline-content {
+    padding: 20px 30px;
+    background: var(--glass-bg);
+    border: var(--glass-border);
+    backdrop-filter: blur(5px);
+    position: relative;
+    border-radius: 10px;
+}
+
+.timeline-date {
+    display: inline-block;
+    padding: 5px 15px;
+    background-color: var(--color-accent-gold);
+    color: var(--color-primary-dark);
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+.timeline-title {
+    color: var(--color-text-light);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.timeline-content p {
+    font-size: 0.95rem;
+    color: var(--color-text-medium);
+    line-height: 1.7;
+}
+
+/* --- 5. Call to Action Section --- */
+#join-us {
+    background-color: #161618;
+}
+
+/* Reusing .donate-banner, but we can override text if needed */
+#join-us .donate-banner h2 {
+    color: #fff;
+}
+
+
+
+
 
 
 /* --- 9. Footer Section --- */
@@ -668,6 +926,42 @@ body {
 }
 
 
+
+
+
+/* --- 10. Responsive Media Queries --- */
+@media (max-width: 992px) {
+    .section-title {
+        font-size: 2.2rem;
+    }
+
+    .hero-title {
+        font-size: 3rem;
+    }
+
+    .intro-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .intro-image {
+        order: 1;
+    }
+
+    .intro-text {
+        order: 2;
+        text-align: center;
+    }
+
+    .intro-text h2 {
+        text-align: center;
+    }
+
+    .courses-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+
 /* --- Responsive Styles for Footer --- */
 
 /* For tablets */
@@ -721,6 +1015,60 @@ body {
         padding: 40px 20px;
     }
 }
+
+/* --- 6. about Responsive Design --- */
+/* For tablets */
+@media (max-width: 992px) {
+    .about-page-title {
+        font-size: 2.8rem;
+    }
+
+    .mission-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 30px;
+        padding: 40px;
+    }
+}
+
+/* For mobile phones */
+@media (max-width: 768px) {
+    .about-page-section {
+        padding: 80px 0;
+    }
+
+    .about-page-title {
+        font-size: 2.2rem;
+    }
+
+    .about-page-subtitle {
+        font-size: 1rem;
+    }
+
+    /* --- Mobile Timeline --- */
+    .timeline::after {
+        left: 20px;
+    }
+
+    .timeline-item {
+        width: 100%;
+        padding-left: 60px;
+        padding-right: 15px;
+    }
+
+    /* All items on one side */
+    .timeline-item:nth-child(even) {
+        left: 0;
+    }
+
+    /* Adjust dot for all items */
+    .timeline-dot,
+    .timeline-item:nth-child(even) .timeline-dot {
+        left: 11px;
+        /* 20px (line pos) - 9px (half of dot width) */
+    }
+}
+
 
 
 /* --- 2. Mobile Bottom Nav (Visible by default) --- */

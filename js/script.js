@@ -78,8 +78,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 });
-// Optional fallback if autoplay is blocked
 
-
-// --- Navigation Active State on Scroll (Works for both Desktop and Mobile) ---
-// 
+// Basic script for AOS initialization
+document.addEventListener('DOMContentLoaded', () => {
+    AOS.init({
+        duration: 800,
+        offset: 100,
+        once: true,
+        easing: 'ease-in-out',
+    });
+});
