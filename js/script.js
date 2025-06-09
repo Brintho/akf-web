@@ -391,14 +391,16 @@ document.addEventListener('DOMContentLoaded', () => {
         // Trigger initial filter for recorded courses on page load
         const initialRecordedFilter = recordedTabsContainer.querySelector('.tab-btn.active').dataset.filter;
         recordedCourseCards.forEach(card => {
-            if (card.dataset.category !== initialRecordedFilter) {
+            if (initialRecordedFilter !== 'all' && card.dataset.category !== initialRecordedFilter) {
                 card.classList.add('hide');
+            } else {
+                card.classList.remove('hide');
             }
         });
     }
 
     // --- Live Courses Tab Filtering Logic ---
-    const liveTabs = document.querySelectorAll('.tab-btn');
+    const liveTabs = document.querySelectorAll('#live-courses .course-tabs .tab-btn'); // Specific selector
     const liveCourseCards = document.querySelectorAll('#live-courses .course-card');
 
     liveTabs.forEach(tab => {
@@ -421,8 +423,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Optional: Trigger initial filter for live courses on page load
-    const initialLiveTab = document.querySelector('#live-courses .tab-btn.active');
+    // Trigger initial filter for live courses on page load
+    const initialLiveTab = document.querySelector('#live-courses .course-tabs .tab-btn.active');
     if (initialLiveTab) {
         const initialLiveFilter = initialLiveTab.dataset.filter;
         liveCourseCards.forEach(card => {
@@ -434,7 +436,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-
 
 // course datails js 
 document.addEventListener('DOMContentLoaded', () => {
