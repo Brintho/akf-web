@@ -1,0 +1,549 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Course: Full Stack Web Development with JavaScript - AKF</title>
+
+        <!-- SEO Meta Tags -->
+        <meta name="description" content="Join our comprehensive Full Stack Web Development course using the MERN stack. Become a job-ready developer with hands-on projects and expert guidance.">
+        <meta name="keywords" content="MERN stack, full stack, javascript, web development, online course, spiritual organization, AKF">
+
+        <!-- Performance Optimizations -->
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" as="style">
+
+        <!-- Google Fonts, AOS, and Icons -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="css/style.css">
+
+    </head>
+
+    <body>
+
+        <main id="main-content">
+            <header class="topbar">
+                <div class="topbar__container">
+                    <div class="topbar__logo">
+                        <a href="index.html">
+                            <img src="images/bg.png" alt="Arya Kalyan Foundation Logo">
+                        </a>
+                    </div>
+                    <nav class="topbar__nav--desktop">
+                        <a href="index.html">Home</a>
+                        <a href="about.html">About Us</a>
+                        <a href="events.html">Events</a>
+                        <a href="course.html" class="active">Courses</a>
+                        <a href="#blog">Blog</a>
+                        <a href="#donate">Donate</a>
+                    </nav>
+                    <div class="topbar__actions">
+                        <!-- ALL ITEMS ARE NOW VISIBLE BY DEFAULT -->
+                        <a href="#" class="btn-login">Login</a>
+                        <a href="#" class="action-icon notification-bell">
+                            <i class="bi bi-bell"></i>
+                            <span class="notification-badge">3</span>
+                        </a>
+                        <a href="#" class="action-icon profile-avatar">
+                            <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar">
+                        </a>
+                        <button class="hamburger-menu" id="hamburger-toggle" aria-label="Toggle Menu">
+                            <i class="bi bi-list"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <div class="mobile-nav__overlay" id="nav-overlay"></div>
+            <nav class="mobile-nav" id="mobile-nav">
+                <div class="mobile-nav__header">
+                    <span>Menu</span>
+                    <button class="close-menu" id="close-nav-btn" aria-label="Close Menu"><i class="bi bi-x"></i></button>
+                </div>
+                <a href="index.html" class="active">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="events.html">Events</a>
+                <a href="course.html">Courses</a>
+                <a href="#blog">Blog</a>
+                <a href="#donate">Donate</a>
+                <hr>
+                <a href="#" class="mobile-nav-profile">My Profile</a>
+                <a href="#" class="mobile-nav-logout">Logout</a>
+            </nav>
+
+
+            <!-- Course Hero Section -->
+            <section id="course-hero">
+                <div class="container">
+                    <div class="course-hero-grid">
+                        <div class="hero-text-content" data-aos="fade-right">
+                            <span class="course-tag"><i class="bi bi-broadcast"></i> লাইভ কোর্স</span>
+                            <h1>Study of the four Vedas </h1>
+                            <div class="course-rating">
+                                <span>4.9</span>
+                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i>
+                                <span>(111 Ratings)</span>
+                            </div>
+                            <p>In this, we will learn how to chant the Vedas and how to study the Chaturveda.</p>
+                            <div class="hero-actions">
+                                <a href="#" class="btn btn-enroll" aria-label="Enroll in the course">ভর্তি হোন</a>
+                                <h2 class="price">৳8,000</h2>
+                            </div>
+                        </div>
+                        <div class="hero-video-content" data-aos="fade-left">
+                            <img src="https://i.ytimg.com/vi/O-6f5wQXSu8/maxresdefault.jpg" alt="Course Thumbnail" loading="lazy">
+                            <i class="bi bi-play-circle-fill play-button"></i>
+                        </div>
+                    </div>
+                    <div class="course-stats-bar" data-aos="fade-up">
+                        <div class="stat-item"><i class="bi bi-camera-reels"></i> 70+ live classes</div>
+                        <div class="stat-item"><i class="bi bi-journal-check"></i> 8 projects</div>
+                        <div class="stat-item"><i class="bi bi-clock-history"></i> 5+ days left</div>
+                        <div class="stat-item"><i class="bi bi-camera-video"></i> 100+ recorded videos</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Curriculum Section -->
+            <section id="curriculum" class="page-section">
+                <div class="container">
+                    <h2 class="section-title"><span>Curriculum</span></h2>
+                    <div class="curriculum-meta-info" data-aos="fade-up">
+                        <span><i class="bi bi-grid-3x3-gap"></i> 30 Module</span>
+                        <span><i class="bi bi-broadcast"></i> 70 live classes</span>
+                    </div>
+                    <div class="curriculum-group-header" data-aos="fade-up">
+                        <h3 class="curriculum-group-title">Foundation (Module 0-6)</h3>
+                        <div class="curriculum-instructors">
+                            Take class:
+                            <span class="instructor"><img src="https://i.pravatar.cc/60?u=showrin" alt="Showrin Barua" loading="lazy"> Showrin Barua</span>
+                            <span class="instructor"><img src="https://i.pravatar.cc/60?u=nirob" alt="Nirob Hasan" loading="lazy"> Nirob Hasan</span>
+                        </div>
+                    </div>
+                    <div class="curriculum-grid">
+                        <div class="module-item" data-aos="fade-up">
+                            <div class="module-header" role="button" aria-expanded="false" aria-label="Toggle module details">
+                                <div class="module-badge badge-green"><span class="badge-week">Week</span><span class="badge-num">0</span></div>
+                                <h4 class="module-title-text">This module is for those who have enrolled before the course starts.</h4>
+                                <i class="bi bi-chevron-down"></i>
+                            </div>
+                            <div class="module-content">
+                                <div class="module-content-inner">
+                                    <p class="module-description">This module provides detailed and necessary guidance about the course.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="module-item" data-aos="fade-up" data-aos-delay="50">
+                            <div class="module-header" role="button" aria-expanded="false" aria-label="Toggle module details">
+                                <div class="module-badge badge-yellow"><span class="badge-week">Week</span><span class="badge-num">1</span></div>
+                                <h4 class="module-title-text">Practicing religious matters</h4>
+                                <i class="bi bi-chevron-down"></i>
+                            </div>
+                            <div class="module-content">
+                                <div class="module-content-inner">
+                                    <p class="module-description">Chanting Sanskrit mantras</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="module-item" data-aos="fade-up">
+                            <div class="module-header" role="button" aria-expanded="false" aria-label="Toggle module details">
+                                <div class="module-badge badge-orange"><span class="badge-week">Week</span><span class="badge-num">2</span></div>
+                                <h4 class="module-title-text">Study of the first mandala of the Rigveda</h4>
+                                <i class="bi bi-chevron-down"></i>
+                            </div>
+                            <div class="module-content">
+                                <div class="module-content-inner">
+                                    <p class="module-description">Second Mandala Chapter of Rigveda</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="module-item" data-aos="fade-up" data-aos-delay="50">
+                            <div class="module-header" role="button" aria-expanded="false" aria-label="Toggle module details">
+                                <div class="module-badge badge-purple"><span class="badge-week">Week</span><span class="badge-num">3</span></div>
+                                <h4 class="module-title-text">Study of the third mandala of the Rigveda</h4>
+                                <i class="bi bi-chevron-down"></i>
+                            </div>
+                            <div class="module-content">
+                                <div class="module-content-inner">
+                                    <p class="module-description">Fourth Mandala Chapter of Rigveda</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="module-item" data-aos="fade-up">
+                            <div class="module-header" role="button" aria-expanded="false" aria-label="Toggle module details">
+                                <div class="module-badge badge-blue"><span class="badge-week">Week</span><span class="badge-num">4</span></div>
+                                <h4 class="module-title-text">Study of the Fourth Mandala of the Rigveda</h4>
+                                <i class="bi bi-chevron-down"></i>
+                            </div>
+                            <div class="module-content">
+                                <div class="module-content-inner">
+                                    <p class="module-description">Here you can find out everything you need to know about Chapter 4.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="module-item active" data-aos="fade-up" data-aos-delay="50">
+                            <div class="module-header" role="button" aria-expanded="true" aria-label="Toggle module details">
+                                <div class="module-badge badge-red"><span class="badge-week">Week</span><span class="badge-num">5</span></div>
+                                <h4 class="module-title-text">Previous chapter test</h4>
+                                <i class="bi bi-chevron-down"></i>
+                            </div>
+                            <div class="module-content">
+                                <div class="module-content-inner">
+                                    <div class="module-details">
+                                        <span><i class="bi bi-journal-text"></i> 1 Assignment</span>
+                                        <span><i class="bi bi-clipboard-check"></i> 1 Test</span>
+                                    </div>
+                                    <p class="module-description">Test yourself with the Ustad Task assessments.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="module-item" data-aos="fade-up">
+                            <div class="module-header" role="button" aria-expanded="false" aria-label="Toggle module details">
+                                <div class="module-badge badge-pink"><span class="badge-week">Week</span><span class="badge-num">৬</span></div>
+                                <h4 class="module-title-text">Study of the Fifth Mandala of the Rigveda</h4>
+                                <i class="bi bi-chevron-down"></i>
+                            </div>
+                            <div class="module-content">
+                                <div class="module-content-inner">
+                                    <p class="module-description">ঋগ্বেদ ষষ্ঠ মন্ডল অধ্যয়ন</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Course Features Section -->
+            <section id="features" class="page-section" style="background-color: var(--color-bg-light);">
+                <div class="container">
+                    <h2 class="section-title"><span>In the course you get</span></h2>
+                    <div class="features-grid">
+                        <div class="feature-card" data-aos="zoom-in">
+                            <div class="icon"><i class="bi bi-calendar-check"></i></div>
+                            <h3>7 months support</h3>
+                            <p>You will be prepared from a beginner level to an advanced curriculum.</p>
+                        </div>
+                        <div class="feature-card" data-aos="zoom-in" data-aos-delay="100">
+                            <div class="icon"><i class="bi bi-camera-video"></i></div>
+                            <h3>70 live classes</h3>
+                            <p>Opportunity to study from an experienced health guru</p>
+                        </div>
+                        <div class="feature-card" data-aos="zoom-in" data-aos-delay="200">
+                            <div class="icon"><i class="bi bi-laptop"></i></div>
+                            <h3>Ways to embrace religion</h3>
+                            <p>Ways to practically incorporate religion into your life</p>
+                        </div>
+                        <div class="feature-card" data-aos="zoom-in">
+                            <div class="icon"><i class="bi bi-patch-check"></i></div>
+                            <h3>Certificate</h3>
+                            <p>You will receive a verified certificate at the end of the course.</p>
+                        </div>
+                        <div class="feature-card" data-aos="zoom-in" data-aos-delay="100">
+                            <div class="icon"><i class="bi bi-infinity"></i></div>
+                            <h3>Lifetime access</h3>
+                            <p>Lifetime access to all course videos and resources.</p>
+                        </div>
+                        <div class="feature-card" data-aos="zoom-in" data-aos-delay="200">
+                            <div class="icon"><i class="bi bi-people"></i></div>
+                            <h3>Active community</h3>
+                            <p>Ask questions and get solutions in our dedicated community.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Instructor Section -->
+            <section id="instructors" class="page-section">
+                <div class="container">
+                    <h2 class="section-title"><span>Instructor</span></h2>
+                    <div class="instructor-grid">
+                        <div class="instructor-card" data-aos="fade-up">
+                            <div class="instructor-header">
+                                <span class="instructor-tag">Lead Instructor</span>
+                                <img src="https://i.pravatar.cc/150?u=nirob" alt="Instructor Photo" class="instructor-photo" loading="lazy">
+                            </div>
+                            <h4>Sri Rajnarayan</h4>
+                            <p class="title">Religious Expert And Leader In Comparative Theology</p>
+                            <div class="company-logos">
+                                <img src="https://via.placeholder.com/100x30/ffffff/000000?text=EBS" alt="Company Logo" loading="lazy">
+                                <img src="https://via.placeholder.com/100x30/ffffff/000000?text=BDOSN" alt="Company Logo" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="instructor-card" data-aos="fade-up" data-aos-delay="100">
+                            <div class="instructor-header">
+                                <span class="instructor-tag">Lead Instructor</span>
+                                <img src="https://i.pravatar.cc/150?u=amanullah" alt="Instructor Photo" class="instructor-photo" loading="lazy">
+                            </div>
+                            <h4>Akash Chandra Debnath</h4>
+                            <p class="title">Senior comparative theology teacher and experienced in managing multiple schools</p>
+                            <div class="company-logos">
+                                <img src="https://via.placeholder.com/100x30/ffffff/000000?text=OSTAD" alt="Company Logo" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testimonials Section -->
+            <section id="testimonials" class="page-section" style="background-color: var(--color-bg-light);">
+                <div class="container">
+                    <h2 class="section-title"><span>Comments From Our Vidyarthi</span></h2>
+                    <div class="testimonial-grid">
+                        <div class="testimonial-card" data-aos="fade-up">
+                            <i class="bi bi-quote quote-icon"></i>
+                            <p>এই কোর্সটি খুবই ভালো ছিল। এতে সনাতন ধর্মের মৌলিক থেকে শুরু করে উন্নত সকল দিকই অন্তর্ভুক্ত ছিল এবং প্রশিক্ষক তা সুন্দরভাবে উপস্থাপন এবং ব্যাখ্যা করতে সক্ষম হয়েছিলেন।</p>
+                            <div class="testimonial-author">
+                                <a href="#" class="action-icon profile-avatar">
+                                    <img src="images/avataaars (7).png" alt="User Avatar">
+                                </a>
+                                <span class="author-name">Gopal Chandra </span>
+                            </div>
+                        </div>
+                        <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+                            <i class="bi bi-quote quote-icon"></i>
+                            <p>আর্য কল্যাণ ফাউন্ডেশন থেকে এই কোর্সটি করার পর, আমি চতুর্বেদ ভালোভাবে অধ্যয়ন করতে পারি এবং সংস্কৃত ভালোভাবে উচ্চারণ করতে পারি, যা আমাকে একজন ধার্মিক ব্যক্তি হতে সাহায্য
+                                করেছে।</p>
+                            <div class="testimonial-author">
+
+                                <a href="#" class="action-icon profile-avatar">
+                                    <img src="images/avataaars (9).png" alt="User Avatar">
+                                </a>
+                                <span class="author-name">Dipto Roy</span>
+                            </div>
+                        </div>
+                        <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+                            <i class="bi bi-quote quote-icon"></i>
+                            <p>সাপোর্ট সিস্টেমটা ছিল অসাধারণ। যখনই কোনো সমস্যায় পড়েছি, সাথে সাথে কমিউনিটি থেকে সমাধান পেয়েছি। ধন্যবাদ AKF এবং ইন্সট্রাক্টরদের।</p>
+                            <div class="testimonial-author">
+                                <a href="#" class="action-icon profile-avatar">
+                                    <img src="images/avataaars.png" alt="User Avatar">
+                                </a>
+                                <span class="author-name">Rajesh</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Certificate Section -->
+            <section id="certificate" class="page-section">
+                <div class="container">
+                    <h2 class="section-title"><span>Certificate</span></h2>
+                    <p style="text-align: center; color: var(--color-text-medium); margin-top: -40px; margin-bottom: 50px;" data-aos="fade-up">
+                        At the end of the course, you will receive a Share Ball Course Completion and Assessment Certificate.
+                    </p>
+                    <div class="certificate-img-wrapper" data-aos="zoom-in-up">
+                        <img src="images/course/unnamed.jpg" alt="Course Certificates" loading="lazy">
+                    </div>
+                </div>
+            </section>
+
+            <!-- General FAQ Section -->
+            <section id="faq" class="page-section" style="background-color: var(--color-bg-light);">
+                <div class="container">
+                    <h2 class="section-title"><span>Privately asked questions</span></h2>
+                    <div class="faq-accordion-container" data-aos="fade-up">
+                        <div class="faq-item">
+                            <div class="faq-header" role="button" aria-expanded="false" aria-label="Toggle FAQ answer">
+                                <span>1. Can I download the videos?</span><i class="bi bi-chevron-down"></i>
+                            </div>
+                            <div class="faq-content">
+                                <p>No, the videos cannot be downloaded. However, you will have lifetime access to our platform anytime, from any device.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-header" role="button" aria-expanded="false" aria-label="Toggle FAQ answer">
+                                <span>2. Can I join using my mobile?</span><i class="bi bi-chevron-down"></i>
+                            </div>
+                            <div class="faq-content">
+                                <p>Yes, you can watch our live classes and recorded videos from any device, whether it's mobile, tablet, laptop, or desktop.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-header" role="button" aria-expanded="false" aria-label="Toggle FAQ answer">
+                                <span>3. Will I have lifetime access to the videos?</span><i class="bi bi-chevron-down"></i>
+                            </div>
+                            <div class="faq-content">
+                                <p>Of course! Once you enroll in the course, you will have lifetime access to all live class recordings and course materials.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-header" role="button" aria-expanded="false" aria-label="Toggle FAQ answer">
+                                <span>4. Where will the live classes be held?</span><i class="bi bi-chevron-down"></i>
+                            </div>
+                            <div class="faq-content">
+                                <p>The live classes will be held through our own web platform. The class link and schedule will be communicated to you on the dashboard.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-header" role="button" aria-expanded="false" aria-label="Toggle FAQ answer">
+                                <span>5. How to submit assignments?</span><i class="bi bi-chevron-down"></i>
+                            </div>
+                            <div class="faq-content">
+                                <p>Assignments will be given at the end of each module and you can submit them directly through your student dashboard.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-header" role="button" aria-expanded="false" aria-label="Toggle FAQ answer">
+                                <span>8. Will there be recordings of live classes?</span><i class="bi bi-chevron-down"></i>
+                            </div>
+                            <div class="faq-content">
+                                <p>Yes, a recorded version of each live class will be added to your dashboard within 24 hours of its completion.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Payment FAQ Section -->
+            <section id="payment-faq" class="page-section">
+                <div class="container">
+                    <h2 class="section-title"><span>How do I make a payment?</span></h2>
+                    <div class="faq-accordion-container" data-aos="fade-up">
+                        <div class="faq-item">
+                            <div class="faq-header" role="button" aria-expanded="false" aria-label="Toggle FAQ answer">
+                                <span>1. What are the payment methods?</span><i class="bi bi-chevron-down"></i>
+                            </div>
+                            <div class="faq-content">
+                                <p>You can make payments through bKash, Rocket, Nagad, Visa/Mastercard and bank transfer.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-header" role="button" aria-expanded="false" aria-label="Toggle FAQ answer">
+                                <span>2. Can I pay from any device?</span><i class="bi bi-chevron-down"></i>
+                            </div>
+                            <div class="faq-content">
+                                <p>Yes, our payment gateway is fully responsive. You can complete the payment from mobile, desktop or any device.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-header" role="button" aria-expanded="false" aria-label="Toggle FAQ answer">
+                                <span>3. How do I get payment confirmation?</span><i class="bi bi-chevron-down"></i>
+                            </div>
+                            <div class="faq-content">
+                                <p>As soon as the payment is successful, you will receive a confirmation via email and SMS. Your course will be automatically unlocked in the dashboard.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Community Section -->
+            <section id="community" class="page-section" style="background-color: var(--color-bg-light);">
+                <div class="container community-container">
+                    <div class="community-text" data-aos="fade-right">
+                        <h2 class="section-title" style="text-align: left; margin-bottom: 20px;"><span>Join our Facebook group</span></h2>
+                        <p style="color: var(--color-text-medium); text-align: left;">Join our exclusive Facebook community today to stay connected with other course learners and instructors, ask
+                            questions, and share your work.</p>
+                    </div>
+                    <div data-aos="fade-left">
+                        <div class="community-card">
+                            <img src="https://i.ibb.co/3Wk0X29/community-img.png" alt="Community Graphic" class="community-card-img" loading="lazy">
+                            <div class="community-card-content">
+                                <div class="community-meta"><i class="bi bi-people-fill"></i> 14,000+ members</div>
+                                <h4 class="community-title">Arya Kalyan Foundation</h4>
+                                <a href="#" class="btn-join" aria-label="Join our Facebook community"><i class="bi bi-box-arrow-up-right"></i> Join</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Sticky Enrollment Footer -->
+        <div class="sticky-enroll-footer" id="sticky-footer">
+            <div class="footer-container">
+                <div class="footer-price-section">
+                    <h2 class="price">৳8,000</h2>
+                    <a href="#" class="promo-code-link" aria-label="Apply promo code"><i class="bi bi-ticket-percent"></i> Promo Code</a>
+                </div>
+                <div class="footer-contact-section">
+                    <p>Call this number</p>
+                    <span>+880*******</span>
+                </div>
+                <a href="#" class="btn-enroll-sticky" aria-label="Enroll in the course">Enroll <i class="bi bi-arrow-right-short"></i></a>
+            </div>
+        </div>
+
+        <!-- Reusing the same mobile nav and footer -->
+        <nav class="bottom-nav">
+            <a href="index.html" class="bottom-nav__item "><i class="bi bi-house-door-fill"></i><span>Home</span></a>
+            <a href="events.html" class="bottom-nav__item "><i class="bi bi-calendar-event-fill"></i><span>Events</span></a>
+            <a href="course.html" class="bottom-nav__item active"><i class="bi bi-journal-bookmark-fill"></i><span>Courses</span></a>
+            <a href="#blog" class="bottom-nav__item"><i class="bi bi-chat-square-text-fill"></i><span>Blog</span></a>
+            <a href="#donate" class="bottom-nav__item"><i class="bi bi-heart-fill"></i><span>Donate</span></a>
+        </nav>
+
+
+        <!-- Footer -->
+        <!-- ============================================= -->
+        <!-- Footer Section                                -->
+        <!-- ============================================= -->
+        <footer id="footer" class="site-footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <!-- Column 1: Brand & Tagline -->
+                    <div class="footer-column">
+                        <h3 class="footer-brand">AKF</h3>
+                        <p class="footer-tagline">A sanctuary for peace, wisdom, and connection in the digital age.</p>
+                    </div>
+
+                    <!-- Column 2: Quick Links -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Quick Links</h5>
+                        <ul class="footer-links">
+                            <li><a href="#hero">Home</a></li>
+                            <li><a href="#introduction">About Us</a></li>
+                            <li><a href="#courses">Courses</a></li>
+                            <li><a href="#blog">Blog</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 3: Support -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Support</h5>
+                        <ul class="footer-links">
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#donate">Donate</a></li>
+                            <li><a href="#">Community Guidelines</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 4: Follow Us -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Follow Us</h5>
+                        <div class="social-icons">
+                            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                            <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>© 2024 AKF. All Rights Reserved.</p>
+                    <div class="footer-legal-links">
+                        <a href="#">Privacy Policy</a>
+                        <span>•</span>
+                        <a href="#">Terms of Service Sammo</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Scripts -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <script src="js/script.js"></script>
+    </body>
+
+</html>

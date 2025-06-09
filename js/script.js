@@ -1,94 +1,120 @@
 // script.js
 
+// home js 
+// --- COMBINED & OPTIMIZED JAVASCRIPT ---
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- 1. Loader Logic with Audio ---
+    /**
+     * 1. LOADER & AUDIO LOGIC
+     */
     const loader = document.getElementById('loader');
-
-    // Initialize Howler.js for the Om chant
-    const sound = new Howl({
-        src: ['om.mp3'], // <-- Make sure this path is correct!
-        volume: 0.5,
-        autoplay: false, // Autoplay is often blocked, we'll play on load event
-    });
-
-    // On window load (ensures all assets are loaded)
-    window.addEventListener('load', () => {
-        // Attempt to play sound (might be blocked by browser until user interaction)
-        sound.play();
-
-        // Hide the loader after a delay
-        setTimeout(() => {
-            loader.classList.add('hidden');
-        }, 3500); // Should be slightly less than CSS animation time
-    });
-
-
-    // --- 2. Initialize AOS (Animate on Scroll) ---
-    AOS.init({
-        duration: 800,      // Animation duration in ms
-        offset: 100,        // Offset (in px) from the original trigger point
-        once: true,         // Whether animation should happen only once
-        easing: 'ease-in-out',
-    });
-
-
-    // --- 3. Active Nav Link on Scroll (using Intersection Observer) ---
-    const sections = document.querySelectorAll('.page-section, .full-screen-section');
-    // const navItems = document.querySelectorAll('#bottom-nav .nav-item');
-
-    const observerOptions = {
-        root: null, // relative to the viewport
-        rootMargin: '0px',
-        threshold: 0.4 // 40% of the section must be visible
-    };
-
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                // Remove active class from all nav items
-                navItems.forEach(item => item.classList.remove('active'));
-
-                // Get the ID of the intersecting section
-                const sectionId = entry.target.id;
-
-                // Find the corresponding nav item and add the active class
-                const activeNavItem = document.querySelector(`#bottom-nav a[href="#${sectionId}"]`);
-                if (activeNavItem) {
-                    activeNavItem.classList.add('active');
-                }
-            }
+    if (loader) {
+        // Initialize the sound with Howler.js
+        const sound = new Howl({
+            src: ['audio/om.mp3'], // IMPORTANT: Make sure this path is correct!
+            volume: 0.5,
         });
-    }, observerOptions);
 
-    // Observe each section
-    sections.forEach(section => {
-        observer.observe(section);
-    });
-
-    window.addEventListener("load", function () {
-        const audio = document.getElementById("omAudio");
-        const playAudio = () => {
-            audio.play().catch(() => {
-                console.log("Autoplay blocked. Waiting for user interaction.");
-                document.body.addEventListener("click", () => audio.play(), { once: true });
+        // This function will be called if the browser blocks autoplay.
+        sound.on('playerror', () => {
+            console.log('Autoplay was blocked. Waiting for user interaction.');
+            // Create a one-time event listener for the first click/tap.
+            const playOnFirstInteraction = () => {
+                sound.play();
+            };
+            document.body.addEventListener('click', playOnFirstInteraction, {
+                once: true
             });
-        };
-        playAudio();
-    });
+            document.body.addEventListener('touchend', playOnFirstInteraction, {
+                once: true
+            });
+        });
 
-});
+        window.addEventListener('load', () => {
+            sound.play(); // Attempt to play on load
+            setTimeout(() => {
+                loader.classList.add('hidden');
+            }, 3500);
+        });
+    }
 
-// Basic script for AOS initialization
-document.addEventListener('DOMContentLoaded', () => {
+    /**
+     * 2. ANIMATE ON SCROLL (AOS) INITIALIZATION
+     */
     AOS.init({
         duration: 800,
         offset: 100,
         once: true,
         easing: 'ease-in-out',
     });
-});
 
+    /**
+     * 3. TOPBAR & MOBILE NAVIGATION TOGGLES
+     */
+    const hamburgerToggle = document.getElementById('hamburger-toggle');
+    const mobileNav = document.getElementById('mobile-nav');
+    const navOverlay = document.getElementById('nav-overlay');
+    const closeNavBtn = document.getElementById('close-nav-btn');
+
+    const openMenu = () => {
+        if (mobileNav && navOverlay) {
+            mobileNav.classList.add('is-active');
+            navOverlay.classList.add('is-active');
+        }
+    };
+
+    const closeMenu = () => {
+        if (mobileNav && navOverlay) {
+            mobileNav.classList.remove('is-active');
+            navOverlay.classList.remove('is-active');
+        }
+    };
+
+    if (hamburgerToggle) hamburgerToggle.addEventListener('click', openMenu);
+    if (closeNavBtn) closeNavBtn.addEventListener('click', closeMenu);
+    if (navOverlay) navOverlay.addEventListener('click', closeMenu);
+
+    /**
+     * 4. ACTIVE NAV LINK ON SCROLL (Intersection Observer)
+     */
+    const sections = document.querySelectorAll('.page-section');
+    // const desktopNavLinks = document.querySelectorAll('.topbar__nav--desktop a');
+    const bottomNavItems = document.querySelectorAll('.bottom-nav__item');
+
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.4
+    };
+
+    const scrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const sectionId = entry.target.id;
+
+                desktopNavLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${sectionId}`) {
+                        link.classList.add('active');
+                    }
+                });
+
+                bottomNavItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('href') === `#${sectionId}`) {
+                        item.classList.add('active');
+                    }
+                });
+            }
+        });
+    }, observerOptions);
+
+    sections.forEach(section => {
+        if (section.id) {
+            scrollObserver.observe(section);
+        }
+    });
+});
 
 
 // Event page js 
@@ -325,3 +351,169 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
+// course  js 
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize AOS (Animate on Scroll)
+    AOS.init({
+        duration: 800,
+        offset: 100,
+        once: true,
+        easing: 'ease-in-out',
+    });
+
+    // --- Recorded Courses Tab Filtering Logic ---
+    const recordedTabsContainer = document.querySelector('.recorded-course-tabs');
+    const recordedCoursesGrid = document.getElementById('recorded-courses-grid');
+    const recordedCourseCards = recordedCoursesGrid ? recordedCoursesGrid.querySelectorAll('.recorded-course-card') : [];
+
+    if (recordedTabsContainer) {
+        recordedTabsContainer.addEventListener('click', (e) => {
+            const clickedTab = e.target.closest('.tab-btn');
+            if (!clickedTab) return;
+
+            // Update active tab state
+            recordedTabsContainer.querySelector('.active').classList.remove('active');
+            clickedTab.classList.add('active');
+
+            const filter = clickedTab.dataset.filter;
+
+            // Filter recorded course cards
+            recordedCourseCards.forEach(card => {
+                const category = card.dataset.category;
+                if (filter === 'all' || category === filter) {
+                    card.classList.remove('hide');
+                } else {
+                    card.classList.add('hide');
+                }
+            });
+        });
+
+        // Trigger initial filter for recorded courses on page load
+        const initialRecordedFilter = recordedTabsContainer.querySelector('.tab-btn.active').dataset.filter;
+        recordedCourseCards.forEach(card => {
+            if (card.dataset.category !== initialRecordedFilter) {
+                card.classList.add('hide');
+            }
+        });
+    }
+
+    // --- Live Courses Tab Filtering Logic ---
+    const liveTabs = document.querySelectorAll('.tab-btn');
+    const liveCourseCards = document.querySelectorAll('#live-courses .course-card');
+
+    liveTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Update active tab
+            liveTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            const filter = tab.dataset.filter;
+
+            // Filter live course cards
+            liveCourseCards.forEach(card => {
+                const category = card.dataset.category;
+                if (filter === 'all' || filter === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+
+    // Optional: Trigger initial filter for live courses on page load
+    const initialLiveTab = document.querySelector('#live-courses .tab-btn.active');
+    if (initialLiveTab) {
+        const initialLiveFilter = initialLiveTab.dataset.filter;
+        liveCourseCards.forEach(card => {
+            if (initialLiveFilter !== 'all' && card.dataset.category !== initialLiveFilter) {
+                card.style.display = 'none';
+            } else {
+                card.style.display = 'flex';
+            }
+        });
+    }
+});
+
+
+// course datails js 
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize AOS
+    AOS.init({
+        duration: 800,
+        offset: 50,
+        once: true,
+        easing: 'ease-in-out',
+    });
+
+    // Debounce utility for scroll events
+    const debounce = (func, wait) => {
+        let timeout;
+        return (...args) => {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), wait);
+        };
+    };
+
+    // Accordion Logic for Curriculum
+    const moduleHeaders = document.querySelectorAll('.module-header');
+    moduleHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+            const currentlyActiveItem = document.querySelector('.module-item.active');
+            const clickedItem = header.parentElement;
+            const content = clickedItem.querySelector('.module-content');
+
+            if (currentlyActiveItem && currentlyActiveItem !== clickedItem) {
+                currentlyActiveItem.classList.remove('active');
+                currentlyActiveItem.querySelector('.module-content').style.maxHeight = 0;
+                currentlyActiveItem.querySelector('.module-header').setAttribute('aria-expanded', 'false');
+            }
+
+            clickedItem.classList.toggle('active');
+            header.setAttribute('aria-expanded', clickedItem.classList.contains('active'));
+            content.style.maxHeight = clickedItem.classList.contains('active') ? content.scrollHeight + 'px' : 0;
+        });
+    });
+
+    // Accordion Logic for FAQs
+    const faqHeaders = document.querySelectorAll('.faq-header');
+    faqHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+            const currentlyActive = document.querySelector('.faq-item.active');
+            const clickedItem = header.parentElement;
+            const content = clickedItem.querySelector('.faq-content');
+
+            if (currentlyActive && currentlyActive !== clickedItem) {
+                currentlyActive.classList.remove('active');
+                currentlyActive.querySelector('.faq-content').style.maxHeight = 0;
+                currentlyActive.querySelector('.faq-header').setAttribute('aria-expanded', 'false');
+            }
+
+            clickedItem.classList.toggle('active');
+            header.setAttribute('aria-expanded', clickedItem.classList.contains('active'));
+            content.style.maxHeight = clickedItem.classList.contains('active') ? content.scrollHeight + 'px' : 0;
+        });
+    });
+
+    // Smooth Scroll for Navigation
+    document.querySelectorAll('.course-nav-container a').forEach(anchor => {
+        anchor.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = anchor.getAttribute('href').substring(1);
+            document.getElementById(targetId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // Sticky Footer Logic
+    const stickyFooter = document.getElementById('sticky-footer');
+    const heroSection = document.getElementById('course-hero');
+    if (stickyFooter && heroSection) {
+        window.addEventListener('scroll', debounce(() => {
+            const isPastThreshold = window.scrollY > heroSection.offsetHeight;
+            const isAtBottom = (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 150;
+            stickyFooter.classList.toggle('visible', isPastThreshold && !isAtBottom);
+        }, 50));
+    }
+});

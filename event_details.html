@@ -28,34 +28,55 @@
         <!-- Main Content Wrapper -->
         <main id="main-content">
             <!-- Reusing the same desktop header for consistency -->
-            <header id="desktop-header">
-                <div class="container header-container">
-                    <!-- <a href="#hero" class="header-brand">Arya Kalyan Foundation</a> -->
-                    <!-- <a href="#hero" class="header-brand">AKF</a> -->
-                    <a href="#hero" class="header-brand">
-                        <img src="images/bg.png" alt="Arya Kalyan Foundation Logo">
-                    </a>
-
-                    <!-- 📱 Mobile Bottom Navigation -->
-                    <nav id="bottom-nav">
-                        <a href="index.html" class="nav-item ">
-                            <i class="bi bi-house-door-fill"></i>
+            <header class="topbar">
+                <div class="topbar__container">
+                    <div class="topbar__logo">
+                        <a href="index.html">
+                            <img src="images/bg.png" alt="Arya Kalyan Foundation Logo">
                         </a>
-                        <a href="about.html" class="nav-item ">
-                            <i class="bi bi-info-circle-fill"></i> <!-- Changed Icon for About -->
-                        </a>
-                        <a href="events.html" class="nav-item active">
-                            <i class="bi bi-calendar-event-fill"></i>
-                        </a>
-                        <a href="#" class="nav-item">
-                            <i class="bi bi-journal-bookmark-fill"></i>
-                        </a>
-                        <a href="#" class="nav-item">
-                            <i class="bi bi-chat-square-text-fill"></i>
-                        </a>
+                    </div>
+                    <nav class="topbar__nav--desktop">
+                        <a href="index.html">Home</a>
+                        <a href="about.html">About Us</a>
+                        <a href="events.html" class="active">Events</a>
+                        <a href="course.html">Courses</a>
+                        <a href="#blog">Blog</a>
+                        <a href="#donate">Donate</a>
                     </nav>
+                    <div class="topbar__actions">
+                        <!-- ALL ITEMS ARE NOW VISIBLE BY DEFAULT -->
+                        <a href="#" class="btn-login">Login</a>
+                        <a href="#" class="action-icon notification-bell">
+                            <i class="bi bi-bell"></i>
+                            <span class="notification-badge">3</span>
+                        </a>
+                        <a href="#" class="action-icon profile-avatar">
+                            <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar">
+                        </a>
+                        <button class="hamburger-menu" id="hamburger-toggle" aria-label="Toggle Menu">
+                            <i class="bi bi-list"></i>
+                        </button>
+                    </div>
                 </div>
             </header>
+
+            <div class="mobile-nav__overlay" id="nav-overlay"></div>
+            <nav class="mobile-nav" id="mobile-nav">
+                <div class="mobile-nav__header">
+                    <span>Menu</span>
+                    <button class="close-menu" id="close-nav-btn" aria-label="Close Menu"><i class="bi bi-x"></i></button>
+                </div>
+                <a href="index.html" class="active">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="events.html">Events</a>
+                <a href="course.html">Courses</a>
+                <a href="#blog">Blog</a>
+                <a href="#donate">Donate</a>
+                <hr>
+                <a href="#" class="mobile-nav-profile">My Profile</a>
+                <a href="#" class="mobile-nav-logout">Logout</a>
+            </nav>
+
 
             <!-- ✦ Section 1: Event Page Header -->
             <section id="event-page-header" class="page-header-section">
@@ -196,12 +217,12 @@
         </main>
 
         <!-- Reusing the same mobile nav and footer -->
-        <nav id="bottom-nav">
-            <a href="index.html" class="nav-item"><i class="bi bi-house-door-fill"></i></a>
-            <a href="about.html" class="nav-item"><i class="bi bi-info-circle-fill"></i></a>
-            <a href="events.html" class="nav-item active"><i class="bi bi-calendar-event-fill"></i></a>
-            <a href="index.html#courses" class="nav-item"><i class="bi bi-journal-bookmark-fill"></i></a>
-            <a href="index.html#blog" class="nav-item"><i class="bi bi-chat-square-text-fill"></i></a>
+        <nav class="bottom-nav">
+            <a href="index.html" class="bottom-nav__item "><i class="bi bi-house-door-fill"></i><span>Home</span></a>
+            <a href="events.html" class="bottom-nav__item active"><i class="bi bi-calendar-event-fill"></i><span>Events</span></a>
+            <a href="course.html" class="bottom-nav__item"><i class="bi bi-journal-bookmark-fill"></i><span>Courses</span></a>
+            <a href="#blog" class="bottom-nav__item"><i class="bi bi-chat-square-text-fill"></i><span>Blog</span></a>
+            <a href="#donate" class="bottom-nav__item"><i class="bi bi-heart-fill"></i><span>Donate</span></a>
         </nav>
 
         <!-- Footer -->
