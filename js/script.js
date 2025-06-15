@@ -518,3 +518,147 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 50));
     }
 });
+
+// shop js
+$(document).ready(function () {
+    // Initialize AOS with softer settings
+    AOS.init({
+        duration: 900, // Longer duration for smoother effect
+        once: true,
+        offset: 80, // Trigger animation a bit sooner
+        easing: 'ease-in-out-cubic', // A more refined easing function
+    });
+
+    // Voucher Swiper with FADE effect for a soft feel
+    const voucherSwiper = new Swiper('.voucher-swiper', {
+        loop: true,
+        effect: 'fade', // Use fade effect
+        fadeEffect: {
+            crossFade: true
+        },
+        speed: 800, // Control fade speed
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+
+    // Voucher "Collect" Button Logic
+    $('.btn-collect').on('click', function () {
+        $(this).text('Collected').addClass('collected').prop('disabled', true);
+    });
+
+    // Load More Products Logic
+    let visibleCount = 6; // Initial number of visible products
+    const totalProducts = $('.product-item').length;
+    const batchSize = 6; // Number of products to load per click
+
+    function updateLoadMoreButton() {
+        if (visibleCount >= totalProducts) {
+            $('#load-more-btn').hide();
+        } else {
+            $('#load-more-btn').show();
+        }
+    }
+
+    $('#load-more-btn').on('click', function (e) {
+        e.preventDefault();
+        const hiddenProducts = $('.product-item.d-none');
+        const productsToShow = hiddenProducts.slice(0, batchSize);
+
+        if (productsToShow.length > 0) {
+            productsToShow.removeClass('d-none');
+            visibleCount += productsToShow.length;
+            AOS.refresh(); // Refresh AOS to animate newly visible items
+            updateLoadMoreButton();
+        }
+    });
+
+    // Initial check for load more button visibility
+    updateLoadMoreButton();
+
+    // Add to Cart Logic
+    $('.btn-add-to-cart').on('click', function (e) {
+        e.preventDefault();
+        let badge = $('.notification-badge');
+        let count = parseInt(badge.text());
+        badge.text(count + 1);
+    });
+
+    // Cart Toggle
+    $('#cart-toggle, #mobile-cart-toggle').on('click', function (e) {
+        e.preventDefault();
+        $('#cart-dropdown').toggleClass('active');
+    });
+
+    // Close cart dropdown when clicking outside
+    $(document).on('click', function (e) {
+        if (!$(e.target).closest('.cart-icon, .cart-dropdown').length) {
+            $('#cart-dropdown').removeClass('active');
+        }
+    });
+
+    // Search Functionality
+    $('#product-search-input').on('input', function () {
+        const searchTerm = $(this).val().toLowerCase();
+        $('.product-item').each(function () {
+            const title = $(this).find('.product-title').text().toLowerCase();
+            if (title.includes(searchTerm)) {
+                $(this).removeClass('d-none');
+            } else {
+                $(this).addClass('d-none');
+            }
+        });
+        updateLoadMoreButton(); // Update load more button visibility
+    });
+});
+// shop js end
+
+// shop details js
+$(document).ready(function () {
+
+    // 1. Image Gallery Logic
+    $('.thumbnail-item').on('click', function () {
+        let newImageSrc = $(this).find('img').data('src');
+        $('#main-product-image').attr('src', newImageSrc);
+
+        $('.thumbnail-item').removeClass('active');
+        $(this).addClass('active');
+    });
+
+    // 2. Quantity Selector Logic
+    $('#qty-plus').on('click', function () {
+        let qtyInput = $('#quantity');
+        let currentVal = parseInt(qtyInput.val());
+        if (!isNaN(currentVal)) {
+            qtyInput.val(currentVal + 1);
+        }
+    });
+
+    $('#qty-minus').on('click', function () {
+        let qtyInput = $('#quantity');
+        let currentVal = parseInt(qtyInput.val());
+        if (!isNaN(currentVal) && currentVal > 1) {
+            qtyInput.val(currentVal - 1);
+        }
+    });
+
+    // 3. Color Variant Logic
+    $('.color-option').on('click', function () {
+        $('.color-option').removeClass('active');
+        $(this).addClass('active');
+        // You can add logic here to get the selected color, e.g.,
+        // let selectedColor = $(this).data('color');
+        // console.log("Selected Color:", selectedColor);
+    });
+
+});
+// shop details js end

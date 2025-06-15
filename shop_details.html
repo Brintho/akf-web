@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Product Details</title>
+        <!-- Dependencies -->
+        <!-- Dependencies -->
+        <!-- Google Fonts: Poppins & Hind Siliguri (for consistency) -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+        <!-- AOS.js (Animate on Scroll) CSS -->
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <!-- Swiper.js CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+        <!-- Custom Stylesheet -->
+        <link rel="stylesheet" href="css/style.css">
+
+    </head>
+
+    <body>
+        <!-- Your Header Would Go Here -->
+
+        <main id="main-content" class="product-details-page ">
+            <header class="topbar">
+                <div class="topbar__container">
+                    <div class="topbar__logo">
+                        <a href="index.html">
+                            <img src="images/bg.png" alt="Arya Kalyan Foundation Logo">
+                        </a>
+                    </div>
+                    <nav class="topbar__nav--desktop">
+                        <a href="index.html">Home</a>
+                        <a href="about.html">About Us</a>
+                        <a href="events.html">Events</a>
+                        <a href="course.html">Courses</a>
+                        <a href="shop.html" class="active">Shop</a>
+                        <a href="#blog">Blog</a>
+                        <a href="#donate">Donate</a>
+                    </nav>
+                    <div class="topbar__actions">
+                        <!-- ALL ITEMS ARE NOW VISIBLE BY DEFAULT -->
+                        <a href="#" class="btn-login">Login</a>
+                        <a href="#" class="action-icon notification-bell">
+                            <i class="bi bi-bell"></i>
+                            <span class="notification-badge">3</span>
+                        </a>
+                        <a href="#" class="action-icon profile-avatar">
+                            <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar">
+                        </a>
+                        <button class="hamburger-menu" id="hamburger-toggle" aria-label="Toggle Menu">
+                            <i class="bi bi-list"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <div class="mobile-nav__overlay" id="nav-overlay"></div>
+            <nav class="mobile-nav" id="mobile-nav">
+                <div class="mobile-nav__header">
+                    <span>Menu</span>
+                    <button class="close-menu" id="close-nav-btn" aria-label="Close Menu"><i class="bi bi-x"></i></button>
+                </div>
+                <a href="index.html" class="active">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="events.html">Events</a>
+                <a href="course.html">Courses</a>
+                <a href="#blog">Blog</a>
+                <a href="#donate">Donate</a>
+                <hr>
+                <a href="#" class="mobile-nav-profile">My Profile</a>
+                <a href="#" class="mobile-nav-logout">Logout</a>
+            </nav>
+
+            <div class="container ">
+                <div class="row">
+                    <!-- Left Column: Image Gallery -->
+                    <div class="col-lg-5 mb-4 mb-lg-0">
+                        <div class="image-gallery section-card">
+                            <div class="main-image mb-3">
+                                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=2070" id="main-product-image" alt="Product Image">
+                            </div>
+                            <div class="thumbnail-list">
+                                <div class="thumbnail-item active"><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=2070"
+                                        data-src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=2070" alt="Thumbnail 1"></div>
+                                <div class="thumbnail-item"><img src="https://images.unsplash.com/photo-1542779583-77633634d388?q=80&w=1887"
+                                        data-src="https://images.unsplash.com/photo-1542779583-77633634d388?q=80&w=1887" alt="Thumbnail 2"></div>
+                                <div class="thumbnail-item"><img src="https://images.unsplash.com/photo-1606220584218-b64d61c60f5a?q=80&w=1887"
+                                        data-src="https://images.unsplash.com/photo-1606220584218-b64d61c60f5a?q=80&w=1887" alt="Thumbnail 3"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Product Info -->
+                    <div class="col-lg-7">
+                        <div class="product-info-block section-card">
+                            <h1 class="product-title-main">Studio Pro Wireless Headphones</h1>
+                            <div class="product-rating-summary">
+                                <span class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                        class="bi bi-star-half"></i></span>
+                                <span>4.5</span> | <span>216 Reviews</span> | <span class="text-success">In Stock</span>
+                            </div>
+                            <div class="product-pricing">
+                                <span class="current-price">$149.00</span>
+                                <span class="old-price">$199.00</span>
+                                <span class="discount-badge">-25%</span>
+                            </div>
+                            <div class="mb-4">
+                                <label for="color-select" class="form-label">Color:</label>
+                                <div class="color-options">
+                                    <div class="color-option active" style="background-color: #212121;" data-color="Black"></div>
+                                    <div class="color-option" style="background-color: #f0f0f0;" data-color="White"></div>
+                                    <div class="color-option" style="background-color: #3498db;" data-color="Blue"></div>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label for="quantity-select" class="form-label">Quantity:</label>
+                                <div class="quantity-selector">
+                                    <button class="btn quantity-btn" id="qty-minus">-</button>
+                                    <input type="number" class="quantity-input" id="quantity" value="1" min="1">
+                                    <button class="btn quantity-btn" id="qty-plus">+</button>
+                                </div>
+                            </div>
+                            <div class="row action-buttons">
+                                <div class="col-md-6"><button class="btn btn-buy-now">Buy Now</button></div>
+                                <div class="col-md-6"><button class="btn btn-add-to-cart-page">Add to Cart</button></div>
+                            </div>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="info-card">
+                                    <h6><i class="bi bi-truck me-2"></i>Delivery Options</h6>
+                                    <p class="mb-2">Standard Delivery: 3-5 days</p>
+                                    <p class="mb-0">Express Delivery: 1-2 days</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-card">
+                                    <h6><i class="bi bi-shield-check me-2"></i>Seller Information</h6>
+                                    <p class="mb-2">Sold by: <span class="text-white">AudioPhile Inc.</span></p>
+                                    <div class="d-flex seller-stats">
+                                        <div class="stat-item">
+                                            <h5>98%</h5><span>Positive Rating</span>
+                                        </div>
+                                        <div class="stat-item">
+                                            <h5>100%</h5><span>Ship on Time</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lower Section: Tabs and Related Products -->
+                <div class="row mt-4">
+                    <div class="col-lg-8">
+                        <!-- Product Details Tabs -->
+                        <div class="section-card">
+                            <ul class="nav nav-tabs" id="productTab" role="tablist">
+                                <li class="nav-item" role="presentation"><button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description-pane"
+                                        type="button">Description</button></li>
+                                <li class="nav-item" role="presentation"><button class="nav-link" id="specs-tab" data-bs-toggle="tab" data-bs-target="#specs-pane" type="button">Specifications</button>
+                                </li>
+                                <li class="nav-item" role="presentation"><button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews-pane" type="button">Reviews
+                                        (216)</button></li>
+                            </ul>
+                            <div class="tab-content" id="productTabContent">
+                                <div class="tab-pane fade show active" id="description-pane">
+                                    <p>Immerse yourself in pure audio bliss with the Studio Pro Wireless Headphones. Engineered for comfort and exceptional sound quality.</p>
+                                    <ul>
+                                        <li>সক্রিয় নয়েজ ক্যান্সেলেশন (ANC) প্রযুক্তি।</li>
+                                        <li>Up to 40 hours of battery life on a single charge.</li>
+                                        <li>Seamless Bluetooth 5.2 connectivity.</li>
+                                        <li>প্রিমিয়াম উপকরণ দিয়ে তৈরি, হালকা ওজনের ডিজাইন।</li>
+                                    </ul>
+                                </div>
+                                <div class="tab-pane fade" id="specs-pane">
+                                    <table class="spec-table">
+                                        <tbody>
+                                            <tr>
+                                                <td>Brand</td>
+                                                <td>AudioPhile Inc.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Model</td>
+                                                <td>Studio Pro X</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Connectivity</td>
+                                                <td>Bluetooth 5.2, 3.5mm Aux</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Battery Life</td>
+                                                <td>Up to 40 hours (ANC on)</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Weight</td>
+                                                <td>250g</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tab-pane fade" id="reviews-pane">
+                                    <div class="review-card">
+                                        <div class="d-flex align-items-center mb-2 review-author">
+                                            <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="Reviewer" class="me-2">
+                                            <div>
+                                                <strong>Anika Rahman</strong>
+                                                <div class="stars text-warning small"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                                            </div>
+                                        </div>
+                                        <p>Absolutely amazing sound quality! The noise cancellation is a game-changer for my daily commute. Highly recommended.</p>
+                                    </div>
+                                    <div class="review-card">
+                                        <div class="d-flex align-items-center mb-2 review-author">
+                                            <img src="https://i.pravatar.cc/150?u=a042581f4e29026703d" alt="Reviewer" class="me-2">
+                                            <div>
+                                                <strong>Sumit Sharma</strong>
+                                                <div class="stars text-warning small"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                        class="bi bi-star-fill"></i><i class="bi bi-star"></i></div>
+                                            </div>
+                                        </div>
+                                        <p>Great headphones for the price. The battery lasts forever. Only downside is they feel a bit tight after long hours.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Right Column: Related Products -->
+                    <div class="col-lg-4">
+                        <div class="section-card">
+                            <h5 class="section-title">Related Products</h5>
+                            <div class="vstack gap-3">
+                                <a href="#" class="d-flex align-items-center text-decoration-none related-product-card p-2">
+                                    <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&w=1780" width="70" class="rounded me-3">
+                                    <div>
+                                        <h6 class="mb-1 text-white">Wayfarer Sunglasses</h6>
+                                        <p class="mb-0 text-accent-gold fw-bold">$45.00</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="d-flex align-items-center text-decoration-none related-product-card p-2">
+                                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999" width="70" class="rounded me-3">
+                                    <div>
+                                        <h6 class="mb-1 text-white">Classic Analog Watch</h6>
+                                        <p class="mb-0 text-accent-gold fw-bold">$220.50</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- Reusing the same mobile nav and footer -->
+        <nav class="bottom-nav">
+            <a href="index.html" class="bottom-nav__item"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
+            <a href="events.html" class="bottom-nav__item"><i class="bi bi-calendar-event-fill"></i><span>Events</span></a>
+            <a href="course.html" class="bottom-nav__item "><i class="bi bi-journal-bookmark-fill"></i><span>Courses</span></a>
+            <a href="shop.html" class="bottom-nav__item active"><i class="bi bi-cart-fill"></i><span>Shop</span></a>
+            <a href="#blog" class="bottom-nav__item"><i class="bi bi-chat-square-text-fill"></i><span>Blog</span></a>
+            <a href="#donate" class="bottom-nav__item"><i class="bi bi-heart-fill"></i><span>Donate</span></a>
+        </nav>
+
+
+        <!-- Footer -->
+        <!-- ============================================= -->
+        <!-- Footer Section                                -->
+        <!-- ============================================= -->
+        <footer id="footer" class="site-footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <!-- Column 1: Brand & Tagline -->
+                    <div class="footer-column">
+                        <h3 class="footer-brand">AKF</h3>
+                        <p class="footer-tagline">A sanctuary for peace, wisdom, and connection in the digital age.</p>
+                    </div>
+
+                    <!-- Column 2: Quick Links -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Quick Links</h5>
+                        <ul class="footer-links">
+                            <li><a href="#hero">Home</a></li>
+                            <li><a href="#introduction">About Us</a></li>
+                            <li><a href="#courses">Courses</a></li>
+                            <li><a href="#blog">Blog</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 3: Support -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Support</h5>
+                        <ul class="footer-links">
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#donate">Donate</a></li>
+                            <li><a href="#">Community Guidelines</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 4: Follow Us -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Follow Us</h5>
+                        <div class="social-icons">
+                            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                            <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>© 2024 AKF. All Rights Reserved.</p>
+                    <div class="footer-legal-links">
+                        <a href="#">Privacy Policy</a>
+                        <span>•</span>
+                        <a href="#">Terms of Service Sammo</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Scripts -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <!-- AOS.js for Scroll Animations -->
+
+        <!-- Swiper.js JS -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script src="js/script.js"></script>
+        <script>
+
+
+        </script>
+    </body>
+
+</html>

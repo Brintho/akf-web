@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AKF - Store</title>
+
+        <!-- Dependencies -->
+        <!-- Google Fonts: Poppins & Hind Siliguri (for consistency) -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+        <!-- AOS.js (Animate on Scroll) CSS -->
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <!-- Swiper.js CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+        <!-- Custom Stylesheet -->
+        <link rel="stylesheet" href="css/style.css">
+
+        <style>
+            /* === GLOBAL THEME (matches your existing theme) === */
+
+        </style>
+
+    <body>
+        <main id="main-content">
+            <header class="topbar">
+                <div class="topbar__container">
+                    <div class="topbar__logo">
+                        <a href="index.html">
+                            <img src="images/bg.png" alt="Arya Kalyan Foundation Logo">
+                        </a>
+                    </div>
+                    <nav class="topbar__nav--desktop">
+                        <a href="index.html">Home</a>
+                        <a href="about.html">About Us</a>
+                        <a href="events.html">Events</a>
+                        <a href="course.html">Courses</a>
+                        <a href="shop.html" class="active">Shop</a>
+                        <a href="#blog">Blog</a>
+                        <a href="#donate">Donate</a>
+                    </nav>
+                    <div class="topbar__actions">
+                        <!-- Search -->
+                        <div class="event-search">
+                            <i class="bi bi-search"></i>
+                            <input type="text" id="event-search-input" placeholder="Search events...">
+                        </div>
+                        <!-- Cart -->
+                        <a href="#" class="action-icon cart-icon" id="cart-toggle">
+                            <i class="bi bi-cart3"></i>
+                            <span class="notification-badge">0</span>
+                        </a>
+                        <a href="#" class="btn-login">Login</a>
+                        <a href="#" class="action-icon notification-bell">
+                            <i class="bi bi-bell"></i>
+                            <span class="notification-badge">3</span>
+                        </a>
+                        <a href="#" class="action-icon profile-avatar">
+                            <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar">
+                        </a>
+                        <button class="hamburger-menu" id="hamburger-toggle" aria-label="Toggle Menu">
+                            <i class="bi bi-list"></i>
+                        </button>
+                    </div>
+
+
+                </div>
+            </header>
+            <div class="mobile-nav__overlay" id="nav-overlay"></div>
+            <nav class="mobile-nav" id="mobile-nav">
+                <div class="mobile-nav__header">
+                    <span>Menu</span>
+                    <button class="close-menu" id="close-nav-btn" aria-label="Close Menu"><i class="bi bi-x"></i></button>
+                </div>
+                <a href="index.html" class="active">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="events.html">Events</a>
+                <a href="course.html">Courses</a>
+                <a href="#blog">Blog</a>
+                <a href="#donate">Donate</a>
+                <hr>
+                <a href="#" class="mobile-nav-profile">My Profile</a>
+                <a href="#" class="mobile-nav-logout">Logout</a>
+            </nav>
+
+            <div class="container mt-5">
+                <!-- 1. VOUCHER BANNER SECTION -->
+                <section id="voucher-section" data-aos="zoom-in-up">
+                    <div class="swiper voucher-swiper">
+                        <div class="swiper-wrapper">
+                            <!-- Slide 1 -->
+                            <div class="swiper-slide">
+                                <div class="voucher-content-grid">
+                                    <div class="voucher-text-content">
+                                        <h1 class="voucher-main-title">Voucher Max</h1>
+                                        <p class="voucher-subtitle">Collect & Redeem</p>
+                                        <button class="btn btn-collect-all">Collect Voucher</button>
+                                    </div>
+                                    <div class="voucher-ticket-wrapper">
+                                        <div class="voucher-ticket">
+                                            <div class="voucher-discount">
+                                                <div class="off-percent">4% OFF</div>
+                                                <div class="min-spend">Min. Spend Tk. 749</div>
+                                            </div>
+                                            <div class="voucher-separator"></div>
+                                            <div class="voucher-details">
+                                                <h5>VOUCHER MAX</h5>
+                                                <p>Special Products</p>
+                                                <p>01/06/2025 - 30/06/2025</p>
+                                            </div>
+                                        </div>
+                                        <div class="voucher-ticket">
+                                            <div class="voucher-discount">
+                                                <div class="off-percent">5% OFF</div>
+                                                <div class="min-spend">Min. Spend Tk. 7,999</div>
+                                            </div>
+                                            <div class="voucher-separator"></div>
+                                            <div class="voucher-details">
+                                                <h5>VOUCHER MAX</h5>
+                                                <p>Special Products</p>
+                                                <div class="voucher-actions"><a href="#" class="tnc-link">T&C ></a><button class="btn btn-collect">Collect</button></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Slide 2 -->
+                            <div class="swiper-slide">
+                                <div class="voucher-content-grid">
+                                    <div class="voucher-text-content">
+                                        <h1 class="voucher-main-title">Mega Deals</h1>
+                                        <p class="voucher-subtitle">Flash Sale Vouchers</p>
+                                        <button class="btn btn-collect-all">Claim Now</button>
+                                    </div>
+                                    <div class="voucher-ticket-wrapper">
+                                        <div class="voucher-ticket">
+                                            <div class="voucher-discount">
+                                                <div class="off-percent">10% OFF</div>
+                                                <div class="min-spend">Min. Spend Tk. 1,500</div>
+                                            </div>
+                                            <div class="voucher-separator"></div>
+                                            <div class="voucher-details">
+                                                <h5>FLASH SALE</h5>
+                                                <p>All Electronics</p>
+                                                <div class="voucher-actions"><a href="#" class="tnc-link">T&C ></a><button class="btn btn-collect">Collect</button></div>
+                                            </div>
+                                        </div>
+                                        <div class="voucher-ticket">
+                                            <div class="voucher-discount">
+                                                <div class="off-percent">15% OFF</div>
+                                                <div class="min-spend">Min. Spend Tk. 10,000</div>
+                                            </div>
+                                            <div class="voucher-separator"></div>
+                                            <div class="voucher-details">
+                                                <h5>MEGA VOUCHER</h5>
+                                                <p>For All Products</p>
+                                                <div class="voucher-actions"><a href="#" class="tnc-link">T&C ></a><button class="btn btn-collect">Collect</button></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+                </section>
+
+                <!-- 2. CATEGORIES SECTION (ENHANCED) -->
+                <section id="categories-section">
+                    <h3 class="section-heading" data-aos="fade-right">Shop by Category</h3>
+                    <div class="row g-3 g-lg-4 justify-content-center">
+                        <div class="col-4 col-md-3 col-lg-2" data-aos="fade-up">
+                            <a href="shop_details.html" class="category-card">
+                                <div class="category-icon"><img src="https://images.unsplash.com/photo-1598327105666-658454214ab6?q=80&w=1925" alt="Electronics"></div><span
+                                    class="category-title">Electronics</span>
+                            </a>
+                        </div>
+                        <div class="col-4 col-md-3 col-lg-2" data-aos="fade-up" data-aos-delay="100">
+                            <a href="shop_details.html" class="category-card">
+                                <div class="category-icon"><img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=2080" alt="Fashion"></div><span
+                                    class="category-title">Fashion</span>
+                            </a>
+                        </div>
+                        <div class="col-4 col-md-3 col-lg-2" data-aos="fade-up" data-aos-delay="200">
+                            <a href="shop_details.html" class="category-card">
+                                <div class="category-icon"><img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?q=80&w=1935" alt="Home & Kitchen"></div><span class="category-title">Home
+                                    & Kitchen</span>
+                            </a>
+                        </div>
+                        <div class="col-4 col-md-3 col-lg-2" data-aos="fade-up" data-aos-delay="300">
+                            <a href="shop_details.html" class="category-card">
+                                <div class="category-icon"><img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070" alt="Computers"></div><span
+                                    class="category-title">Computers</span>
+                            </a>
+                        </div>
+                        <div class="col-4 col-md-3 col-lg-2" data-aos="fade-up" data-aos-delay="400">
+                            <a href="shop_details.html" class="category-card">
+                                <div class="category-icon"><img src="https://images.unsplash.com/photo-1599662865489-c4b373419037?q=80&w=1887" alt="Groceries"></div><span
+                                    class="category-title">Groceries</span>
+                            </a>
+                        </div>
+                        <div class="col-4 col-md-3 col-lg-2" data-aos="fade-up" data-aos-delay="500">
+                            <a href="shop_details.html" class="category-card">
+                                <div class="category-icon"><img src="https://images.unsplash.com/photo-1522784277735-a6552a45a363?q=80&w=1887" alt="Toys & Games"></div><span
+                                    class="category-title">Toys & Games</span>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. MAIN PRODUCT GRID SECTION -->
+                <section id="product-grid-section">
+                    <h3 class="section-heading" data-aos="fade-right">All Products</h3>
+                    <div class="row g-4" id="product-grid">
+
+                        <!-- =================================== -->
+                        <!--  VISIBLE PRODUCTS (FIRST BATCH)     -->
+                        <!-- =================================== -->
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 product-item" data-aos="fade-up">
+                            <a href="shop_details.html" class="text-decoration-none">
+                                <div class="product-card">
+                                    <div class="product-image"><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=2070" alt="Studio Headphones"></div>
+                                    <div class="product-info">
+                                        <div class="product-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                class="bi bi-star-half"></i></div>
+                                        <h5 class="product-title">Studio Headphones</h5>
+                                        <p class="product-price">$149.00</p>
+                                    </div>
+                                    <span class="btn btn-add-to-cart">View Details</span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 product-item" data-aos="fade-up" data-aos-delay="100">
+                            <a href="shop_details.html" class="text-decoration-none">
+                                <div class="product-card">
+                                    <div class="product-image"><img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999" alt="Analog Watch"></div>
+                                    <div class="product-info">
+                                        <div class="product-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                class="bi bi-star"></i></div>
+                                        <h5 class="product-title">Classic Analog Watch</h5>
+                                        <p class="product-price">$220.50</p>
+                                    </div>
+                                    <span class="btn btn-add-to-cart">View Details</span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 product-item" data-aos="fade-up" data-aos-delay="200">
+                            <a href="shop_details.html" class="text-decoration-none">
+                                <div class="product-card">
+                                    <div class="product-image"><img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&w=1780" alt="Wayfarer Sunglasses"></div>
+                                    <div class="product-info">
+                                        <div class="product-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i><i
+                                                class="bi bi-star"></i></div>
+                                        <h5 class="product-title">Wayfarer Sunglasses</h5>
+                                        <p class="product-price">$45.00</p>
+                                    </div>
+                                    <span class="btn btn-add-to-cart">View Details</span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 product-item" data-aos="fade-up" data-aos-delay="300">
+                            <a href="shop_details.html" class="text-decoration-none">
+                                <div class="product-card">
+                                    <div class="product-image"><img src="https://images.unsplash.com/photo-1627483407943-3e1b480a373b?q=80&w=2070" alt="Mechanical Keyboard"></div>
+                                    <div class="product-info">
+                                        <div class="product-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                class="bi bi-star-fill"></i></div>
+                                        <h5 class="product-title">Mechanical Keyboard</h5>
+                                        <p class="product-price">$125.00</p>
+                                    </div>
+                                    <span class="btn btn-add-to-cart">View Details</span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- =================================== -->
+                        <!--  HIDDEN PRODUCTS (FOR LOAD MORE)    -->
+                        <!-- =================================== -->
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 product-item d-none hidden-product" data-aos="fade-up">
+                            <a href="shop_details.html" class="text-decoration-none">
+                                <div class="product-card">
+                                    <div class="product-image"><img src="https://images.unsplash.com/photo-1622560481075-c546051772de?q=80&w=1887" alt="Leather Wallet"></div>
+                                    <div class="product-info">
+                                        <div class="product-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                class="bi bi-star"></i></div>
+                                        <h5 class="product-title">Minimalist Leather Wallet</h5>
+                                        <p class="product-price">$35.00</p>
+                                    </div>
+                                    <span class="btn btn-add-to-cart">View Details</span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 product-item d-none hidden-product" data-aos="fade-up">
+                            <a href="shop_details.html" class="text-decoration-none">
+                                <div class="product-card">
+                                    <div class="product-image"><img src="https://images.unsplash.com/photo-1565623124424-4c8f742c83c2?q=80&w=1887" alt="Coffee Maker"></div>
+                                    <div class="product-info">
+                                        <div class="product-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                class="bi bi-star-half"></i></div>
+                                        <h5 class="product-title">Drip Coffee Maker</h5>
+                                        <p class="product-price">$55.99</p>
+                                    </div>
+                                    <span class="btn btn-add-to-cart">View Details</span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 product-item d-none hidden-product" data-aos="fade-up">
+                            <a href="shop_details.html" class="text-decoration-none">
+                                <div class="product-card">
+                                    <div class="product-image"><img src="https://images.unsplash.com/photo-1593030103051-7133c2541913?q=80&w=1887" alt="Cotton T-Shirt"></div>
+                                    <div class="product-info">
+                                        <div class="product-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                class="bi bi-star-fill"></i></div>
+                                        <h5 class="product-title">Organic Cotton T-Shirt</h5>
+                                        <p class="product-price">$24.00</p>
+                                    </div>
+                                    <span class="btn btn-add-to-cart">View Details</span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 product-item d-none hidden-product" data-aos="fade-up">
+                            <a href="shop_details.html" class="text-decoration-none">
+                                <div class="product-card">
+                                    <div class="product-image"><img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?q=80&w=1615" alt="Denim Jeans"></div>
+                                    <div class="product-info">
+                                        <div class="product-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                class="bi bi-star"></i></div>
+                                        <h5 class="product-title">Classic Denim Jeans</h5>
+                                        <p class="product-price">$79.50</p>
+                                    </div>
+                                    <span class="btn btn-add-to-cart">View Details</span>
+                                </div>
+                            </a>
+                        </div>
+
+                    </div>
+                    <!-- Load More Button -->
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <button id="load-more-btn">Load More Products</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- 📱 Mobile Bottom Navigation -->
+        <nav class="bottom-nav">
+            <a href="index.html" class="bottom-nav__item"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
+            <a href="events.html" class="bottom-nav__item"><i class="bi bi-calendar-event-fill"></i><span>Events</span></a>
+            <a href="course.html" class="bottom-nav__item "><i class="bi bi-journal-bookmark-fill"></i><span>Courses</span></a>
+            <a href="shop.html" class="bottom-nav__item active"><i class="bi bi-cart-fill"></i><span>Shop</span></a>
+            <a href="#blog" class="bottom-nav__item"><i class="bi bi-chat-square-text-fill"></i><span>Blog</span></a>
+            <a href="#donate" class="bottom-nav__item"><i class="bi bi-heart-fill"></i><span>Donate</span></a>
+        </nav>
+
+        <!-- Footer -->
+        <!-- ============================================= -->
+        <!-- Footer Section                                -->
+        <!-- ============================================= -->
+        <footer id="footer" class="site-footer mt-5">
+            <div class="container">
+                <div class="footer-grid">
+                    <!-- Column 1: Brand & Tagline -->
+                    <div class="footer-column">
+                        <h3 class="footer-brand">AKF</h3>
+                        <p class="footer-tagline">A sanctuary for peace, wisdom, and connection in the digital age.</p>
+                    </div>
+
+                    <!-- Column 2: Quick Links -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Quick Links</h5>
+                        <ul class="footer-links">
+                            <li><a href="#hero">Home</a></li>
+                            <li><a href="#introduction">About Us</a></li>
+                            <li><a href="#courses">Courses</a></li>
+                            <li><a href="#blog">Blog</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 3: Support -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Support</h5>
+                        <ul class="footer-links">
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#donate">Donate</a></li>
+                            <li><a href="#">Community Guidelines</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 4: Follow Us -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Follow Us</h5>
+                        <div class="social-icons">
+                            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                            <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>© 2024 AKF. All Rights Reserved.</p>
+                    <div class="footer-legal-links">
+                        <a href="#">Privacy Policy</a>
+                        <span>•</span>
+                        <a href="#">Terms of Service Sammo</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Scripts -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <!-- AOS.js for Scroll Animations -->
+
+        <!-- Swiper.js JS -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script src="js/script.js"></script>
+
+    </body>
+
+</html>
