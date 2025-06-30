@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * 4. ACTIVE NAV LINK ON SCROLL (Intersection Observer)
      */
     const sections = document.querySelectorAll('.page-section');
-    // const desktopNavLinks = document.querySelectorAll('.topbar__nav--desktop a');
+    const desktopNavLinks = document.querySelectorAll('.topbar__nav--desktop a');
     const bottomNavItems = document.querySelectorAll('.bottom-nav__item');
 
     const observerOptions = {
@@ -662,3 +662,5 @@ $(document).ready(function () {
 
 });
 // shop details js end
+
+

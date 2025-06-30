@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AKF - Blog & News</title>
+
+        <!-- Dependencies -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="css/style.css">
+
+        <!-- Custom CSS for Blog Page (Unchanged) -->
+        <style>
+            :root {
+                --color-primary-dark: #121212;
+                --color-secondary-dark: #1e1e1e;
+                --color-accent-gold: #D4AF37;
+                --color-text-light: #f0f0f0;
+                --color-text-medium: #a0a0a0;
+                --glass-bg: rgba(30, 30, 30, 0.7);
+                --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+                --font-primary: 'Poppins', sans-serif;
+                --font-bengali: 'Hind Siliguri', sans-serif;
+                --soft-transition: all 0.3s ease-in-out;
+            }
+
+            body {
+                background-color: var(--color-primary-dark);
+                color: var(--color-text-light);
+            }
+
+            .blog-page {
+                font-family: var(--font-bengali), var(--font-primary);
+            }
+
+            .blog-hero {
+                background: linear-gradient(rgba(18, 18, 18, 0.7), rgba(18, 18, 18, 0.9)), url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=2070') no-repeat center center;
+                background-size: cover;
+                padding: 80px 0;
+                border-radius: 16px;
+                text-align: center;
+                margin-top: 40px;
+                margin-bottom: 50px;
+            }
+
+            .blog-hero-title {
+                font-weight: 700;
+                font-size: clamp(2.5rem, 5vw, 3.5rem);
+            }
+
+            .blog-filter-nav {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+                flex-wrap: wrap;
+                margin-bottom: 40px;
+            }
+
+            .filter-btn {
+                background-color: var(--color-secondary-dark);
+                border: var(--glass-border);
+                color: var(--color-text-medium);
+                padding: 8px 20px;
+                border-radius: 50px;
+                font-weight: 500;
+                transition: var(--soft-transition);
+            }
+
+            .filter-btn:hover {
+                color: var(--color-text-light);
+                background-color: #2a2a2e;
+            }
+
+            .filter-btn.active {
+                background-color: var(--color-accent-gold);
+                color: var(--color-primary-dark);
+                border-color: var(--color-accent-gold);
+                font-weight: 600;
+            }
+
+            .blog-card {
+                background: var(--glass-bg);
+                border: var(--glass-border);
+                border-radius: 12px;
+                overflow: hidden;
+                backdrop-filter: blur(10px);
+                transition: var(--soft-transition);
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+            }
+
+            .blog-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+                border-color: rgba(212, 175, 55, 0.4);
+            }
+
+            .blog-card-image {
+                aspect-ratio: 16 / 9;
+                overflow: hidden;
+            }
+
+            .blog-card-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.4s ease;
+            }
+
+            .blog-card:hover .blog-card-image img {
+                transform: scale(1.05);
+            }
+
+            .blog-card-body {
+                padding: 20px;
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .blog-card-category {
+                background-color: var(--color-accent-gold);
+                color: var(--color-primary-dark);
+                padding: 3px 10px;
+                border-radius: 50px;
+                font-size: 0.8rem;
+                font-weight: 600;
+                display: inline-block;
+                margin-bottom: 15px;
+            }
+
+            .blog-card-title {
+                font-size: 1.25rem;
+                font-weight: 600;
+                color: var(--color-text-light);
+                line-height: 1.4;
+                margin-bottom: 10px;
+            }
+
+            .blog-card-excerpt {
+                color: var(--color-text-medium);
+                font-size: 0.95rem;
+                flex-grow: 1;
+                margin-bottom: 20px;
+            }
+
+            .blog-card-footer {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding-top: 15px;
+                border-top: 1px solid var(--glass-border);
+            }
+
+            .read-more-btn {
+                color: var(--color-accent-gold);
+                text-decoration: none;
+                font-weight: 600;
+            }
+
+            .read-more-btn i {
+                transition: transform 0.2s ease;
+            }
+
+            .read-more-btn:hover i {
+                transform: translateX(5px);
+            }
+
+            .blog-card-meta {
+                font-size: 0.85rem;
+                color: var(--color-text-medium);
+            }
+
+            /* Sidebar Styles */
+            .blog-sidebar .sidebar-widget {
+                background-color: var(--color-secondary-dark);
+                border: var(--glass-border);
+                padding: 25px;
+                border-radius: 12px;
+                margin-bottom: 25px;
+            }
+
+            .sidebar-title {
+                font-size: 1.3rem;
+                font-weight: 600;
+                color: var(--color-text-light);
+                margin-bottom: 20px;
+            }
+
+            .recent-post {
+                display: flex;
+                gap: 15px;
+                align-items: flex-start;
+            }
+
+            .recent-post:not(:last-child) {
+                margin-bottom: 20px;
+            }
+
+            .recent-post img {
+                width: 60px;
+                height: 60px;
+                object-fit: cover;
+                border-radius: 8px;
+            }
+
+            .recent-post-title {
+                color: var(--color-text-light);
+                text-decoration: none;
+                font-weight: 500;
+                line-height: 1.3;
+                font-size: 0.95rem;
+            }
+
+            .category-list li a {
+                color: var(--color-text-medium);
+                text-decoration: none;
+                transition: var(--soft-transition);
+            }
+
+            .category-list li a:hover {
+                color: var(--color-accent-gold);
+            }
+
+            /* Pagination Styles */
+            .pagination .page-link {
+                background-color: var(--color-secondary-dark);
+                color: var(--color-text-medium);
+                border: var(--glass-border);
+                margin: 0 4px;
+                border-radius: 8px !important;
+                transition: var(--soft-transition);
+            }
+
+            .pagination .page-link:hover {
+                background-color: #2a2a2e;
+                color: var(--color-text-light);
+                border-color: var(--glass-border);
+            }
+
+            .pagination .page-item.active .page-link {
+                background-color: var(--color-accent-gold);
+                color: var(--color-primary-dark);
+                border-color: var(--color-accent-gold);
+                font-weight: 600;
+            }
+
+            .pagination .page-item.disabled .page-link {
+                background-color: transparent;
+                color: #555;
+                border-color: var(--glass-border);
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <main id="main-content">
+            <header class="topbar">
+                <div class="topbar__container">
+                    <div class="topbar__logo">
+                        <a href="index.html">
+                            <img src="images/bg.png" alt="Arya Kalyan Foundation Logo">
+                        </a>
+                    </div>
+                    <nav class="topbar__nav--desktop">
+                        <a href="index.html">Home</a>
+                        <a href="about.html">About Us</a>
+                        <a href="events.html">Events</a>
+                        <a href="course.html" class="active">Courses</a>
+                        <a href="shop.html">Shop</a>
+                        <a href="#blog">Blog</a>
+                        <a href="#donate">Donate</a>
+                    </nav>
+                    <div class="topbar__actions">
+                        <!-- Search -->
+                        <div class="event-search">
+                            <i class="bi bi-search"></i>
+                            <input type="text" id="event-search-input" placeholder="Search events...">
+                        </div>
+                        <!-- Cart -->
+                        <a href="#" class="action-icon cart-icon" id="cart-toggle">
+                            <i class="bi bi-cart3"></i>
+                            <span class="notification-badge">0</span>
+                        </a>
+                        <a href="#" class="btn-login">Login</a>
+                        <a href="#" class="action-icon notification-bell">
+                            <i class="bi bi-bell"></i>
+                            <span class="notification-badge">3</span>
+                        </a>
+                        <a href="#" class="action-icon profile-avatar">
+                            <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar">
+                        </a>
+                        <button class="hamburger-menu" id="hamburger-toggle" aria-label="Toggle Menu">
+                            <i class="bi bi-list"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+            <div class="blog-page">
+                <section class="blog-hero" data-aos="fade-in">
+                    <div class="container">
+                        <h1 class="blog-hero-title">Insights & Articles</h1>
+                        <p class="text-white-50 fs-5">জ্ঞান, সংবাদ এবং আধ্যাত্মিক অন্বেষণ।</p>
+                    </div>
+                </section>
+
+                <div class="container">
+                    <div class="row">
+                        <!-- Sidebar Column -->
+                        <div class="col-lg-4 blog-sidebar-column">
+                            <div class="blog-sidebar" data-aos="fade-left">
+                                <div class="sidebar-widget">
+                                    <h5 class="sidebar-title">Recent Posts</h5>
+                                    <ul class="list-unstyled">
+                                        <li class="recent-post">
+                                            <img src="https://images.unsplash.com/photo-1593353427831-2529d3339ce9?q=80&w=200" alt="Recent Post">
+                                            <div><a href="#" class="recent-post-title">দৈনিক ধ্যানের মাধ্যমে মানসিক শান্তি...</a></div>
+                                        </li>
+                                        <li class="recent-post">
+                                            <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=200" alt="Recent Post">
+                                            <div><a href="#" class="recent-post-title">নতুন কমিউনিটি সেন্টারের কার্যক্রম শুরু...</a></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="sidebar-widget">
+                                    <h5 class="sidebar-title">Categories</h5>
+                                    <ul class="list-unstyled category-list vstack gap-2">
+                                        <li><a href="#"> ধর্মীয় ব্লগ (Religious Blog)</a></li>
+                                        <li><a href="#"> আপডেটেড সংবাদ (Updated News)</a></li>
+                                        <li><a href="#"> শিক্ষামূলক আর্টিকেল (Educational)</a></li>
+                                        <li><a href="#"> স্বাস্থ্য ও সুস্থতা (Health)</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="blog-filter-nav" data-aos="fade-up">
+                                <button class="filter-btn active" data-filter="all">All</button>
+                                <button class="filter-btn" data-filter="religious">ধর্মীয় ব্লগ</button>
+                                <button class="filter-btn" data-filter="news">আপডেটেড সংবাদ</button>
+                                <button class="filter-btn" data-filter="educational">শিক্ষামূলক আর্টিকেল</button>
+                            </div>
+
+                            <div class="row g-4" id="blog-grid">
+                                <!-- Blog Posts (Unchanged) -->
+                                <div class="col-md-6 blog-post-item" data-category="religious" data-aos="fade-up">
+                                    <div class="blog-card">
+                                        <div class="blog-card-image"><img src="https://images.unsplash.com/photo-1593353427831-2529d3339ce9?q=80&w=2070" alt="Meditation"></div>
+                                        <div class="blog-card-body"><span class="blog-card-category">ধর্মীয় ব্লগ</span>
+                                            <h4 class="blog-card-title">দৈনিক ধ্যানের মাধ্যমে মানসিক শান্তি অর্জনের ৫টি উপায়</h4>
+                                            <p class="blog-card-excerpt">আধুনিক জীবনের চাপ থেকে মুক্তি পেতে এবং অভ্যন্তরীণ প্রশান্তি খুঁজে পেতে ধ্যানের গুরুত্ব অপরিসীম।</p>
+                                            <div class="blog-card-footer"><a href="#" class="read-more-btn">Read More <i class="bi bi-arrow-right"></i></a><span class="blog-card-meta">Oct 26,
+                                                    2024</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 blog-post-item" data-category="news" data-aos="fade-up" data-aos-delay="100">
+                                    <div class="blog-card">
+                                        <div class="blog-card-image"><img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=2070" alt="News Update"></div>
+                                        <div class="blog-card-body"><span class="blog-card-category">আপডেটেড সংবাদ</span>
+                                            <h4 class="blog-card-title">নতুন কমিউনিটি সেন্টারের কার্যক্রম শুরু হয়েছে</h4>
+                                            <p class="blog-card-excerpt">আমাদের নতুন কমিউনিটি সেন্টারে সাপ্তাহিক সৎসঙ্গ এবং কর্মশালার সময়সূচী ঘোষণা করা হয়েছে।</p>
+                                            <div class="blog-card-footer"><a href="#" class="read-more-btn">Read More <i class="bi bi-arrow-right"></i></a><span class="blog-card-meta">Oct 25,
+                                                    2024</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 blog-post-item" data-category="educational" data-aos="fade-up">
+                                    <div class="blog-card">
+                                        <div class="blog-card-image"><img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=1973" alt="Vedas"></div>
+                                        <div class="blog-card-body"><span class="blog-card-category">শিক্ষামূলক আর্টিকেল</span>
+                                            <h4 class="blog-card-title">বেদের চারটি প্রধান ভাগ ও তাদের তাৎপর্য</h4>
+                                            <p class="blog-card-excerpt">ঋগ্বেদ, যজুর্বেদ, সামবেদ এবং অথর্ববেদের মূল বিষয়বস্তু এবং মানব জীবনে তাদের প্রভাব নিয়ে আলোচনা।</p>
+                                            <div class="blog-card-footer"><a href="#" class="read-more-btn">Read More <i class="bi bi-arrow-right"></i></a><span class="blog-card-meta">Oct 24,
+                                                    2024</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 blog-post-item" data-category="religious" data-aos="fade-up" data-aos-delay="100">
+                                    <div class="blog-card">
+                                        <div class="blog-card-image"><img src="https://images.unsplash.com/photo-1508997449629-392097a87693?q=80&w=2070" alt="Yoga"></div>
+                                        <div class="blog-card-body"><span class="blog-card-category">ধর্মীয় ব্লগ</span>
+                                            <h4 class="blog-card-title">যোগা এবং আধ্যাত্মিকতার মধ্যে সম্পর্ক</h4>
+                                            <p class="blog-card-excerpt">শারীরিক অনুশীলনের বাইরেও যোগা কীভাবে আত্ম-উপলব্ধির একটি শক্তিশালী মাধ্যম হতে পারে তা জানুন।</p>
+                                            <div class="blog-card-footer"><a href="#" class="read-more-btn">Read More <i class="bi bi-arrow-right"></i></a><span class="blog-card-meta">Oct 23,
+                                                    2024</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 blog-post-item" data-category="educational" data-aos="fade-up">
+                                    <div class="blog-card">
+                                        <div class="blog-card-image"><img src="https://images.unsplash.com/photo-1600147533315-adc9c3940e34?q=80&w=2070" alt="Library"></div>
+                                        <div class="blog-card-body"><span class="blog-card-category">শিক্ষামূলক আর্টিকেল</span>
+                                            <h4 class="blog-card-title">আত্ম-বিকাশে বই পড়ার গুরুত্ব</h4>
+                                            <p class="blog-card-excerpt">বই কীভাবে আমাদের দৃষ্টিভঙ্গি প্রসারিত করে এবং জ্ঞান অর্জনের মাধ্যমে আমাদের জীবনকে উন্নত করে।</p>
+                                            <div class="blog-card-footer"><a href="#" class="read-more-btn">Read More <i class="bi bi-arrow-right"></i></a><span class="blog-card-meta">Oct 22,
+                                                    2024</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 blog-post-item" data-category="news" data-aos="fade-up" data-aos-delay="100">
+                                    <div class="blog-card">
+                                        <div class="blog-card-image"><img src="https://images.unsplash.com/photo-1579532537598-459ecdaf39cc?q=80&w=2070" alt="Community Event"></div>
+                                        <div class="blog-card-body"><span class="blog-card-category">আপডেটেড সংবাদ</span>
+                                            <h4 class="blog-card-title">বার্ষিক উৎসবের জন্য স্বেচ্ছাসেবক নিবন্ধন চলছে</h4>
+                                            <p class="blog-card-excerpt">আসন্ন বার্ষিক অনুষ্ঠানে স্বেচ্ছাসেবক হিসেবে যোগ দিন এবং এই মহান উদ্যোগের অংশ হন।</p>
+                                            <div class="blog-card-footer"><a href="#" class="read-more-btn">Read More <i class="bi bi-arrow-right"></i></a><span class="blog-card-meta">Oct 21,
+                                                    2024</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 blog-post-item" data-category="religious" data-aos="fade-up">
+                                    <div class="blog-card">
+                                        <div class="blog-card-image"><img src="https://images.unsplash.com/photo-1601662528567-52040546a16c?q=80&w=1965" alt="Prayer"></div>
+                                        <div class="blog-card-body"><span class="blog-card-category">ধর্মীয় ব্লগ</span>
+                                            <h4 class="blog-card-title">প্রার্থনার শক্তি: কীভাবে এটি আপনার জীবন পরিবর্তন করতে পারে</h4>
+                                            <p class="blog-card-excerpt">প্রার্থনা শুধু একটি ধর্মীয় আচার নয়, এটি মানসিক শক্তি এবং ইতিবাচকতার এক বিশাল উৎস।</p>
+                                            <div class="blog-card-footer"><a href="#" class="read-more-btn">Read More <i class="bi bi-arrow-right"></i></a><span class="blog-card-meta">Oct 20,
+                                                    2024</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 blog-post-item" data-category="educational" data-aos="fade-up" data-aos-delay="100">
+                                    <div class="blog-card">
+                                        <div class="blog-card-image"><img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=2070" alt="Teamwork"></div>
+                                        <div class="blog-card-body"><span class="blog-card-category">শিক্ষামূলক আর্টিকেল</span>
+                                            <h4 class="blog-card-title">সৎসঙ্গে থাকার উপকারিতা এবং গুরুত্ব</h4>
+                                            <p class="blog-card-excerpt">ইতিবাচক এবং সমমনা মানুষদের সাথে সময় কাটানো কীভাবে আমাদের আধ্যাত্মিক উন্নতিতে সহায়তা করে।</p>
+                                            <div class="blog-card-footer"><a href="#" class="read-more-btn">Read More <i class="bi bi-arrow-right"></i></a><span class="blog-card-meta">Oct 19,
+                                                    2024</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Static Pagination (Modified) -->
+                            <nav aria-label="Blog navigation" class="mt-5 d-flex justify-content-center" data-aos="fade-up">
+                                <ul class="pagination gap-2">
+                                    <li class="page-item prev disabled">
+                                        <a class="page-link" href="#" tabindex="-1">Prev</a>
+                                    </li>
+                                    <li class="page-item active">
+                                        <a class="page-link" href="#">1</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">2</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">3</a>
+                                    </li>
+                                    <li class="page-item next">
+                                        <a class="page-link" href="#">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Mobile Bottom Navigation (Unchanged) -->
+        <nav class="bottom-nav">
+            <a href="index.html" class="bottom-nav__item"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
+            <a href="events.html" class="bottom-nav__item"><i class="bi bi-calendar-event-fill"></i><span>Events</span></a>
+            <a href="course.html" class="bottom-nav__item active"><i class="bi bi-journal-bookmark-fill"></i><span>Courses</span></a>
+            <a href="shop.html" class="bottom-nav__item"><i class="bi bi-cart-fill"></i><span>Shop</span></a>
+            <a href="#blog" class="bottom-nav__item"><i class="bi bi-chat-square-text-fill"></i><span>Blog</span></a>
+            <a href="#donate" class="bottom-nav__item"><i class="bi bi-heart-fill"></i><span>Donate</span></a>
+        </nav>
+
+        <!-- Footer (Unchanged) -->
+        <footer id="footer" class="site-footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-column">
+                        <h3 class="footer-brand">AKF</h3>
+                        <p class="footer-tagline">A sanctuary for peace, wisdom, and connection in the digital age.</p>
+                    </div>
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Quick Links</h5>
+                        <ul class="footer-links">
+                            <li><a href="#hero">Home</a></li>
+                            <li><a href="#introduction">About Us</a></li>
+                            <li><a href="#courses">Courses</a></li>
+                            <li><a href="#blog">Blog</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Support</h5>
+                        <ul class="footer-links">
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#donate">Donate</a></li>
+                            <li><a href="#">Community Guidelines</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Follow Us</h5>
+                        <div class="social-icons">
+                            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                            <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>© 2024 AKF. All Rights Reserved.</p>
+                    <div class="footer-legal-links">
+                        <a href="#">Privacy Policy</a>
+                        <span>•</span>
+                        <a href="#">Terms of Service Sammo</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Scripts -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <script>
+            $(document).ready(function () {
+                AOS.init({
+                    duration: 900,
+                    once: true,
+                    offset: 80,
+                    easing: 'ease-in-out',
+                });
+
+                // Filter Button Click (Retained for client-side filtering, can be removed if PHP handles filtering)
+                $('.filter-btn').on('click', function () {
+                    $('.filter-btn').removeClass('active');
+                    $(this).addClass('active');
+
+                    let filterValue = $(this).data('filter');
+                    let blogItems = $('#blog-grid .blog-post-item');
+
+                    if (filterValue === 'all') {
+                        blogItems.fadeIn(400);
+                    } else {
+                        blogItems.hide();
+                        blogItems.filter(`[data-category="${filterValue}"]`).fadeIn(400);
+                    }
+                });
+            });
+
+        </script>
+    </body>
+
+</html>

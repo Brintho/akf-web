@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AKF - Blog & News</title>
+
+        <!-- Dependencies -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+
+        <!-- Dependencies -->
+
+
+
+
+
+
+
+
+
+
+
+        <link rel="stylesheet" href="css/style.css">
+
+        <!-- Custom CSS for Blog Details Page -->
+        <style>
+            :root {
+                /* Your Existing Theme Variables */
+                --color-primary-dark: #121212;
+                --color-secondary-dark: #1e1e1e;
+                --color-accent-gold: #D4AF37;
+                --color-text-light: #f0f0f0;
+                --color-text-medium: #a0a0a0;
+                --glass-bg: rgba(30, 30, 30, 0.7);
+                --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+                --font-primary: 'Poppins', sans-serif;
+                --font-bengali: 'Hind Siliguri', sans-serif;
+                --soft-transition: all 0.3s ease-in-out;
+            }
+
+            .blog-details-page {
+                font-family: var(--font-bengali), var(--font-primary);
+                padding-top: 50px;
+                padding-bottom: 50px;
+            }
+
+            .section-card {
+                background: var(--color-secondary-dark);
+                border: var(--glass-border);
+                border-radius: 16px;
+                padding: 30px;
+                margin-bottom: 30px;
+            }
+
+            /* 1. Blog Header & Cover */
+            .blog-cover-image {
+                height: 400px;
+                border-radius: 12px;
+                background-size: cover;
+                background-position: center;
+                margin-bottom: 25px;
+            }
+
+            .blog-details-title {
+                font-size: clamp(1.8rem, 5vw, 2.8rem);
+                font-weight: 700;
+                color: var(--color-text-light);
+                line-height: 1.3;
+            }
+
+            .blog-meta {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px 20px;
+                color: var(--color-text-medium);
+                margin-top: 15px;
+                padding-bottom: 20px;
+                border-bottom: var(--glass-border);
+            }
+
+            .blog-meta-item {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .category-badge {
+                background-color: var(--color-accent-gold);
+                color: var(--color-primary-dark);
+                padding: 4px 12px;
+                border-radius: 50px;
+                font-size: 0.85rem;
+                font-weight: 600;
+            }
+
+            /* 2. Blog Content Body */
+            .blog-content {
+                padding-top: 20px;
+                line-height: 1.8;
+                font-size: 1.1rem;
+                color: var(--color-text-light);
+            }
+
+            .blog-content h2,
+            .blog-content h3 {
+                font-weight: 600;
+                margin-top: 40px;
+                margin-bottom: 20px;
+                color: var(--color-text-light);
+            }
+
+            .blog-content p {
+                color: var(--color-text-medium);
+                margin-bottom: 1.5rem;
+            }
+
+            .blog-content ul {
+                padding-left: 25px;
+                margin-bottom: 1.5rem;
+                color: var(--color-text-medium);
+            }
+
+            .blog-content blockquote {
+                border-left: 4px solid var(--color-accent-gold);
+                padding-left: 25px;
+                margin: 30px 0;
+                font-style: italic;
+                font-size: 1.2rem;
+                color: var(--color-text-light);
+            }
+
+            .blog-content img {
+                max-width: 100%;
+                height: auto;
+                border-radius: 12px;
+                margin: 20px 0 10px;
+            }
+
+            .blog-content figcaption {
+                text-align: center;
+                font-size: 0.9rem;
+                color: var(--color-text-medium);
+            }
+
+            /* 3 & 4. Tags and Social Share */
+            .tags-and-share {
+                margin-top: 30px;
+                padding-top: 20px;
+                border-top: var(--glass-border);
+            }
+
+            .tag-list a {
+                display: inline-block;
+                background-color: var(--glass-bg);
+                border: var(--glass-border);
+                color: var(--color-text-medium);
+                padding: 5px 15px;
+                border-radius: 50px;
+                text-decoration: none;
+                margin-right: 10px;
+                margin-bottom: 10px;
+                transition: var(--soft-transition);
+            }
+
+            .tag-list a:hover {
+                background-color: var(--color-accent-gold);
+                color: var(--color-primary-dark);
+            }
+
+            .social-share-icons a {
+                font-size: 1.5rem;
+                color: var(--color-text-medium);
+                transition: var(--soft-transition);
+            }
+
+            .social-share-icons a:hover {
+                color: var(--color-accent-gold);
+                transform: scale(1.1);
+            }
+
+            /* 5. Author Box */
+            .author-box {
+                background: var(--glass-bg);
+                backdrop-filter: blur(10px);
+            }
+
+            .author-box img {
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                border: 2px solid var(--color-accent-gold);
+            }
+
+            /* 6. Comment Section */
+            /* === ENHANCED COMMENT SECTION === */
+            .section-title {
+                font-size: 1.5rem;
+                font-weight: 600;
+                margin-bottom: 20px;
+            }
+
+            .comment-form .form-control {
+                background-color: var(--glass-bg);
+                border: var(--glass-border);
+                color: var(--color-text-light);
+                padding: 12px;
+            }
+
+            .comment-form .form-control:focus {
+                background-color: var(--color-secondary-dark);
+                box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25);
+                border-color: var(--color-accent-gold);
+                color: var(--color-text-light);
+            }
+
+            .btn-submit-comment {
+                background-color: var(--color-accent-gold);
+                color: var(--color-primary-dark);
+                font-weight: 600;
+                border: none;
+                padding: 8px 20px;
+            }
+
+            .comment-list {
+                border-top: var(--glass-border);
+                padding-top: 20px;
+            }
+
+            .comment-thread {
+                position: relative;
+            }
+
+            .comment-item {
+                display: flex;
+                gap: 15px;
+                padding: 20px 0;
+            }
+
+            .comment-thread:not(:first-child)>.comment-item {
+                border-top: var(--glass-border);
+            }
+
+            .comment-avatar {
+                width: 45px;
+                height: 45px;
+                border-radius: 50%;
+                object-fit: cover;
+                flex-shrink: 0;
+            }
+
+            .comment-content {
+                flex-grow: 1;
+            }
+
+            .comment-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 5px;
+            }
+
+            .comment-author-name {
+                font-weight: 600;
+                color: var(--color-text-light);
+            }
+
+            .comment-time {
+                font-size: 0.8rem;
+                color: var(--color-text-medium);
+            }
+
+            .comment-body p {
+                margin-bottom: 10px;
+                color: var(--color-text-medium);
+            }
+
+            /* Reply-specific styling */
+            .comment-replies {
+                margin-left: 30px;
+                padding-left: 30px;
+                border-left: 2px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .reply-item {
+                position: relative;
+                padding-top: 20px;
+            }
+
+            .reply-item::before {
+                content: '';
+                position: absolute;
+                top: 42px;
+                /* Vertically center with avatar */
+                left: -31px;
+                /* (padding-left + border-width) */
+                width: 20px;
+                height: 2px;
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+
+            .replying-to {
+                font-size: 0.85rem;
+                color: var(--color-text-medium);
+                margin-bottom: 5px !important;
+            }
+
+            /* Actions: Love & Reply */
+            .comment-actions {
+                display: flex;
+                gap: 20px;
+                font-size: 0.85rem;
+            }
+
+            .comment-actions button {
+                background: none;
+                border: none;
+                color: var(--color-text-medium);
+                padding: 0;
+                font-weight: 500;
+                transition: var(--soft-transition);
+            }
+
+            .comment-actions button:hover {
+                color: var(--color-accent-gold);
+            }
+
+            .btn-love.loved {
+                color: #e53935;
+                /* Red for loved */
+                font-weight: 600;
+            }
+
+            .btn-love .love-count {
+                margin-left: 5px;
+            }
+
+            /* Reply Form */
+            .reply-form-container {
+                display: none;
+                margin-left: 60px;
+                /* Aligns with comment text */
+                padding-bottom: 20px;
+            }
+
+            /* 7. Related Posts Section */
+            .related-post-card {
+                background: var(--color-secondary-dark);
+                border: var(--glass-border);
+                border-radius: 12px;
+                overflow: hidden;
+                transition: var(--soft-transition);
+                display: block;
+                text-decoration: none;
+            }
+
+            .related-post-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            }
+
+            .related-post-card img {
+                aspect-ratio: 16/10;
+                object-fit: cover;
+            }
+
+            .related-post-card .card-body {
+                padding: 20px;
+            }
+
+            .related-post-card .card-title {
+                color: var(--color-text-light);
+                font-size: 1.1rem;
+                font-weight: 600;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <main id="main-content">
+
+            <header class="topbar ">
+                <div class="topbar__container">
+                    <div class="topbar__logo">
+                        <a href="index.html">
+                            <img src="images/bg.png" alt="Arya Kalyan Foundation Logo">
+                        </a>
+                    </div>
+                    <nav class="topbar__nav--desktop">
+                        <a href="index.html">Home</a>
+                        <a href="about.html">About Us</a>
+                        <a href="events.html">Events</a>
+                        <a href="course.html" class="active">Courses</a>
+                        <a href="#blog">Blog</a>
+                        <a href="#donate">Donate</a>
+                    </nav>
+                    <div class="topbar__actions">
+                        <!-- ALL ITEMS ARE NOW VISIBLE BY DEFAULT -->
+                        <a href="#" class="btn-login">Login</a>
+                        <a href="#" class="action-icon notification-bell">
+                            <i class="bi bi-bell"></i>
+                            <span class="notification-badge">3</span>
+                        </a>
+                        <a href="#" class="action-icon profile-avatar">
+                            <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar">
+                        </a>
+                        <button class="hamburger-menu" id="hamburger-toggle" aria-label="Toggle Menu">
+                            <i class="bi bi-list"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <div class="mobile-nav__overlay" id="nav-overlay"></div>
+            <nav class="mobile-nav" id="mobile-nav">
+                <div class="mobile-nav__header">
+                    <span>Menu</span>
+                    <button class="close-menu" id="close-nav-btn" aria-label="Close Menu"><i class="bi bi-x"></i></button>
+                </div>
+                <a href="index.html" class="active">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="events.html">Events</a>
+                <a href="course.html">Courses</a>
+                <a href="#blog">Blog</a>
+                <a href="#donate">Donate</a>
+                <hr>
+                <a href="#" class="mobile-nav-profile">My Profile</a>
+                <a href="#" class="mobile-nav-logout">Logout</a>
+            </nav>
+
+
+            <div class="blog-details-page mt-5">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-10 col-xl-8">
+                            <article class="section-card">
+                                <!-- 1. Blog Title Header -->
+                                <header>
+                                    <div class="blog-cover-image" style="background-image: url('https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=1973');" data-aos="fade-in"></div>
+                                    <h1 class="blog-details-title" data-aos="fade-up">দৈনিক ধ্যানের মাধ্যমে মানসিক শান্তি অর্জনের ৫টি উপায়</h1>
+                                    <div class="blog-meta" data-aos="fade-up" data-aos-delay="100">
+                                        <span class="blog-meta-item"><i class="bi bi-person-circle"></i> AKF Team</span>
+                                        <span class="blog-meta-item"><i class="bi bi-calendar3"></i> October 26, 2024</span>
+                                        <span class="blog-meta-item"><i class="bi bi-clock"></i> 5 min read</span>
+                                        <span class="blog-meta-item"><i class="bi bi-folder"></i> <span class="category-badge">ধর্মীয় ব্লগ</span></span>
+                                    </div>
+                                </header>
+
+                                <!-- 2. Blog Content Body -->
+                                <div class="blog-content" data-aos="fade-up" data-aos-delay="200">
+                                    <p>আধুনিক জীবনের ব্যস্ততা ও চাপের মধ্যে মানসিক শান্তি খুঁজে পাওয়া একটি বড় চ্যালেঞ্জ। ধ্যান বা মেডিটেশন এমন একটি প্রাচীন পদ্ধতি যা আমাদের মনকে শান্ত করতে এবং
+                                        অভ্যন্তরীণ
+                                        প্রশান্তি ফিরিয়ে আনতে সাহায্য করে। প্রতিদিন অল্প সময় ব্যয় করে ধ্যানের মাধ্যমে আপনি আপনার জীবনকে আরও সুন্দর ও ভারসাম্যপূর্ণ করে তুলতে পারেন।</p>
+
+                                    <h2>১. সঠিক স্থান ও সময় নির্বাচন করুন</h2>
+                                    <p>ধ্যানের জন্য একটি শান্ত ও নিরিবিলি জায়গা বেছে নিন যেখানে আপনাকে কেউ বিরক্ত করবে না। সকালের প্রথম প্রহর বা রাতের ঘুমের আগে সময়টি ধ্যানের জন্য সবচেয়ে উপযুক্ত।
+                                    </p>
+
+                                    <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=1973" class="img-fluid" alt="Yoga Pose">
+                                    <figcaption>যোগা এবং ধ্যান একে অপরের পরিপূরক।</figcaption>
+
+                                    <h2>২. আরামদায়কভাবে বসুন</h2>
+                                    <p>চেয়ারে বা মাটিতে, যেভাবে আরামদায়ক মনে হয়, সেভাবে মেরুদণ্ড সোজা করে বসুন। শরীরকে শিথিল রাখুন এবং চোখ বন্ধ করুন।</p>
+
+                                    <blockquote>"মনকে নিয়ন্ত্রণ করার শ্রেষ্ঠ উপায় হলো এটিকে ধ্যানের মাধ্যমে স্থির করা। যা মনকে জয় করতে পারে, সে নিজেকে জয় করতে পারে।"</blockquote>
+
+                                    <h3>৩. শ্বাসের উপর মনোযোগ দিন</h3>
+                                    <ul>
+                                        <li>ধীরে ধীরে গভীর শ্বাস নিন এবং ছাড়ুন।</li>
+                                        <li>প্রতিটি শ্বাস-প্রশ্বাসের উপর সম্পূর্ণ মনোযোগ দিন।</li>
+                                        <li>মন বিক্ষিপ্ত হলে আবার আলতো করে শ্বাসের দিকে ফিরিয়ে আনুন।</li>
+                                    </ul>
+                                </div>
+
+                                <!-- 3 & 4. Tags and Social Share -->
+                                <footer class="tags-and-share d-md-flex justify-content-between align-items-center" data-aos="fade-up">
+                                    <div class="tag-list">
+                                        <a href="#">Meditation</a>
+                                        <a href="#">Peace</a>
+                                        <a href="#">Spirituality</a>
+                                    </div>
+                                    <div class="social-share-icons d-flex gap-3 mt-3 mt-md-0">
+                                        <span class="align-self-center">Share:</span>
+                                        <a href="#"><i class="bi bi-facebook"></i></a>
+                                        <a href="#"><i class="bi bi-twitter-x"></i></a>
+                                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                                        <a href="#"><i class="bi bi-whatsapp"></i></a>
+                                    </div>
+                                </footer>
+                            </article>
+
+                            <!-- 5. Author Box -->
+                            <div class="section-card author-box" data-aos="fade-up">
+                                <div class="d-flex align-items-center">
+                                    <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="Author" class="me-4 d-none d-md-block">
+                                    <div>
+                                        <h5 class="mb-1">Moitroy</h5>
+                                        <p class="text-medium mb-0">Moitroy is a spiritual enthusiast and meditation practitioner with over 10 years of experience in guiding individuals towards mental
+                                            peace and self-discovery.</p>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 6. Comment Section -->
+                            <!-- 6. Comment Section -->
+                            <div class="section-card" data-aos="fade-up">
+                                <h3 class="section-title">Leave a Comment</h3>
+                                <form id="comment-form" class="mb-5">
+                                    <div class="d-flex align-items-start">
+                                        <img src="https://i.pravatar.cc/150?u=guest" alt="Your Avatar" class="comment-avatar me-3">
+                                        <div class="w-100">
+                                            <textarea class="form-control" id="comment-text" rows="3" placeholder="Write your thoughts..." required></textarea>
+                                            <button type="submit" class="btn btn-submit-comment mt-2">Post Comment</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <div class="comment-list">
+                                    <h4 class="mb-3">Comments (3)</h4>
+
+                                    <!-- Comment Thread 1 (With a Reply) -->
+                                    <div class="comment-thread">
+                                        <div class="comment-item">
+                                            <img src="https://i.pravatar.cc/150?u=sumit" alt="Sumit Sharma" class="comment-avatar">
+                                            <div class="comment-content">
+                                                <div class="comment-header">
+                                                    <span class="comment-author-name">Sumit Sharma</span>
+                                                    <span class="comment-time">2 hours ago</span>
+                                                </div>
+                                                <div class="comment-body">
+                                                    <p>Very insightful article. Thank you for sharing these simple yet powerful techniques.</p>
+                                                </div>
+                                                <div class="comment-actions">
+                                                    <button class="btn-love"><i class="bi bi-heart"></i> Love <span class="love-count">12</span></button>
+                                                    <button class="btn-reply"><i class="bi bi-reply-fill"></i> Reply</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Replies to Comment 1 -->
+                                        <div class="comment-replies">
+                                            <div class="comment-thread reply-thread">
+                                                <div class="comment-item reply-item">
+                                                    <img src="https://i.pravatar.cc/150?u=akfteam" alt="AKF Team" class="comment-avatar">
+                                                    <div class="comment-content">
+                                                        <div class="comment-header">
+                                                            <span class="comment-author-name">AKF Team</span>
+                                                            <span class="comment-time">1 hour ago</span>
+                                                        </div>
+                                                        <div class="comment-body">
+                                                            <p class="replying-to"><i class="bi bi-arrow-return-right"></i> Replying to Sumit Sharma</p>
+                                                            <p>Thank you for your kind words, Sumit! We are glad you found it helpful.</p>
+                                                        </div>
+                                                        <div class="comment-actions">
+                                                            <button class="btn-love loved"><i class="bi bi-heart-fill"></i> Love <span class="love-count">6</span></button>
+                                                            <button class="btn-reply"><i class="bi bi-reply-fill"></i> Reply</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Nested Reply Form Container (Hidden by default) -->
+                                                <div class="reply-form-container"></div>
+                                            </div>
+                                        </div>
+                                        <!-- Reply Form Container (Hidden by default) -->
+                                        <div class="reply-form-container"></div>
+                                    </div>
+
+                                    <!-- Comment Thread 2 (No Replies) -->
+                                    <div class="comment-thread">
+                                        <div class="comment-item">
+                                            <img src="https://i.pravatar.cc/150?u=anika" alt="Anika Rahman" class="comment-avatar">
+                                            <div class="comment-content">
+                                                <div class="comment-header">
+                                                    <span class="comment-author-name">Anika Rahman</span>
+                                                    <span class="comment-time">5 hours ago</span>
+                                                </div>
+                                                <div class="comment-body">
+                                                    <p>This is exactly what I needed to read today. The blockquote is very inspiring!</p>
+                                                </div>
+                                                <div class="comment-actions">
+                                                    <button class="btn-love"><i class="bi bi-heart"></i> Love <span class="love-count">9</span></button>
+                                                    <button class="btn-reply"><i class="bi bi-reply-fill"></i> Reply</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Reply Form Container (Hidden by default) -->
+                                        <div class="reply-form-container"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 7. Related Posts Section -->
+                    <section id="related-posts-section" class="mt-4" data-aos="fade-up">
+                        <div class="container">
+                            <h2 class="section-title text-center mb-5">You Might Also Like</h2>
+                            <div class="row g-4">
+                                <div class="col-md-6 col-lg-4">
+                                    <a href="#" class="related-post-card">
+                                        <img src="https://images.unsplash.com/photo-1508997449629-392097a87693?q=80&w=2070" class="card-img-top" alt="Related Post">
+                                        <div class="card-body">
+                                            <h5 class="card-title">যোগা এবং আধ্যাত্মিকতার মধ্যে সম্পর্ক</h5>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-md-6 col-lg-4">
+                                    <a href="#" class="related-post-card">
+                                        <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=1973" class="card-img-top" alt="Related Post">
+                                        <div class="card-body">
+                                            <h5 class="card-title">বেদের চারটি প্রধান ভাগ ও তাদের তাৎপর্য</h5>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-md-6 col-lg-4">
+                                    <a href="#" class="related-post-card">
+                                        <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=2070" class="card-img-top" alt="Related Post">
+                                        <div class="card-body">
+                                            <h5 class="card-title">নতুন কমিউনিটি সেন্টারের কার্যক্রম</h5>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+        </main>
+        <!-- Reusing the same mobile nav and footer -->
+        <nav class="bottom-nav">
+            <a href="index.html" class="bottom-nav__item"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
+            <a href="events.html" class="bottom-nav__item"><i class="bi bi-calendar-event-fill"></i><span>Events</span></a>
+            <a href="course.html" class="bottom-nav__item active"><i class="bi bi-journal-bookmark-fill"></i><span>Courses</span></a>
+            <a href="shop.html" class="bottom-nav__item "><i class="bi bi-cart-fill"></i><span>Shop</span></a>
+            <a href="#blog" class="bottom-nav__item"><i class="bi bi-chat-square-text-fill"></i><span>Blog</span></a>
+            <a href="#donate" class="bottom-nav__item"><i class="bi bi-heart-fill"></i><span>Donate</span></a>
+        </nav>
+
+
+
+        <!-- Footer -->
+        <!-- ============================================= -->
+        <!-- Footer Section                                -->
+        <!-- ============================================= -->
+        <footer id="footer" class="site-footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <!-- Column 1: Brand & Tagline -->
+                    <div class="footer-column">
+                        <h3 class="footer-brand">AKF</h3>
+                        <p class="footer-tagline">A sanctuary for peace, wisdom, and connection in the digital age.</p>
+                    </div>
+
+                    <!-- Column 2: Quick Links -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Quick Links</h5>
+                        <ul class="footer-links">
+                            <li><a href="#hero">Home</a></li>
+                            <li><a href="#introduction">About Us</a></li>
+                            <li><a href="#courses">Courses</a></li>
+                            <li><a href="#blog">Blog</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 3: Support -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Support</h5>
+                        <ul class="footer-links">
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#donate">Donate</a></li>
+                            <li><a href="#">Community Guidelines</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 4: Follow Us -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Follow Us</h5>
+                        <div class="social-icons">
+                            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                            <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>© 2024 AKF. All Rights Reserved.</p>
+                    <div class="footer-legal-links">
+                        <a href="#">Privacy Policy</a>
+                        <span>•</span>
+                        <a href="#">Terms of Service Sammo</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Scripts -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <!-- AOS.js for Scroll Animations -->
+
+        <!-- Swiper.js JS -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script src="js/script.js"></script>
+        <script>
+            $(document).ready(function () {
+                // Initialize AOS
+                AOS.init({
+                    duration: 900,
+                    once: true,
+                    offset: 80,
+                    easing: 'ease-in-out',
+                });
+
+                // --- ENHANCED & FIXED COMMENT SECTION LOGIC ---
+
+                // 1. Main Comment Form Submission
+                $('#comment-form').on('submit', function (e) {
+                    e.preventDefault();
+                    let commentText = $('#comment-text').val().trim();
+                    if (!commentText) {
+                        alert("Please write a comment before submitting.");
+                        return;
+                    }
+
+                    const uniqueId = `thread-${new Date().getTime()}`; // Generate a unique ID for the new thread
+
+                    const newCommentHtml = `
+            <div class="comment-thread" id="${uniqueId}" style="display:none;">
+                <div class="comment-item">
+                    <img src="https://i.pravatar.cc/150?u=${uniqueId}" alt="Guest User" class="comment-avatar">
+                    <div class="comment-content">
+                        <div class="comment-header">
+                            <span class="comment-author-name">Guest User</span>
+                            <span class="comment-time">Just now</span>
+                        </div>
+                        <div class="comment-body">
+                            <p>${$('<div/>').text(commentText).html()}</p>
+                        </div>
+                        <div class="comment-actions">
+                            <button class="btn-love"><i class="bi bi-heart"></i> Love <span class="love-count">0</span></button>
+                            <button class="btn-reply"><i class="bi bi-reply-fill"></i> Reply</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="reply-form-container"></div>
+            </div>`;
+
+                    $(newCommentHtml).appendTo('.comment-list').slideDown();
+                    $(this)[0].reset();
+                });
+
+                // Use event delegation for dynamically added elements
+                $('.comment-list').on('click', '.btn-love', function () {
+                    const $this = $(this);
+                    const $loveIcon = $this.find('i');
+                    const $loveCountSpan = $this.find('.love-count');
+                    let count = parseInt($loveCountSpan.text());
+
+                    $this.toggleClass('loved');
+
+                    if ($this.hasClass('loved')) {
+                        $loveIcon.removeClass('bi-heart').addClass('bi-heart-fill');
+                        $loveCountSpan.text(count + 1);
+                    } else {
+                        $loveIcon.removeClass('bi-heart-fill').addClass('bi-heart');
+                        $loveCountSpan.text(count - 1);
+                    }
+                });
+
+                // 2. FIXED Reply Button Click Logic
+                $('.comment-list').on('click', '.btn-reply', function () {
+                    const $thisButton = $(this);
+                    const $parentCommentItem = $thisButton.closest('.comment-item');
+                    const $replyFormContainer = $parentCommentItem.siblings('.reply-form-container');
+                    const authorToReply = $parentCommentItem.find('.comment-author-name').first().text();
+
+                    // Close all OTHER reply forms before opening/toggling the new one
+                    $('.reply-form-container').not($replyFormContainer).slideUp(function () {
+                        $(this).empty(); // Remove form from other containers to reset them
+                    });
+
+                    // Toggle or create the form for the CURRENT target
+                    if ($replyFormContainer.children().length > 0) {
+                        $replyFormContainer.slideToggle(300);
+                    } else {
+                        const replyFormHtml = `
+                <form class="reply-form mt-3">
+                    <div class="d-flex align-items-start">
+                        <img src="https://i.pravatar.cc/150?u=guest" alt="Your Avatar" class="comment-avatar me-3" style="width:35px; height:35px;">
+                        <div class="w-100">
+                             <textarea class="form-control form-control-sm" rows="2" placeholder="Replying to ${authorToReply}..." required></textarea>
+                             <button type="submit" class="btn btn-sm btn-submit-comment mt-2">Post Reply</button>
+                        </div>
+                    </div>
+                </form>`;
+                        $replyFormContainer.html(replyFormHtml).slideDown(300);
+                        $replyFormContainer.find('textarea').focus();
+                    }
+                });
+
+                // 3. FIXED Reply Form Submission Logic
+                $('.comment-list').on('submit', '.reply-form', function (e) {
+                    e.preventDefault();
+                    const $form = $(this);
+                    const $textarea = $form.find('textarea');
+                    const replyText = $textarea.val().trim();
+                    if (!replyText) return;
+
+                    // Correctly find the parent thread and its replies container
+                    const $parentThread = $form.closest('.comment-thread');
+                    const authorToReply = $parentThread.find('.comment-author-name').first().text();
+                    let $repliesContainer = $parentThread.children('.comment-replies');
+
+                    // If a replies container doesn't exist yet for this thread, create it
+                    if ($repliesContainer.length === 0) {
+                        $repliesContainer = $('<div class="comment-replies"></div>').appendTo($parentThread);
+                    }
+
+                    const uniqueId = `thread-${new Date().getTime()}`; // Unique ID for the new reply thread
+
+                    const newReplyHtml = `
+            <div class="comment-thread reply-thread" id="${uniqueId}" style="display:none;">
+                <div class="comment-item reply-item">
+                    <img src="https://i.pravatar.cc/150?u=${uniqueId}" alt="Guest User" class="comment-avatar">
+                    <div class="comment-content">
+                        <div class="comment-header">
+                            <span class="comment-author-name">Guest User</span>
+                            <span class="comment-time">Just now</span>
+                        </div>
+                        <div class="comment-body">
+                            <p class="replying-to"><i class="bi bi-arrow-return-right"></i> Replying to ${authorToReply}</p>
+                            <p>${$('<div/>').text(replyText).html()}</p>
+                        </div>
+                        <div class="comment-actions">
+                            <button class="btn-love"><i class="bi bi-heart"></i> Love <span class="love-count">0</span></button>
+                            <button class="btn-reply"><i class="bi bi-reply-fill"></i> Reply</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="reply-form-container"></div>
+            </div>`;
+
+                    $(newReplyHtml).appendTo($repliesContainer).slideDown();
+
+                    // Remove the form after submitting
+                    $form.parent().slideUp(function () {
+                        $(this).empty();
+                    });
+                });
+            });
+
+        </script>
+    </body>
+
+</html>
