@@ -41,20 +41,20 @@ function initHomePage($) {
         const $bottomNavItems = $('.bottom-nav__item');
         const observerOptions = { root: null, rootMargin: '0px', threshold: 0.4 };
 
-        const scrollObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const sectionId = $(entry.target).attr('id');
-                    const activeLinkSelector = `a[href="#${sectionId}"]`;
+        // const scrollObserver = new IntersectionObserver((entries) => {
+        //     entries.forEach(entry => {
+        //         if (entry.isIntersecting) {
+        //             const sectionId = $(entry.target).attr('id');
+        //             const activeLinkSelector = `a[href="#${sectionId}"]`;
 
-                    $desktopNavLinks.removeClass('active');
-                    $desktopNavLinks.filter(activeLinkSelector).addClass('active');
+        //             $desktopNavLinks.removeClass('active');
+        //             $desktopNavLinks.filter(activeLinkSelector).addClass('active');
 
-                    $bottomNavItems.removeClass('active');
-                    $bottomNavItems.filter(activeLinkSelector).addClass('active');
-                }
-            });
-        }, observerOptions);
+        //             $bottomNavItems.removeClass('active');
+        //             $bottomNavItems.filter(activeLinkSelector).addClass('active');
+        //         }
+        //     });
+        // }, observerOptions);
 
         $sections.each(function () {
             if ($(this).attr('id')) {
