@@ -16,7 +16,6 @@
  * Initializes functionalities for the Home Page.
  */
 
-
 /**
  * Initializes functionalities for the Events Page.
  * (Countdown, Filtering, and Calendar)
