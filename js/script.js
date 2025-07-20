@@ -19,6 +19,7 @@ function initHomePage($) {
     console.log("Initializing Home Page scripts (jQuery)...");
 
     const $loader = $('#loader');
+    const $mainContent = $('#main-content');
     if ($loader.length) {
         const sound = new Howl({
             src: ['audio/om.mp3'],
@@ -31,16 +32,15 @@ function initHomePage($) {
         });
         $(window).on('load', () => {
             sound.play();
-            setTimeout(() => $loader.addClass('hidden'), 3000);
+            setTimeout(() => {
+                $loader.addClass('hidden');
+                $mainContent.addClass('visible');
+            }, 3000);
         });
     }
 
-    // ===============================
-    // Add active class to nav based on URL for initial load (home page)
-    // ===============================
+    // বাকি কোড অপরিবর্তিত
     const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-
-    // Topbar Desktop Nav
     $('.topbar__nav--desktop a').each(function () {
         const href = $(this).attr('href');
         if (href === currentPath || (currentPath === '' && href === 'index.html')) {
@@ -50,7 +50,6 @@ function initHomePage($) {
         }
     });
 
-    // Bottom Nav
     $('.bottom-nav__item').each(function () {
         const href = $(this).attr('href');
         if (href === currentPath || (currentPath === '' && href === 'index.html')) {
@@ -60,9 +59,6 @@ function initHomePage($) {
         }
     });
 
-    // ===============================
-    // Existing IntersectionObserver for scroll-based active nav update
-    // ===============================
     const $sections = $('.page-section');
     if ($sections.length) {
         const $desktopNavLinks = $('.topbar__nav--desktop a');
@@ -73,7 +69,7 @@ function initHomePage($) {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const sectionId = $(entry.target).attr('id');
-                    const activeLinkSelector = `a[href="#${sectionId}"]`;
+                    const activeLinkSelector = `a[href="#${sectionId}"], a[href="${currentPath}#${sectionId}"]`;
 
                     $desktopNavLinks.removeClass('active');
                     $desktopNavLinks.filter(activeLinkSelector).addClass('active');
@@ -91,7 +87,6 @@ function initHomePage($) {
         });
     }
 }
-
 
 /**
  * Initializes functionalities for the Events Page.
