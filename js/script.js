@@ -31,7 +31,7 @@ function initHomePage($) {
         });
         $(window).on('load', () => {
             sound.play();
-            setTimeout(() => $loader.addClass('hidden'), 3500);
+            setTimeout(() => $loader.addClass('hidden'), 3000);
         });
     }
 
