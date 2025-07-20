@@ -40,16 +40,79 @@
                         <a href="about.html">About Us</a>
                         <a href="events.html" class="active">Events</a>
                         <a href="course.html">Courses</a>
-                        <a href="#blog">Blog</a>
+                        <a href="shop.html">Shop</a>
+                        <a href="blog.html">Blog</a>
                         <a href="#donate">Donate</a>
                     </nav>
                     <div class="topbar__actions">
-                        <!-- ALL ITEMS ARE NOW VISIBLE BY DEFAULT -->
-                        <a href="#" class="btn-login">Login</a>
-                        <a href="#" class="action-icon notification-bell">
-                            <i class="bi bi-bell"></i>
-                            <span class="notification-badge">3</span>
+                        <!-- Search Icon -->
+                        <div class="event-search" id="search-icon">
+                            <i class="bi bi-search"></i>
+                        </div>
+
+                        <!-- Cart -->
+                        <a href="#" class="action-icon cart-icon" id="cart-toggle">
+                            <i class="bi bi-cart3"></i>
+                            <span class="notification-badge">0</span>
                         </a>
+                        <!-- Notification Bell -->
+                        <!-- Notification Wrapper with Bootstrap Dropdown Functionality -->
+                        <div class="notification-wrapper dropdown">
+                            <!-- Bell icon acts as the dropdown toggle -->
+                            <a href="#" class="action-icon notification-bell" id="notification-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                <i class="bi bi-bell"></i>
+                                <span class="notification-badge">3</span>
+                            </a>
+
+                            <!-- Dropdown menu with responsive enhancements -->
+                            <div class="notification-dropdown dropdown-menu dropdown-menu-dark dropdown-menu-end" id="notification-dropdown" style="min-width: 340px;">
+                                <div class="notification-header">
+                                    <h4>Notifications</h4>
+                                    <button class="mark-all-read">Mark all as read</button>
+                                </div>
+                                <!-- Scrollable list for mobile -->
+                                <div class="notification-list" style="max-height: 70vh; overflow-y: auto;">
+                                    <!-- Notification Item 1 -->
+                                    <a href="#" class="notification-item unread">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">Your class on <strong>Module 17</strong> has started.</p>
+                                            <small class="notification-meta">12 hours ago • Full Stack Web Development</small>
+                                        </div>
+                                    </a>
+                                    <!-- Notification Item 2 -->
+                                    <a href="#" class="notification-item unread">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">Your class will start at 12:00 PM</p>
+                                            <small class="notification-meta"><span class="live-badge-small">LIVE</span> 10 hours ago • Full Stack Web Development</small>
+                                        </div>
+                                    </a>
+                                    <!-- Notification Item 3 -->
+                                    <a href="#" class="notification-item">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">Your assignment has been graded.</p>
+                                            <small class="notification-meta">1 day ago • Veda Education</small>
+                                        </div>
+                                    </a>
+                                    <!-- Add more notifications here to test scrolling -->
+                                    <a href="#" class="notification-item">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">A new article has been published in the blog.</p>
+                                            <small class="notification-meta">2 days ago • Insights & Articles</small>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="notification-footer">
+                                    <a href="#" class="see-all-btn">See All Notifications</a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <a href="#" class="btn-login">Login</a>
                         <a href="#" class="action-icon profile-avatar">
                             <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar">
                         </a>
@@ -57,9 +120,14 @@
                             <i class="bi bi-list"></i>
                         </button>
                     </div>
+
+                    <!-- Fullscreen Search Bar (HTML-এ এটিকে topbar__container এর শেষে রাখা ভালো) -->
+                    <div class="fullscreen-search" id="fullscreen-search">
+                        <input type="text" placeholder="Search here..." id="fullscreen-search-input" />
+                        <button class="close-search" id="close-search-btn">×</button>
+                    </div>
                 </div>
             </header>
-
             <div class="mobile-nav__overlay" id="nav-overlay"></div>
             <nav class="mobile-nav" id="mobile-nav">
                 <div class="mobile-nav__header">

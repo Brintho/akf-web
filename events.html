@@ -41,23 +41,92 @@
                         <a href="index.html">Home</a>
                         <a href="about.html">About Us</a>
                         <a href="events.html" class="active">Events</a>
-                        <a href="course.html">Courses</a>
-                        <a href="#blog">Blog</a>
+                        <a href="course.html" >Courses</a>
+                        <a href="shop.html">Shop</a>
+                        <a href="blog.html">Blog</a>
                         <a href="#donate">Donate</a>
                     </nav>
                     <div class="topbar__actions">
-                        <!-- ALL ITEMS ARE NOW VISIBLE BY DEFAULT -->
-                        <a href="#" class="btn-login">Login</a>
-                        <a href="#" class="action-icon notification-bell">
-                            <i class="bi bi-bell"></i>
-                            <span class="notification-badge">3</span>
+                        <!-- Search Icon -->
+                        <div class="event-search" id="search-icon">
+                            <i class="bi bi-search"></i>
+                        </div>
+
+                        <!-- Cart -->
+                        <a href="#" class="action-icon cart-icon" id="cart-toggle">
+                            <i class="bi bi-cart3"></i>
+                            <span class="notification-badge">0</span>
                         </a>
+                        <!-- Notification Bell -->
+                        <!-- Notification Wrapper with Bootstrap Dropdown Functionality -->
+                        <div class="notification-wrapper dropdown">
+                            <!-- Bell icon acts as the dropdown toggle -->
+                            <a href="#" class="action-icon notification-bell" id="notification-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                <i class="bi bi-bell"></i>
+                                <span class="notification-badge">3</span>
+                            </a>
+
+                            <!-- Dropdown menu with responsive enhancements -->
+                            <div class="notification-dropdown dropdown-menu dropdown-menu-dark dropdown-menu-end" id="notification-dropdown" style="min-width: 340px;">
+                                <div class="notification-header">
+                                    <h4>Notifications</h4>
+                                    <button class="mark-all-read">Mark all as read</button>
+                                </div>
+                                <!-- Scrollable list for mobile -->
+                                <div class="notification-list" style="max-height: 70vh; overflow-y: auto;">
+                                    <!-- Notification Item 1 -->
+                                    <a href="#" class="notification-item unread">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">Your class on <strong>Module 17</strong> has started.</p>
+                                            <small class="notification-meta">12 hours ago • Full Stack Web Development</small>
+                                        </div>
+                                    </a>
+                                    <!-- Notification Item 2 -->
+                                    <a href="#" class="notification-item unread">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">Your class will start at 12:00 PM</p>
+                                            <small class="notification-meta"><span class="live-badge-small">LIVE</span> 10 hours ago • Full Stack Web Development</small>
+                                        </div>
+                                    </a>
+                                    <!-- Notification Item 3 -->
+                                    <a href="#" class="notification-item">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">Your assignment has been graded.</p>
+                                            <small class="notification-meta">1 day ago • Veda Education</small>
+                                        </div>
+                                    </a>
+                                    <!-- Add more notifications here to test scrolling -->
+                                    <a href="#" class="notification-item">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">A new article has been published in the blog.</p>
+                                            <small class="notification-meta">2 days ago • Insights & Articles</small>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="notification-footer">
+                                    <a href="#" class="see-all-btn">See All Notifications</a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <a href="#" class="btn-login">Login</a>
                         <a href="#" class="action-icon profile-avatar">
                             <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar">
                         </a>
                         <button class="hamburger-menu" id="hamburger-toggle" aria-label="Toggle Menu">
                             <i class="bi bi-list"></i>
                         </button>
+                    </div>
+
+                    <!-- Fullscreen Search Bar (HTML-এ এটিকে topbar__container এর শেষে রাখা ভালো) -->
+                    <div class="fullscreen-search" id="fullscreen-search">
+                        <input type="text" placeholder="Search here..." id="fullscreen-search-input" />
+                        <button class="close-search" id="close-search-btn">×</button>
                     </div>
                 </div>
             </header>
@@ -129,7 +198,7 @@
             </section>
 
             <!-- ✦ Section 2: Event List -->
-            <section id="events-list" class="page-section">
+            <section id="events-list" class="page-section ">
                 <div class="container">
                     <h2 class="section-title" data-aos="fade-up">Upcoming Activities</h2>
 
@@ -141,10 +210,7 @@
                             <button class="filter-btn" data-filter="seminar">Seminar</button>
                             <button class="filter-btn" data-filter="live">Live Event</button>
                         </div>
-                        <div class="event-search">
-                            <i class="bi bi-search"></i>
-                            <input type="text" id="event-search-input" placeholder="Search events...">
-                        </div>
+
                     </div>
 
                     <!-- Event Grid -->
@@ -208,7 +274,8 @@
                     <h2 class="section-title" data-aos="fade-up">📅 Event Calendar</h2>
                     <div class="calendar-controls" data-aos="fade-up" data-aos-delay="100">
                         <div class="calendar-filter-wrapper">
-                            <label for="event-type-filter">Filter by Type:</label>
+                            <!-- Label is now properly associated with the select -->
+                            <label for="event-type-filter" class="filter-label">Filter by Type:</label>
                             <select id="event-type-filter" class="calendar-filter">
                                 <option value="all">All Events</option>
                                 <option value="workshop">Workshop</option>
@@ -219,9 +286,9 @@
                     </div>
                     <div class="calendar-wrapper" data-aos="fade-up" data-aos-delay="200">
                         <div class="calendar-header">
-                            <button id="prev-month" class="cal-nav"><i class="bi bi-chevron-left"></i></button>
+                            <button id="prev-month" class="cal-nav" aria-label="Previous Month"><i class="bi bi-chevron-left"></i></button>
                             <h3 id="month-year"></h3>
-                            <button id="next-month" class="cal-nav"><i class="bi bi-chevron-right"></i></button>
+                            <button id="next-month" class="cal-nav" aria-label="Next Month"><i class="bi bi-chevron-right"></i></button>
                         </div>
                         <div class="calendar-body">
                             <div class="weekdays">
@@ -234,13 +301,12 @@
                                 <div>Sat</div>
                             </div>
                             <div class="days" id="calendar-days">
-                                <!-- Days will be generated by JS -->
+                                <!-- Calendar days will be dynamically generated by JavaScript -->
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-
 
             <!-- 📱 Mobile Bottom Navigation -->
             <nav class="bottom-nav">
@@ -311,7 +377,9 @@
             </footer>
 
             <!-- Scripts -->
-            <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+            <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
             <!-- Scripts -->
             <!-- Howler.js for Audio -->
             <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>

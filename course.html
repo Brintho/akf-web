@@ -26,25 +26,10 @@
 
         <link rel="stylesheet" href="css/style.css">
 
-
-
-
-
-
-
-
-
-
-
     </head>
 
     <body class="">
-        <!-- Add 'logged-in' to test profile icon -->
-
         <!-- Consistent Header, same as other pages -->
-
-
-
         <main id="main-content">
             <header class="topbar">
                 <div class="topbar__container">
@@ -59,33 +44,91 @@
                         <a href="events.html">Events</a>
                         <a href="course.html" class="active">Courses</a>
                         <a href="shop.html">Shop</a>
-                        <a href="#blog">Blog</a>
+                        <a href="blog.html">Blog</a>
                         <a href="#donate">Donate</a>
                     </nav>
                     <div class="topbar__actions">
-                        <!-- Search -->
-                        <div class="event-search">
+                        <!-- Search Icon -->
+                        <div class="event-search" id="search-icon">
                             <i class="bi bi-search"></i>
-                            <input type="text" id="event-search-input" placeholder="Search events...">
                         </div>
+
                         <!-- Cart -->
                         <a href="#" class="action-icon cart-icon" id="cart-toggle">
                             <i class="bi bi-cart3"></i>
                             <span class="notification-badge">0</span>
                         </a>
+                        <!-- Notification Bell -->
+                        <!-- Notification Wrapper with Bootstrap Dropdown Functionality -->
+                        <div class="notification-wrapper dropdown">
+                            <!-- Bell icon acts as the dropdown toggle -->
+                            <a href="#" class="action-icon notification-bell" id="notification-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                <i class="bi bi-bell"></i>
+                                <span class="notification-badge">3</span>
+                            </a>
 
-                        <a href="#" class="action-icon notification-bell">
-                            <i class="bi bi-bell"></i>
-                            <span class="notification-badge">3</span>
-                        </a>
+                            <!-- Dropdown menu with responsive enhancements -->
+                            <div class="notification-dropdown dropdown-menu dropdown-menu-dark dropdown-menu-end" id="notification-dropdown" style="min-width: 340px;">
+                                <div class="notification-header">
+                                    <h4>Notifications</h4>
+                                    <button class="mark-all-read">Mark all as read</button>
+                                </div>
+                                <!-- Scrollable list for mobile -->
+                                <div class="notification-list" style="max-height: 70vh; overflow-y: auto;">
+                                    <!-- Notification Item 1 -->
+                                    <a href="#" class="notification-item unread">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">Your class on <strong>Module 17</strong> has started.</p>
+                                            <small class="notification-meta">12 hours ago • Full Stack Web Development</small>
+                                        </div>
+                                    </a>
+                                    <!-- Notification Item 2 -->
+                                    <a href="#" class="notification-item unread">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">Your class will start at 12:00 PM</p>
+                                            <small class="notification-meta"><span class="live-badge-small">LIVE</span> 10 hours ago • Full Stack Web Development</small>
+                                        </div>
+                                    </a>
+                                    <!-- Notification Item 3 -->
+                                    <a href="#" class="notification-item">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">Your assignment has been graded.</p>
+                                            <small class="notification-meta">1 day ago • Veda Education</small>
+                                        </div>
+                                    </a>
+                                    <!-- Add more notifications here to test scrolling -->
+                                    <a href="#" class="notification-item">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">A new article has been published in the blog.</p>
+                                            <small class="notification-meta">2 days ago • Insights & Articles</small>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="notification-footer">
+                                    <a href="#" class="see-all-btn">See All Notifications</a>
+                                </div>
+                            </div>
+                        </div>
+
+
                         <a href="#" class="btn-login">Login</a>
-
+                        <a href="#" class="action-icon profile-avatar">
+                            <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar">
+                        </a>
                         <button class="hamburger-menu" id="hamburger-toggle" aria-label="Toggle Menu">
                             <i class="bi bi-list"></i>
                         </button>
                     </div>
 
-
+                    <!-- Fullscreen Search Bar (HTML-এ এটিকে topbar__container এর শেষে রাখা ভালো) -->
+                    <div class="fullscreen-search" id="fullscreen-search">
+                        <input type="text" placeholder="Search here..." id="fullscreen-search-input" />
+                        <button class="close-search" id="close-search-btn">×</button>
+                    </div>
                 </div>
             </header>
 
@@ -140,52 +183,41 @@
                         <i class="bi bi-broadcast"></i> Upcoming Live Courses
                     </h2>
                     <!-- Course Filtering Tabs -->
-                    <div class="course-tabs" data-aos="fade-up" data-aos-delay="100">
-                        <button class="tab-btn active" data-filter="all">All</button>
-                        <button class="tab-btn" data-filter="web-dev">Sanskrit Education</button>
-                        <button class="tab-btn" data-filter="design">Veda Education</button>
-                        <button class="tab-btn" data-filter="testing">General Education</button>
+                    <!-- Course Filtering Tabs (Now as a Swiper Slider) -->
+                    <div class="course-tabs-slider-wrapper" data-aos="fade-up" data-aos-delay="100">
+                        <!-- Swiper container -->
+                        <div class="swiper course-tabs-swiper">
+                            <div class="swiper-wrapper">
+                                <!-- Each button is now a swiper-slide -->
+                                <div class="swiper-slide">
+                                    <button class="tab-btn active" data-filter="all">All</button>
+                                </div>
+                                <div class="swiper-slide">
+                                    <button class="tab-btn" data-filter="web-dev">Sanskrit Education</button>
+                                </div>
+                                <div class="swiper-slide">
+                                    <button class="tab-btn" data-filter="design">Veda Education</button>
+                                </div>
+                                <div class="swiper-slide">
+                                    <button class="tab-btn" data-filter="testing">General Education</button>
+                                </div>
+                                <!-- আপনি চাইলে এখানে আরও বাটন যোগ করতে পারেন -->
+                                <div class="swiper-slide">
+                                    <button class="tab-btn" data-filter="another-cat">Another Category</button>
+                                </div>
+                                <div class="swiper-slide">
+                                    <button class="tab-btn" data-filter="new-cat">New Category</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Optional: Navigation buttons for larger screens -->
+                        <div class="swiper-button-next course-tab-next"></div>
+                        <div class="swiper-button-prev course-tab-prev"></div>
                     </div>
                     <div class="courses-grid">
                         <!-- Card 1 -->
-                        <a href="course_details.html" class="course-card aos-init aos-animate" data-aos="fade-up" data-category="web-dev" style="display: flex;">
-                            <div class="card-thumbnail">
-                                <img src="images/course/unnamed.jpg" alt="MERN Stack">
-                                <span class="live-badge">LIVE</span>
-                            </div>
-                            <div class="card-body">
-                                <h3 class="card-title">Full Stack Web with JavaScript (MERN)</h3>
-                                <p class="card-description">Master the MERN stack and build powerful, real-world web applications from scratch.</p>
-                            </div>
-                            <div class="card-footer"><span>See details <i class="bi bi-arrow-right"></i></span></div>
-                        </a>
-                        <a href="course_details.html" class="course-card aos-init aos-animate" data-aos="fade-up" data-category="web-dev" style="display: flex;">
-                            <div class="card-thumbnail">
-                                <img src="images/course/unnamed.jpg" alt="MERN Stack">
-                                <span class="live-badge">LIVE</span>
-                            </div>
-                            <div class="card-body">
-                                <h3 class="card-title">Full Stack Web with JavaScript (MERN)</h3>
-                                <p class="card-description">Master the MERN stack and build powerful, real-world web applications from scratch.</p>
-                            </div>
-                            <div class="card-footer"><span>See details <i class="bi bi-arrow-right"></i></span></div>
-                        </a>
-                        <a href="course_details.html" class="course-card aos-init aos-animate" data-aos="fade-up" data-category="web-dev" style="display: flex;">
-                            <div class="card-thumbnail">
-                                <img src="images/course/unnamed.jpg" alt="MERN Stack">
-                                <span class="live-badge">LIVE</span>
-                            </div>
-                            <div class="card-body">
-                                <h3 class="card-title">Full Stack Web with JavaScript (MERN)</h3>
-                                <p class="card-description">Master the MERN stack and build powerful, real-world web applications from scratch.</p>
-                            </div>
-                            <div class="card-footer"><span>See details <i class="bi bi-arrow-right"></i></span></div>
-                        </a>
-                        <a href="course_details.html" class="course-card aos-init aos-animate" data-aos="fade-up" data-category="web-dev" style="display: flex;">
-                            <div class="card-thumbnail">
-                                <img src="images/course/unnamed.jpg" alt="MERN Stack">
-                                <span class="live-badge">LIVE</span>
-                            </div>
+                        <a href="course_details.html" class="course-card" data-aos="fade-up" data-category="web-dev">
+                            <div class="card-thumbnail"><img src="images/course/unnamed.jpg" alt="Sanskrit Course"><span class="live-badge">LIVE</span></div>
                             <div class="card-body">
                                 <h3 class="card-title">Full Stack Web with JavaScript (MERN)</h3>
                                 <p class="card-description">Master the MERN stack and build powerful, real-world web applications from scratch.</p>
@@ -193,33 +225,8 @@
                             <div class="card-footer"><span>See details <i class="bi bi-arrow-right"></i></span></div>
                         </a>
                         <!-- Card 2 -->
-                        <a href="course_details.html" class="course-card aos-init aos-animate" data-aos="fade-up" data-delay="100" data-category="testing" style="display: flex;">
-                            <div class="card-thumbnail">
-                                <img src="images/course/Veda-Vyasa-e1514534326733.jpg" alt="SQA Testing">
-                                <span class="live-badge">LIVE</span>
-                            </div>
-                            <div class="card-body">
-                                <h3 class="card-title">SQA: Manual & Automated Testing</h3>
-                                <p class="card-description">Become a skilled Software Quality Assurance engineer with in-demand testing skills.</p>
-                            </div>
-                            <div class="card-footer"><span>See details <i class="bi bi-arrow-right"></i></span></div>
-                        </a>
-                        <a href="course_details.html" class="course-card aos-init aos-animate" data-aos="fade-up" data-delay="100" data-category="testing" style="display: flex;">
-                            <div class="card-thumbnail">
-                                <img src="images/course/Veda-Vyasa-e1514534326733.jpg" alt="SQA Testing">
-                                <span class="live-badge">LIVE</span>
-                            </div>
-                            <div class="card-body">
-                                <h3 class="card-title">SQA: Manual & Automated Testing</h3>
-                                <p class="card-description">Become a skilled Software Quality Assurance engineer with in-demand testing skills.</p>
-                            </div>
-                            <div class="card-footer"><span>See details <i class="bi bi-arrow-right"></i></span></div>
-                        </a>
-                        <a href="course_details.html" class="course-card aos-init aos-animate" data-aos="fade-up" data-delay="100" data-category="testing" style="display: flex;">
-                            <div class="card-thumbnail">
-                                <img src="images/course/Veda-Vyasa-e1514534326733.jpg" alt="SQA Testing">
-                                <span class="live-badge">LIVE</span>
-                            </div>
+                        <a href="course_details.html" class="course-card" data-aos="fade-up" data-delay="100" data-category="testing">
+                            <div class="card-thumbnail"><img src="images/course/Veda-Vyasa-e1514534326733.jpg" alt="General Education"><span class="live-badge">LIVE</span></div>
                             <div class="card-body">
                                 <h3 class="card-title">SQA: Manual & Automated Testing</h3>
                                 <p class="card-description">Become a skilled Software Quality Assurance engineer with in-demand testing skills.</p>
@@ -227,53 +234,21 @@
                             <div class="card-footer"><span>See details <i class="bi bi-arrow-right"></i></span></div>
                         </a>
                         <!-- Card 3 -->
-                        <a href="course_details.html" class="course-card aos-init aos-animate" data-aos="fade-up" data-delay="200" data-category="design" style="display: flex;">
-                            <div class="card-thumbnail">
-                                <img src="images/course/atarva-veda-01.jpg" alt="Graphic Design">
-                                <span class="live-badge">LIVE</span>
-                            </div>
+                        <a href="course_details.html" class="course-card" data-aos="fade-up" data-delay="200" data-category="design">
+                            <div class="card-thumbnail"><img src="images/course/atarva-veda-01.jpg" alt="Veda Education"><span class="live-badge">LIVE</span></div>
                             <div class="card-body">
                                 <h3 class="card-title">Freelancing with Graphic Design</h3>
                                 <p class="card-description">Your complete blueprint to start a successful freelance career in graphic design.</p>
                             </div>
                             <div class="card-footer"><span>See details <i class="bi bi-arrow-right"></i></span></div>
                         </a>
-                        <a href="course_details.html" class="course-card aos-init aos-animate" data-aos="fade-up" data-delay="200" data-category="design" style="display: flex;">
-                            <div class="card-thumbnail">
-                                <img src="images/course/atarva-veda-01.jpg" alt="Graphic Design">
-                                <span class="live-badge">LIVE</span>
-                            </div>
-                            <div class="card-body">
-                                <h3 class="card-title">Freelancing with Graphic Design</h3>
-                                <p class="card-description">Your complete blueprint to start a successful freelance career in graphic design.</p>
-                            </div>
-                            <div class="card-footer"><span>See details <i class="bi bi-arrow-right"></i></span></div>
-                        </a>
-                        <a href="course_details.html" class="course-card aos-init aos-animate" data-aos="fade-up" data-delay="200" data-category="design" style="display: flex;">
-                            <div class="card-thumbnail">
-                                <img src="images/course/atarva-veda-01.jpg" alt="Graphic Design">
-                                <span class="live-badge">LIVE</span>
-                            </div>
-                            <div class="card-body">
-                                <h3 class="card-title">Freelancing with Graphic Design</h3>
-                                <p class="card-description">Your complete blueprint to start a successful freelance career in graphic design.</p>
-                            </div>
-                            <div class="card-footer"><span>See details <i class="bi bi-arrow-right"></i></span></div>
-                        </a>
-                        <a href="course_details.html" class="course-card aos-init aos-animate" data-aos="fade-up" data-delay="200" data-category="design" style="display: flex;">
-                            <div class="card-thumbnail">
-                                <img src="images/course/atarva-veda-01.jpg" alt="Graphic Design">
-                                <span class="live-badge">LIVE</span>
-                            </div>
-                            <div class="card-body">
-                                <h3 class="card-title">Freelancing with Graphic Design</h3>
-                                <p class="card-description">Your complete blueprint to start a successful freelance career in graphic design.</p>
-                            </div>
-                            <div class="card-footer"><span>See details <i class="bi bi-arrow-right"></i></span></div>
-                        </a>
+                        <!-- Add more cards with correct data-category as needed -->
                     </div>
                 </div>
             </section>
+
+            <!-- প্রয়োজনীয় CSS যোগ করুন -->
+
 
             <!-- === NEWLY ADDED SECTION === -->
             <section id="recorded-courses" class="page-section">
