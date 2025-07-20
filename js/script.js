@@ -35,6 +35,34 @@ function initHomePage($) {
         });
     }
 
+    // ===============================
+    // Add active class to nav based on URL for initial load (home page)
+    // ===============================
+    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+
+    // Topbar Desktop Nav
+    $('.topbar__nav--desktop a').each(function () {
+        const href = $(this).attr('href');
+        if (href === currentPath || (currentPath === '' && href === 'index.html')) {
+            $(this).addClass('active');
+        } else {
+            $(this).removeClass('active');
+        }
+    });
+
+    // Bottom Nav
+    $('.bottom-nav__item').each(function () {
+        const href = $(this).attr('href');
+        if (href === currentPath || (currentPath === '' && href === 'index.html')) {
+            $(this).addClass('active');
+        } else {
+            $(this).removeClass('active');
+        }
+    });
+
+    // ===============================
+    // Existing IntersectionObserver for scroll-based active nav update
+    // ===============================
     const $sections = $('.page-section');
     if ($sections.length) {
         const $desktopNavLinks = $('.topbar__nav--desktop a');
@@ -63,6 +91,7 @@ function initHomePage($) {
         });
     }
 }
+
 
 /**
  * Initializes functionalities for the Events Page.
