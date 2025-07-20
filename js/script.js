@@ -15,6 +15,78 @@
 /**
  * Initializes functionalities for the Home Page.
  */
+function initHomePage($) {
+    console.log("Initializing Home Page scripts (jQuery)...");
+
+    const $loader = $('#loader');
+    const $mainContent = $('#main-content');
+    if ($loader.length) {
+        const sound = new Howl({
+            src: ['audio/om.mp3'],
+            volume: 0.5,
+        });
+        sound.on('playerror', () => {
+            console.log('Autoplay blocked. Waiting for user interaction.');
+            const playOnFirstInteraction = () => sound.play();
+            $('body').one('click touchend', playOnFirstInteraction);
+        });
+        $(window).on('load', () => {
+            sound.play();
+            setTimeout(() => {
+                $loader.addClass('hidden');
+                $mainContent.addClass('visible');
+            }, 3000);
+        });
+    }
+
+    // বাকি কোড অপরিবর্তিত
+    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+    $('.topbar__nav--desktop a').each(function () {
+        const href = $(this).attr('href');
+        if (href === currentPath || (currentPath === '' && href === 'index.html')) {
+            $(this).addClass('active');
+        } else {
+            $(this).removeClass('active');
+        }
+    });
+
+    $('.bottom-nav__item').each(function () {
+        const href = $(this).attr('href');
+        if (href === currentPath || (currentPath === '' && href === 'index.html')) {
+            $(this).addClass('active');
+        } else {
+            $(this).removeClass('active');
+        }
+    });
+
+    const $sections = $('.page-section');
+    if ($sections.length) {
+        const $desktopNavLinks = $('.topbar__nav--desktop a');
+        const $bottomNavItems = $('.bottom-nav__item');
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.4 };
+
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const sectionId = $(entry.target).attr('id');
+                    const activeLinkSelector = `a[href="#${sectionId}"], a[href="${currentPath}#${sectionId}"]`;
+
+                    $desktopNavLinks.removeClass('active');
+                    $desktopNavLinks.filter(activeLinkSelector).addClass('active');
+
+                    $bottomNavItems.removeClass('active');
+                    $bottomNavItems.filter(activeLinkSelector).addClass('active');
+                }
+            });
+        }, observerOptions);
+
+        $sections.each(function () {
+            if ($(this).attr('id')) {
+                scrollObserver.observe(this);
+            }
+        });
+    }
+}
 
 /**
  * Initializes functionalities for the Events Page.
