@@ -1,941 +1,717 @@
- <main id="main-content">
-
-     <!-- Custom CSS for Ebook Listing Page (Light Theme) -->
-     <style>
-         :root {
-             /* আপনার থিম থেকে নেওয়া হয়েছে */
-             --color-primary-dark: #161618;
-             --color-accent-gold: #D4AF37;
-             --color-text-light: #f0f0f0;
-             --color-text-medium: #a0a0a0;
-             --glass-bg: rgba(30, 30, 30, 0.7);
-             --glass-border: 1px solid rgba(255, 255, 255, 0.1);
-             --color-accent-gold-dark: #e0a800;
-             --color-bg-light: #1a1a1d;
-             --color-secondary-dark: #1e1e1e;
-
-             --tag-red: #ff6868;
-             --tag-orange: #ffb362;
-             --tag-green: #4ade80;
-             --tag-blue: #60a5fa;
-             --tag-purple: #c084fc;
-
-             --font-primary: 'Poppins', sans-serif;
-             --font-bengali: 'Hind Siliguri', sans-serif;
-
-             --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
-             --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
-             --transition-base: all 0.3s ease;
-             --soft-transition: all 0.3s ease-in-out;
-         }
-
-         .ebook-page-content {
-             background-color: var(--color-primary-dark);
-             font-family: var(--font-primary);
-             color: var(--color-text-light);
-         }
-
-         /* Hero Section */
-         .ebook-hero {
-             background-color: var(--color-bg-light);
-             padding: 60px 0;
-             position: relative;
-             overflow: hidden;
-             border-bottom: var(--glass-border);
-         }
-
-         .ebook-hero-title {
-             font-size: clamp(2.5rem, 5vw, 3.5rem);
-             font-weight: 700;
-             color: var(--color-text-light);
-         }
-
-         .breadcrumb-item a {
-             color: var(--color-accent-gold);
-             text-decoration: none;
-         }
-
-         .breadcrumb-item.active {
-             color: var(--color-text-medium);
-         }
-
-         .hero-illustration {
-             position: absolute;
-             right: 5%;
-             top: 0;
-             max-width: 200px;
-             opacity: 0.6;
-         }
-
-         /* Filter Sidebar */
-         .filter-sidebar {
-             background: var(--glass-bg);
-             border: var(--glass-border);
-             border-radius: 16px;
-             padding: 25px;
-             backdrop-filter: blur(12px);
-         }
-
-         .filter-group-title {
-             font-size: 1.1rem;
-             font-weight: 600;
-             color: var(--color-text-light);
-             margin-bottom: 20px;
-         }
-
-         .filter-list .form-check-input {
-             display: none;
-         }
-
-         .filter-list .form-check-label {
-             color: var(--color-text-medium);
-             position: relative;
-             padding-left: 2em;
-             cursor: pointer;
-             transition: var(--soft-transition);
-         }
-
-         .filter-list .form-check-label::before {
-             content: '';
-             position: absolute;
-             left: 0;
-             top: 50%;
-             transform: translateY(-50%);
-             width: 18px;
-             height: 18px;
-             border-radius: 50%;
-             border: 2px solid var(--color-text-medium);
-             transition: var(--soft-transition);
-         }
-
-         .filter-list .form-check-label::after {
-             content: '';
-             position: absolute;
-             left: 4px;
-             top: 50%;
-             transform: translateY(-50%) scale(0);
-             width: 10px;
-             height: 10px;
-             border-radius: 50%;
-             background: var(--color-accent-gold);
-             transition: var(--soft-transition);
-         }
-
-         .filter-list .form-check-input:checked+.form-check-label {
-             color: var(--color-accent-gold);
-             font-weight: 600;
-         }
-
-         .filter-list .form-check-input:checked+.form-check-label::before {
-             border-color: var(--color-accent-gold);
-         }
-
-         .filter-list .form-check-input:checked+.form-check-label::after {
-             transform: translateY(-50%) scale(1);
-         }
-
-         .filter-list .count {
-             color: var(--color-text-medium);
-         }
-
-         .rating-filter .bi {
-             color: var(--tag-orange);
-         }
-
-         /* Search */
-         .search-ebook input {
-             background: var(--glass-bg);
-             color: var(--color-text-light);
-             border: var(--glass-border);
-             border-radius: 8px;
-             padding-left: 40px;
-         }
-
-         .search-ebook .search-icon {
-             position: absolute;
-             left: 15px;
-             top: 50%;
-             transform: translateY(-50%);
-             color: var(--color-text-medium);
-         }
-
-         /* Ebook Cards */
-         .ebook-card {
-             background: var(--glass-bg);
-             border: var(--glass-border);
-             border-radius: 16px;
-             overflow: hidden;
-             transition: var(--soft-transition);
-             box-shadow: var(--shadow-sm);
-             backdrop-filter: blur(12px);
-         }
-
-         .ebook-card:hover {
-             transform: translateY(-6px);
-             box-shadow: var(--shadow-md);
-         }
-
-         .ebook-card-img {
-             aspect-ratio: 4/3;
-             overflow: hidden;
-         }
-
-         .ebook-card-img img {
-             width: 100%;
-             height: 100%;
-             object-fit: cover;
-         }
-
-         .price-badge {
-             position: absolute;
-             top: 15px;
-             right: 15px;
-             background-color: var(--tag-green);
-             color: #000;
-             padding: 4px 10px;
-             border-radius: 50px;
-             font-size: 0.8rem;
-             font-weight: 600;
-         }
-
-         .price-badge.free {
-             background-color: var(--tag-blue);
-             color: #fff;
-         }
-
-         .ebook-card-body {
-             padding: 20px;
-         }
-
-         .ebook-card-title {
-             color: var(--color-text-light);
-             font-size: 1.1rem;
-             font-weight: 600;
-             text-decoration: none;
-         }
-
-         .ebook-card-title:hover {
-             color: var(--color-accent-gold);
-         }
-
-         .btn-details {
-             background-color: var(--color-accent-gold);
-             border: none;
-             color: #000;
-             font-weight: 600;
-             width: 100%;
-             padding: 10px;
-             border-radius: 8px;
-             transition: var(--soft-transition);
-         }
-
-         .btn-details:hover {
-             background-color: var(--color-accent-gold-dark);
-         }
-
-         /* Mobile Filter Button */
-         #mobile-filter-toggle {
-             background-color: var(--glass-bg);
-             color: var(--color-accent-gold);
-             border: var(--glass-border);
-             box-shadow: var(--shadow-sm);
-         }
-
-     </style>
-
-     <div class="ebook-page-content">
-         <!-- 1. Hero Banner Section -->
-         <section class="ebook-hero">
-             <div class="container position-relative">
-                 <nav aria-label="breadcrumb">
-                     <ol class="breadcrumb">
-                         <li class="breadcrumb-item"><a href="#"><i class="bi bi-house-door-fill"></i> Home</a></li>
-                         <li class="breadcrumb-item active" aria-current="page">Ebooks</li>
-                     </ol>
-                 </nav>
-                 <h1 class="ebook-hero-title">Ebooks</h1>
-                 <img src="https://i.ibb.co/L6V2MhW/ebook-stack.png" alt="Ebook Stack Illustration" class="hero-illustration d-none d-md-block">
-             </div>
-         </section>
-
-         <!-- Main Content with Sidebar -->
-         <section class="py-5">
-             <div class="container">
-                 <!-- Mobile Filter Toggle Button -->
-                 <div class="d-lg-none mb-4 text-end">
-                     <button class="btn" id="mobile-filter-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#filter-sidebar-content" aria-expanded="false"
-                         aria-controls="filter-sidebar-content">
-                         <i class="bi bi-funnel-fill me-2"></i> Show Filters
-                     </button>
-                 </div>
-                 <div class="row">
-                     <!-- 2. Filter Sidebar (Collapsible on mobile, visible on desktop) -->
-                     <div class="col-lg-3">
-                         <div class="collapse d-lg-block" id="filter-sidebar-content">
-                             <div class="filter-sidebar">
-                                 <!-- Categories Filter -->
-                                 <div class="mb-4">
-                                     <h5 class="filter-group-title">Categories</h5>
-                                     <ul class="filter-list">
-                                         <li>
-                                             <div class="form-check"><input class="form-check-input" type="radio" name="categoryFilter" id="catAll" checked><label class="form-check-label"
-                                                     for="catAll">All category <span class="count">(8)</span></label></div>
-                                         </li>
-                                         <li>
-                                             <div class="form-check"><input class="form-check-input" type="radio" name="categoryFilter" id="catEdu"><label class="form-check-label"
-                                                     for="catEdu">Education <span class="count">(3)</span></label></div>
-                                         </li>
-                                         <li>
-                                             <div class="form-check"><input class="form-check-input" type="radio" name="categoryFilter" id="catSciFi"><label class="form-check-label"
-                                                     for="catSciFi">Science Fiction <span class="count">(2)</span></label></div>
-                                         </li>
-                                     </ul>
-                                 </div>
-                                 <!-- Price Filter -->
-                                 <div class="mb-4">
-                                     <h5 class="filter-group-title">Price</h5>
-                                     <ul class="filter-list">
-                                         <li>
-                                             <div class="form-check"><input class="form-check-input" type="radio" name="priceFilter" id="priceAll" checked><label class="form-check-label"
-                                                     for="priceAll">All</label></div>
-                                         </li>
-                                         <li>
-                                             <div class="form-check"><input class="form-check-input" type="radio" name="priceFilter" id="priceFree"><label class="form-check-label"
-                                                     for="priceFree">Free</label></div>
-                                         </li>
-                                         <li>
-                                             <div class="form-check"><input class="form-check-input" type="radio" name="priceFilter" id="pricePaid"><label class="form-check-label"
-                                                     for="pricePaid">Paid</label></div>
-                                         </li>
-                                     </ul>
-                                 </div>
-                                 <!-- Ratings Filter -->
-                                 <div>
-                                     <h5 class="filter-group-title">Ratings</h5>
-                                     <ul class="filter-list rating-filter">
-                                         <li>
-                                             <div class="form-check"><input class="form-check-input" type="radio" name="ratingFilter" id="ratingAll" checked><label class="form-check-label"
-                                                     for="ratingAll">All</label></div>
-                                         </li>
-                                         <li>
-                                             <div class="form-check"><input class="form-check-input" type="radio" name="ratingFilter" id="rating4"><label class="form-check-label" for="rating4"><i
-                                                         class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                                         class="bi bi-star"></i></label></div>
-                                         </li>
-                                     </ul>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-
-                     <!-- 3. Ebook Grid -->
-                     <div class="col-lg-9">
-                         <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
-                             <p class="text-secondary mb-0">Showing 6 Of 8 Results</p>
-                             <div class="search-ebook position-relative">
-                                 <i class="bi bi-search search-icon position-absolute"></i>
-                                 <input type="text" class="form-control" placeholder="Search...">
-                             </div>
-                         </div>
-
-                         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                             <!-- Ebook Card 1 -->
-                             <div class="col">
-                                 <div class="ebook-card">
-                                     <div class="ebook-card-img"><img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=1974" alt="Research Book">
-                                         <div class="price-badge free">Free</div>
-                                     </div>
-                                     <div class="ebook-card-body"><a href="#" class="ebook-card-title mb-3">Research Basics for Beginners</a><button class="btn btn-details">View
-                                             details</button></div>
-                                 </div>
-                             </div>
-                             <!-- Ebook Card 2 -->
-                             <div class="col">
-                                 <div class="ebook-card">
-                                     <div class="ebook-card-img"><img src="https://images.unsplash.com/photo-1529257414842-38a715565578?q=80&w=2070" alt="Motivation Book">
-                                         <div class="price-badge">$30</div>
-                                     </div>
-                                     <div class="ebook-card-body"><a href="#" class="ebook-card-title mb-3">Greatness begins with a single step</a><button class="btn btn-details">View
-                                             details</button></div>
-                                 </div>
-                             </div>
-                             <!-- Ebook Card 3 -->
-                             <div class="col">
-                                 <div class="ebook-card">
-                                     <div class="ebook-card-img"><img src="https://images.unsplash.com/photo-1532619675605-1ede6c2ed2b0?q=80&w=2070" alt="Python Learning">
-                                         <div class="price-badge">$30</div>
-                                     </div>
-                                     <div class="ebook-card-body"><a href="#" class="ebook-card-title mb-3">Python learning for beginners</a><button class="btn btn-details">View
-                                             details</button></div>
-                                 </div>
-                             </div>
-                             <!-- Ebook Card 4 -->
-                             <div class="col">
-                                 <div class="ebook-card">
-                                     <div class="ebook-card-img"><img src="https://images.unsplash.com/photo-1589825232437-04a4b2a275ce?q=80&w=2070" alt="Robotics Book">
-                                         <div class="price-badge">$29</div>
-                                     </div>
-                                     <div class="ebook-card-body"><a href="#" class="ebook-card-title mb-3">Advanced Learning for robotics</a><button class="btn btn-details">View
-                                             details</button></div>
-                                 </div>
-                             </div>
-                             <!-- Ebook Card 5 -->
-                             <div class="col">
-                                 <div class="ebook-card">
-                                     <div class="ebook-card-img"><img src="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1964" alt="Web Design Book">
-                                         <div class="price-badge">$35</div>
-                                     </div>
-                                     <div class="ebook-card-body"><a href="#" class="ebook-card-title mb-3">Web Design for Web Developers</a><button class="btn btn-details">View
-                                             details</button></div>
-                                 </div>
-                             </div>
-                             <!-- Ebook Card 6 -->
-                             <div class="col">
-                                 <div class="ebook-card">
-                                     <div class="ebook-card-img"><img src="https://images.unsplash.com/photo-1550745165-9bc0b252726a?q=80&w=2070" alt="Sci-Fi Book">
-                                         <div class="price-badge free">Free</div>
-                                     </div>
-                                     <div class="ebook-card-body"><a href="#" class="ebook-card-title mb-3">A House Between Earth and the Moon</a><button class="btn btn-details">View
-                                             details</button></div>
-                                 </div>
-                             </div>
-                         </div>
-
-                         <!-- 4. Pagination -->
-                         <nav aria-label="Ebook navigation" class="d-flex justify-content-center mt-5">
-                             <ul class="pagination ebook-pagination">
-                                 <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                                 <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                 <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                 <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                             </ul>
-                         </nav>
-                     </div>
-                 </div>
-             </div>
-         </section>
-     </div>
- </main>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- <!-- ------------------------------------------------------- -->
- <main id="main-content">
-
-     <!-- Custom CSS for Ebook Listing Page (Enhanced Dark Theme) -->
-     <style>
-         /* Your provided theme variables */
-         :root {
-             --color-primary-dark: #161618;
-             --color-secondary-dark: #1e1e1e;
-             --color-accent-gold: #D4AF37;
-             --color-accent-gold-dark: #e0a800;
-             --color-text-light: #f0f0f0;
-             --color-text-medium: #a0a0a0;
-             --glass-bg: rgba(30, 30, 30, 0.7);
-             --glass-border: 1px solid rgba(255, 255, 255, 0.1);
-             --tag-green: #4ade80;
-             --tag-blue: #60a5fa;
-             --font-primary: 'Poppins', sans-serif;
-             --font-bengali: 'Hind Siliguri', sans-serif;
-             --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
-             --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
-             --soft-transition: all 0.3s ease-in-out;
-         }
-
-         .ebook-page-content {
-             background-color: var(--color-primary-dark);
-             font-family: var(--font-primary);
-             color: var(--color-text-light);
-         }
-
-         /* 1. Hero Banner (with background animation) */
-         @keyframes pan-bg {
-             0% {
-                 background-position: 25% 50%;
-             }
-
-             100% {
-                 background-position: 75% 50%;
-             }
-         }
-
-         .ebook-hero {
-             background-image: linear-gradient(rgba(22, 22, 24, 0.8), rgba(22, 22, 24, 1)), url('https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=1887');
-             background-size: 150% auto;
-             animation: pan-bg 20s linear alternate infinite;
-             padding: 60px 0;
-             position: relative;
-             overflow: hidden;
-             border-bottom: var(--glass-border);
-         }
-
-         /* ... other hero styles ... */
-         .breadcrumb-item a {
-             color: var(--color-accent-gold);
-             text-decoration: none;
-         }
-
-         .breadcrumb-item.active {
-             color: var(--color-text-medium);
-         }
-
-         .hero-illustration {
-             position: absolute;
-             right: 5%;
-             top: 50%;
-             transform: translateY(-50%);
-             max-width: 200px;
-             opacity: 0.1;
-             filter: invert(1);
-         }
-
-         .ebook-hero-title {
-             font-size: clamp(2.5rem, 5vw, 3.5rem);
-             font-weight: 700;
-             color: var(--color-text-light);
-         }
-
-
-         /* 2. Filter Sidebar (with hover effects) */
-         .filter-sidebar {
-             background: var(--glass-bg);
-             border: var(--glass-border);
-             border-radius: 16px;
-             padding: 25px;
-             backdrop-filter: blur(12px);
-         }
-
-         @media (min-width: 992px) {
-             .filter-sidebar {
-                 position: sticky;
-                 top: 100px;
-             }
-         }
-
-         .filter-group-title {
-             font-size: 1.2rem;
-             font-weight: 600;
-             color: var(--color-text-light);
-             margin-bottom: 20px;
-             padding-bottom: 15px;
-             border-bottom: 1px solid var(--glass-border);
-         }
-
-         .filter-list {
-             list-style: none;
-             padding-left: 0;
-         }
-
-         .filter-list .form-check-label {
-             color: var(--color-text-medium);
-             position: relative;
-             padding-left: 2em;
-             cursor: pointer;
-             transition: var(--soft-transition);
-         }
-
-         /* Interactive Hover Effect */
-         .filter-list .form-check:hover .form-check-label {
-             color: var(--color-text-light);
-         }
-
-         .filter-list .form-check-input {
-             display: none;
-         }
-
-         .filter-list .form-check-label::before {
-             content: '';
-             position: absolute;
-             left: 0;
-             top: 50%;
-             transform: translateY(-50%);
-             width: 18px;
-             height: 18px;
-             border-radius: 50%;
-             border: 2px solid var(--color-text-medium);
-             transition: var(--soft-transition);
-         }
-
-         .filter-list .form-check-input:checked+.form-check-label {
-             color: var(--color-accent-gold);
-             font-weight: 600;
-         }
-
-         .filter-list .form-check-input:checked+.form-check-label::before {
-             border-color: var(--color-accent-gold);
-         }
-
-         /* ... other filter styles ... */
-         .filter-sidebar {
-             background: var(--glass-bg);
-             border: var(--glass-border);
-             border-radius: 16px;
-             padding: 25px;
-             backdrop-filter: blur(12px);
-         }
-
-         .filter-group-title {
-             font-size: 1.1rem;
-             font-weight: 600;
-             color: var(--color-text-light);
-             margin-bottom: 20px;
-         }
-
-         .filter-list .form-check-input {
-             display: none;
-         }
-
-         .filter-list .form-check-label {
-             color: var(--color-text-medium);
-             position: relative;
-             padding-left: 2em;
-             cursor: pointer;
-             transition: var(--soft-transition);
-         }
-
-         .filter-list .form-check-label::before {
-             content: '';
-             position: absolute;
-             left: 0;
-             top: 50%;
-             transform: translateY(-50%);
-             width: 18px;
-             height: 18px;
-             border-radius: 50%;
-             border: 2px solid var(--color-text-medium);
-             transition: var(--soft-transition);
-         }
-
-         .filter-list .form-check-label::after {
-             content: '';
-             position: absolute;
-             left: 4px;
-             top: 50%;
-             transform: translateY(-50%) scale(0);
-             width: 10px;
-             height: 10px;
-             border-radius: 50%;
-             background: var(--color-accent-gold);
-             transition: var(--soft-transition);
-         }
-
-         .filter-list .form-check-input:checked+.form-check-label {
-             color: var(--color-accent-gold);
-             font-weight: 600;
-         }
-
-         .filter-list .form-check-input:checked+.form-check-label::before {
-             border-color: var(--color-accent-gold);
-         }
-
-         .filter-list .form-check-input:checked+.form-check-label::after {
-             transform: translateY(-50%) scale(1);
-         }
-
-         .filter-list .count {
-             color: var(--color-text-medium);
-         }
-
-         .rating-filter .bi {
-             color: var(--color-accent-gold);
-         }
-
-         /* 3. Ebook Card (ENHANCED DESIGN) */
-         .ebook-card {
-             background: var(--glass-bg);
-             border: var(--glass-border);
-             border-radius: 16px;
-             overflow: hidden;
-             transition: var(--soft-transition);
-             box-shadow: var(--shadow-sm);
-             backdrop-filter: blur(12px);
-             display: flex;
-             flex-direction: column;
-             height: 100%;
-         }
-
-         .ebook-card:hover {
-             transform: translateY(-8px);
-             box-shadow: var(--shadow-md);
-             border-color: rgba(212, 175, 55, 0.5);
-         }
-
-         .ebook-card-img {
-             aspect-ratio: 4 / 3;
-             overflow: hidden;
-             position: relative;
-         }
-
-         .ebook-card-img img {
-             width: 100%;
-             height: 100%;
-             object-fit: cover;
-             transition: transform 0.4s ease;
-         }
-
-         .ebook-card:hover .ebook-card-img img {
-             transform: scale(1.05);
-         }
-
-         .price-badge {
-             position: absolute;
-             top: 15px;
-             right: 15px;
-             background-color: var(--tag-green);
-             color: #000;
-             padding: 4px 10px;
-             border-radius: 50px;
-             font-size: 0.8rem;
-             font-weight: 600;
-         }
-
-         .price-badge.free {
-             background-color: var(--tag-blue);
-             color: #fff;
-         }
-
-         .ebook-card-body {
-             padding: 20px;
-             display: flex;
-             flex-direction: column;
-             flex-grow: 1;
-         }
-
-         .ebook-card-category {
-             font-size: 0.8rem;
-             color: var(--color-accent-gold);
-             font-weight: 500;
-             margin-bottom: 8px;
-         }
-
-         .ebook-card-title {
-             color: var(--color-text-light);
-             font-size: 1.1rem;
-             font-weight: 600;
-             text-decoration: none;
-             line-height: 1.4;
-         }
-
-         .ebook-card-author {
-             color: var(--color-text-medium);
-             font-size: 0.9rem;
-             margin-top: 4px;
-         }
-
-         .ebook-card-footer {
-             margin-top: auto;
-             padding-top: 15px;
-         }
-
-         .ebook-card-rating {
-             color: var(--color-accent-gold);
-         }
-
-         .btn-details {
-             background-color: var(--color-accent-gold);
-             border: none;
-             color: #000;
-             font-weight: 600;
-             width: 100%;
-             padding: 10px;
-             border-radius: 8px;
-             transition: var(--soft-transition);
-             opacity: 0;
-             transform: translateY(10px);
-         }
-
-         .ebook-card:hover .btn-details {
-             opacity: 1;
-             transform: translateY(0);
-         }
-
-         .ebook-card:hover .ebook-card-rating {
-             opacity: 0;
-         }
-
-         /* ... other styles ... */
-
-     </style>
-
-     <div class="ebook-page-content">
-         <!-- 1. Hero Banner Section -->
-         <section class="ebook-hero">
-             <div class="container position-relative">
-                 <nav aria-label="breadcrumb">
-                     <ol class="breadcrumb">
-                         <li class="breadcrumb-item"><a href="#"><i class="bi bi-house-door-fill"></i> Home</a></li>
-                         <li class="breadcrumb-item active" aria-current="page">Ebooks</li>
-                     </ol>
-                 </nav>
-                 <h1 class="ebook-hero-title">Ebooks</h1>
-                 <!-- <img src="https://i.ibb.co/L6V2MhW/ebook-stack.png" alt="Ebook Stack Illustration" class="hero-illustration d-none d-md-block"> -->
-             </div>
-         </section>
-
-         <!-- Main Content with Sidebar -->
-         <section class="py-5">
-             <div class="container">
-                 <div class="d-lg-none mb-4 text-end"><button class="btn" id="mobile-filter-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#filter-sidebar-content"><i
-                             class="bi bi-funnel-fill me-2"></i> Show Filters</button></div>
-                 <div class="row">
-                     <!-- 2. Filter Sidebar -->
-                     <div class="col-lg-3">
-                         <div class="collapse d-lg-block" id="filter-sidebar-content">
-                             <div class="filter-sidebar">
-                                 <!-- Categories Filter -->
-                                 <div class="mb-4">
-                                     <h5 class="filter-group-title">Categories</h5>
-                                     <ul class="filter-list">
-                                         <li>
-                                             <div class="form-check"><input class="form-check-input" type="radio" name="categoryFilter" id="catAll" checked><label class="form-check-label"
-                                                     for="catAll">All category <span class="count">(8)</span></label></div>
-                                         </li>
-                                         <li>
-                                             <div class="form-check"><input class="form-check-input" type="radio" name="categoryFilter" id="catEdu"><label class="form-check-label"
-                                                     for="catEdu">Education <span class="count">(3)</span></label></div>
-                                         </li>
-                                         <li>
-                                             <div class="form-check"><input class="form-check-input" type="radio" name="categoryFilter" id="catSciFi"><label class="form-check-label"
-                                                     for="catSciFi">Science Fiction <span class="count">(2)</span></label></div>
-                                         </li>
-                                     </ul>
-                                 </div>
-                                 <!-- Price Filter -->
-                                 <div class="mb-4">
-                                     <h5 class="filter-group-title">Price</h5>
-                                     <ul class="filter-list">
-                                         <li>
-                                             <div class="form-check"><input class="form-check-input" type="radio" name="priceFilter" id="priceAll" checked><label class="form-check-label"
-                                                     for="priceAll">All</label></div>
-                                         </li>
-                                         <li>
-                                             <div class="form-check"><input class="form-check-input" type="radio" name="priceFilter" id="priceFree"><label class="form-check-label"
-                                                     for="priceFree">Free</label></div>
-                                         </li>
-                                         <li>
-                                             <div class="form-check"><input class="form-check-input" type="radio" name="priceFilter" id="pricePaid"><label class="form-check-label"
-                                                     for="pricePaid">Paid</label></div>
-                                         </li>
-                                     </ul>
-                                 </div>
-                                 <!-- Ratings Filter -->
-                                 <div>
-                                     <h5 class="filter-group-title">Ratings</h5>
-                                     <ul class="filter-list rating-filter">
-                                         <li>
-                                             <div class="form-check"><input class="form-check-input" type="radio" name="ratingFilter" id="ratingAll" checked><label class="form-check-label"
-                                                     for="ratingAll">All</label></div>
-                                         </li>
-                                         <li>
-                                             <div class="form-check"><input class="form-check-input" type="radio" name="ratingFilter" id="rating4"><label class="form-check-label" for="rating4"><i
-                                                         class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                                         class="bi bi-star"></i></label></div>
-                                         </li>
-                                     </ul>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-
-                     <!-- 3. Ebook Grid -->
-                     <div class="col-lg-9">
-                         <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
-                             <p class="text-secondary mb-0">Showing 6 Of 8 Results</p>
-                             <div class="search-ebook position-relative"><i class="bi bi-search search-icon position-absolute"></i><input type="text" class="form-control" placeholder="Search...">
-                             </div>
-                         </div>
-
-                         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                             <!-- Ebook Card 1 -->
-                             <div class="col" data-aos="fade-up">
-                                 <div class="ebook-card">
-                                     <div class="ebook-card-img"><img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=1974" alt="Research Book">
-                                         <div class="price-badge free">Free</div>
-                                     </div>
-                                     <div class="ebook-card-body">
-                                         <p class="ebook-card-category">Education</p>
-                                         <a href="#" class="ebook-card-title">Research Basics for Beginners</a>
-                                         <p class="ebook-card-author">by Dr. Emily Carter</p>
-                                         <div class="ebook-card-footer">
-                                             <div class="ebook-card-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                                     class="bi bi-star-fill"></i><i class="bi bi-star-half"></i></div>
-                                             <button class="btn btn-details">View details</button>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                             <!-- Ebook Card 2 -->
-                             <div class="col" data-aos="fade-up" data-aos-delay="100">
-                                 <div class="ebook-card">
-                                     <div class="ebook-card-img"><img src="https://images.unsplash.com/photo-1529257414842-38a715565578?q=80&w=2070" alt="Motivation Book">
-                                         <div class="price-badge">$30</div>
-                                     </div>
-                                     <div class="ebook-card-body">
-                                         <p class="ebook-card-category">Motivation</p>
-                                         <a href="#" class="ebook-card-title">Greatness Begins With a Single Step</a>
-                                         <p class="ebook-card-author">by John Maxwell</p>
-                                         <div class="ebook-card-footer">
-                                             <div class="ebook-card-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                                     class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
-                                             <button class="btn btn-details">View details</button>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                             <!-- Ebook Card 3 -->
-                             <div class="col" data-aos="fade-up" data-aos-delay="200">
-                                 <div class="ebook-card">
-                                     <div class="ebook-card-img"><img src="https://images.unsplash.com/photo-1550745165-9bc0b252726a?q=80&w=2070" alt="Sci-Fi Book">
-                                         <div class="price-badge free">Free</div>
-                                     </div>
-                                     <div class="ebook-card-body">
-                                         <p class="ebook-card-category">Science Fiction</p>
-                                         <a href="#" class="ebook-card-title">A House Between Earth and the Moon</a>
-                                         <p class="ebook-card-author">by Jane Doe</p>
-                                         <div class="ebook-card-footer">
-                                             <div class="ebook-card-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i
-                                                     class="bi bi-star"></i></div>
-                                             <button class="btn btn-details">View details</button>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                         </div>
-
-                         <!-- Pagination -->
-                         <nav class="d-flex justify-content-center mt-5">
-                             <nav aria-label="Ebook navigation" class="d-flex justify-content-center mt-5">
-                                 <ul class="pagination ebook-pagination">
-                                     <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                                     <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                     <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                     <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                 </ul>
-                             </nav>
-                         </nav>
-                     </div>
-                 </div>
-             </div>
-         </section>
-     </div>
- </main>
+<!DOCTYPE html>
+<html lang="bn">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ebook - AKF</title>
+
+        <!-- SEO Meta Tags -->
+        <meta name="description" content="Explore live and recorded courses on spiritual wisdom, meditation, yoga, and personal growth offered by AKF.">
+        <meta name="keywords" content="live courses, recorded courses, spiritual education, vedanta, yoga, meditation">
+
+
+        <!-- Dependencies -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <!-- Swiper.js CSS -->
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+
+        <link rel="stylesheet" href="css/style.css">
+        <!-- Custom CSS for Ebook Listing Page (Dark Theme) -->
+
+        <style>
+            :root {
+                --color-primary-dark: #161618;
+                --color-secondary-dark: #1e1e1e;
+                --color-accent-gold: #D4AF37;
+                --color-accent-gold-dark: #e0a800;
+                --color-text-light: #f0f0f0;
+                --color-text-medium: #a0a0a0;
+                --glass-bg: rgba(30, 30, 30, 0.7);
+                --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+                --tag-green: #4ade80;
+                --tag-blue: #60a5fa;
+                --font-primary: 'Poppins', sans-serif;
+                --font-bengali: 'Hind Siliguri', sans-serif;
+                --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
+                --shadow-md: 0 12px 30px rgba(0, 0, 0, 0.6);
+                --soft-transition: all 0.3s ease-in-out;
+            }
+
+            /* --- Page Container --- */
+            .ebook-page-content {
+                background-color: var(--color-primary-dark);
+                font-family: var(--font-primary);
+                color: var(--color-text-light);
+            }
+
+            /* --- Hero Section --- */
+            @keyframes pan-bg {
+                0% {
+                    background-position: 25% 50%;
+                }
+
+                100% {
+                    background-position: 75% 50%;
+                }
+            }
+
+            .ebook-hero {
+                background-image: linear-gradient(rgba(22, 22, 24, 0.8), rgba(22, 22, 24, 1)), url('https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=1887');
+                background-size: 150% auto;
+                animation: pan-bg 20s linear alternate infinite;
+                padding: 60px 0;
+                position: relative;
+                overflow: hidden;
+                border-bottom: var(--glass-border);
+                margin-top: 70px;
+            }
+
+            .breadcrumb-item a {
+                color: var(--color-accent-gold);
+                text-decoration: none;
+            }
+
+            .breadcrumb-item.active {
+                color: var(--color-text-medium);
+            }
+
+            .ebook-hero-title {
+                font-size: clamp(2.5rem, 5vw, 3.5rem);
+                font-weight: 700;
+                color: var(--color-text-light);
+            }
+
+            /* --- Sidebar Filter --- */
+            .filter-sidebar {
+                background: var(--glass-bg);
+                border: var(--glass-border);
+                border-radius: 16px;
+                padding: 25px;
+                backdrop-filter: blur(12px);
+            }
+
+            @media (min-width: 992px) {
+                .filter-sidebar {
+                    position: sticky;
+                    top: 100px;
+                }
+            }
+
+            .filter-group-title {
+                font-size: 1.2rem;
+                font-weight: 600;
+                color: var(--color-text-light);
+                margin-bottom: 20px;
+                padding-bottom: 15px;
+                border-bottom: var(--glass-border);
+            }
+
+            .filter-list {
+                list-style: none;
+                padding-left: 0;
+            }
+
+            .filter-list .form-check {
+                margin-bottom: 12px;
+            }
+
+            .filter-list .form-check input {
+                display: none;
+            }
+
+            .filter-list .form-check-label {
+                color: var(--color-text-medium);
+                position: relative;
+                padding-left: 2.2em;
+                cursor: pointer;
+                transition: var(--soft-transition);
+            }
+
+            .filter-list .form-check:hover .form-check-label {
+                color: var(--color-text-light);
+            }
+
+            .filter-list .form-check-label::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 18px;
+                height: 18px;
+                border: 2px solid var(--color-text-medium);
+                border-radius: 50%;
+                transition: var(--soft-transition);
+            }
+
+            .filter-list .form-check-label::after {
+                content: "";
+                position: absolute;
+                left: 5px;
+                top: 50%;
+                transform: translateY(-50%) scale(0);
+                width: 10px;
+                height: 10px;
+                background: var(--color-accent-gold);
+                border-radius: 50%;
+                transition: var(--soft-transition);
+            }
+
+            .filter-list .form-check-input:checked+.form-check-label {
+                color: var(--color-accent-gold);
+                font-weight: 600;
+            }
+
+            .filter-list .form-check-input:checked+.form-check-label::before {
+                border-color: var(--color-accent-gold);
+            }
+
+            .filter-list .form-check-input:checked+.form-check-label::after {
+                transform: translateY(-50%) scale(1);
+            }
+
+            .filter-list .count {
+                color: var(--color-text-medium);
+            }
+
+            .rating-filter .bi {
+                color: var(--color-accent-gold);
+            }
+
+            /* --- Search Bar --- */
+            .search-ebook {
+                position: relative;
+            }
+
+            .search-ebook .search-icon {
+                position: absolute;
+                left: 12px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: var(--color-text-medium);
+            }
+
+            .search-ebook input {
+                width: 100%;
+                padding: 0.6rem 1rem 0.6rem 2.5rem;
+                border: var(--glass-border);
+                border-radius: 8px;
+                background: var(--glass-bg);
+                color: var(--color-text-light);
+                transition: var(--soft-transition);
+            }
+
+            .search-ebook input:focus {
+                border-color: var(--color-accent-gold);
+                outline: none;
+            }
+
+            /* --- Ebook Card --- */
+            .ebook-card {
+                background: var(--glass-bg);
+                border: var(--glass-border);
+                border-radius: 18px;
+                overflow: hidden;
+                transition: var(--soft-transition);
+                box-shadow: var(--shadow-sm);
+                backdrop-filter: blur(12px);
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                position: relative;
+            }
+
+            .ebook-card:hover {
+                transform: translateY(-10px) scale(1.02);
+                box-shadow: var(--shadow-md);
+                border-color: var(--color-accent-gold-dark);
+            }
+
+            .ebook-card-img {
+                aspect-ratio: 4/3;
+                overflow: hidden;
+                border-bottom: var(--glass-border);
+                position: relative;
+            }
+
+            .ebook-card-img img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.5s ease;
+            }
+
+            .ebook-card:hover .ebook-card-img img {
+                transform: scale(1.08);
+            }
+
+            .price-badge {
+                position: absolute;
+                top: 12px;
+                right: 12px;
+                background-color: var(--tag-green);
+                color: #000;
+                padding: 5px 12px;
+                border-radius: 50px;
+                font-size: 0.75rem;
+                font-weight: 600;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+            }
+
+            .price-badge.free {
+                background-color: var(--tag-blue);
+                color: #fff;
+            }
+
+            .ebook-card-body {
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                flex-grow: 1;
+            }
+
+            .ebook-card-category {
+                font-size: 0.8rem;
+                color: var(--color-accent-gold);
+                font-weight: 500;
+                margin-bottom: 6px;
+                text-transform: uppercase;
+            }
+
+            .ebook-card-title {
+                color: var(--color-text-light);
+                font-size: 1.1rem;
+                font-weight: 600;
+                text-decoration: none;
+                line-height: 1.4;
+                margin-bottom: 5px;
+            }
+
+            .ebook-card-author {
+                color: var(--color-text-medium);
+                font-size: 0.9rem;
+                margin-bottom: 12px;
+            }
+
+            .ebook-card-footer {
+                margin-top: auto;
+                padding-top: 15px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .ebook-card-rating {
+                color: var(--color-accent-gold);
+                font-size: 0.95rem;
+                transition: var(--soft-transition);
+            }
+
+            .ebook-card-rating i {
+                transition: transform 0.3s;
+            }
+
+            .ebook-card:hover .ebook-card-rating i:hover {
+                transform: scale(1.2);
+            }
+
+            .btn-details {
+                background-color: var(--color-accent-gold);
+                border: none;
+                color: #000;
+                font-weight: 600;
+                font-size: 0.85rem;
+                padding: 8px 16px;
+                border-radius: 8px;
+                transition: var(--soft-transition);
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            .ebook-card:hover .btn-details {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .ebook-card:hover .ebook-card-rating {
+                opacity: 0.6;
+            }
+
+            .ebook-card:hover::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                border-radius: 18px;
+                background: radial-gradient(ellipse at center, rgba(255, 215, 0, 0.06), transparent);
+                z-index: 1;
+            }
+
+        </style>
+
+
+    </head>
+
+    <body class="">
+        <!-- Consistent Header, same as other pages -->
+        <main id="main-content">
+
+            <header class="topbar ">
+                <div class="topbar__container">
+                    <div class="topbar__logo">
+                        <a href="index.html">
+                            <img src="images/bg.png" alt="Arya Kalyan Foundation Logo">
+                        </a>
+                    </div>
+                    <nav class="topbar__nav--desktop">
+                        <a href="index.html">Home</a>
+                        <a href="course.html">Courses</a>
+                        <a href="ebook.html" class="active">Ebook</a>
+                        <a href="shop.html">Shop</a>
+                        <a href="blog.html">Blog</a>
+                        <a href="about.html">About Us</a>
+                        <a href="events.html">Events</a>
+                        <a href="#donate">Donate</a>
+                    </nav>
+                    <div class="topbar__actions">
+                        <!-- Search Icon -->
+                        <div class="event-search" id="search-icon">
+                            <i class="bi bi-search"></i>
+                        </div>
+
+                        <!-- Cart -->
+                        <a href="#" class="action-icon cart-icon" id="cart-toggle">
+                            <i class="bi bi-cart3"></i>
+                            <span class="notification-badge">0</span>
+                        </a>
+                        <!-- Notification Bell -->
+                        <!-- Notification Wrapper with Bootstrap Dropdown Functionality -->
+                        <div class="notification-wrapper dropdown">
+                            <!-- Bell icon acts as the dropdown toggle -->
+                            <a href="#" class="action-icon notification-bell" id="notification-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                <i class="bi bi-bell"></i>
+                                <span class="notification-badge">3</span>
+                            </a>
+
+                            <!-- Dropdown menu with responsive enhancements -->
+                            <div class="notification-dropdown dropdown-menu dropdown-menu-dark dropdown-menu-end" id="notification-dropdown" style="min-width: 340px;">
+                                <div class="notification-header">
+                                    <h4>Notifications</h4>
+                                    <button class="mark-all-read">Mark all as read</button>
+                                </div>
+                                <!-- Scrollable list for mobile -->
+                                <div class="notification-list" style="max-height: 70vh; overflow-y: auto;">
+                                    <!-- Notification Item 1 -->
+                                    <a href="#" class="notification-item unread">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">Your class on <strong>Module 17</strong> has started.</p>
+                                            <small class="notification-meta">12 hours ago • Full Stack Web Development</small>
+                                        </div>
+                                    </a>
+                                    <!-- Notification Item 2 -->
+                                    <a href="#" class="notification-item unread">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">Your class will start at 12:00 PM</p>
+                                            <small class="notification-meta"><span class="live-badge-small">LIVE</span> 10 hours ago • Full Stack Web Development</small>
+                                        </div>
+                                    </a>
+                                    <!-- Notification Item 3 -->
+                                    <a href="#" class="notification-item">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">Your assignment has been graded.</p>
+                                            <small class="notification-meta">1 day ago • Veda Education</small>
+                                        </div>
+                                    </a>
+                                    <!-- Add more notifications here to test scrolling -->
+                                    <a href="#" class="notification-item">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">A new article has been published in the blog.</p>
+                                            <small class="notification-meta">2 days ago • Insights & Articles</small>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="notification-footer">
+                                    <a href="#" class="see-all-btn">See All Notifications</a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <a href="#" class="btn-login">Login</a>
+                        <a href="#" class="action-icon profile-avatar">
+                            <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar">
+                        </a>
+                        <button class="hamburger-menu" id="hamburger-toggle" aria-label="Toggle Menu">
+                            <i class="bi bi-list"></i>
+                        </button>
+                    </div>
+
+                    <!-- Fullscreen Search Bar (HTML-এ এটিকে topbar__container এর শেষে রাখা ভালো) -->
+                    <div class="fullscreen-search" id="fullscreen-search">
+                        <input type="text" placeholder="Search here..." id="fullscreen-search-input" />
+                        <button class="close-search" id="close-search-btn">×</button>
+                    </div>
+                </div>
+            </header>
+            <div class="ebook-page-content">
+
+                <!-- Hero -->
+                <section class="ebook-hero">
+                    <div class="container position-relative">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#"><i class="bi bi-house-door-fill"></i> Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Ebooks</li>
+                            </ol>
+                        </nav>
+                        <h1 class="ebook-hero-title">Ebooks</h1>
+                    </div>
+                </section>
+
+                <!-- Content -->
+                <section class="py-5">
+                    <div class="container">
+                        <div class="d-lg-none mb-4 text-end">
+                            <button class="btn" id="mobile-filter-toggle" data-bs-toggle="collapse" data-bs-target="#filter-sidebar-content">
+                                <i class="bi bi-funnel-fill me-2"></i> Show Filters
+                            </button>
+                        </div>
+                        <div class="row">
+                            <!-- Sidebar -->
+                            <div class="col-lg-3">
+                                <div class="collapse d-lg-block" id="filter-sidebar-content">
+                                    <div class="filter-sidebar">
+                                        <div class="mb-4">
+                                            <h5 class="filter-group-title">Categories</h5>
+                                            <ul class="filter-list">
+                                                <li>
+                                                    <div class="form-check"><input class="form-check-input" type="radio" name="categoryFilter" id="catAll" checked><label class="form-check-label"
+                                                            for="catAll">All category <span class="count">(8)</span></label></div>
+                                                </li>
+                                                <li>
+                                                    <div class="form-check"><input class="form-check-input" type="radio" name="categoryFilter" id="catEdu"><label class="form-check-label"
+                                                            for="catEdu">Education <span class="count">(3)</span></label></div>
+                                                </li>
+                                                <li>
+                                                    <div class="form-check"><input class="form-check-input" type="radio" name="categoryFilter" id="catSciFi"><label class="form-check-label"
+                                                            for="catSciFi">Science Fiction <span class="count">(2)</span></label></div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="mb-4">
+                                            <h5 class="filter-group-title">Price</h5>
+                                            <ul class="filter-list">
+                                                <li>
+                                                    <div class="form-check"><input class="form-check-input" type="radio" name="priceFilter" id="priceAll" checked><label class="form-check-label"
+                                                            for="priceAll">All</label></div>
+                                                </li>
+                                                <li>
+                                                    <div class="form-check"><input class="form-check-input" type="radio" name="priceFilter" id="priceFree"><label class="form-check-label"
+                                                            for="priceFree">Free</label></div>
+                                                </li>
+                                                <li>
+                                                    <div class="form-check"><input class="form-check-input" type="radio" name="priceFilter" id="pricePaid"><label class="form-check-label"
+                                                            for="pricePaid">Paid</label></div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h5 class="filter-group-title">Ratings</h5>
+                                            <ul class="filter-list rating-filter">
+                                                <li>
+                                                    <div class="form-check"><input class="form-check-input" type="radio" name="ratingFilter" id="ratingAll" checked><label class="form-check-label"
+                                                            for="ratingAll">All</label></div>
+                                                </li>
+                                                <li>
+                                                    <div class="form-check"><input class="form-check-input" type="radio" name="ratingFilter" id="rating4"><label class="form-check-label"
+                                                            for="rating4"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                                class="bi bi-star"></i></label></div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ebook Grid -->
+                            <div class="col-lg-9">
+                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+                                    <p class="text-secondary mb-0">Showing 6 Of 8 Results</p>
+                                    <div class="search-ebook"><i class="bi bi-search search-icon"></i><input type="text" placeholder="Search..."></div>
+                                </div>
+                                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                                    <!-- Card 1 -->
+                                    <div class="col" data-aos="fade-up">
+                                        <div class="ebook-card">
+                                            <div class="ebook-card-img">
+                                                <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=1974" alt="Research Book">
+                                                <div class="price-badge free">Free</div>
+                                            </div>
+                                            <div class="ebook-card-body">
+                                                <p class="ebook-card-category">Education</p>
+                                                <a href="#" class="ebook-card-title">Research Basics for Beginners</a>
+                                                <p class="ebook-card-author">by Dr. Emily Carter</p>
+                                                <div class="ebook-card-footer">
+                                                    <div class="ebook-card-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                            class="bi bi-star-fill"></i><i class="bi bi-star-half"></i></div>
+                                                    <button class="btn-details">View details</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Card 2 -->
+                                    <div class="col" data-aos="fade-up" data-aos-delay="100">
+                                        <div class="ebook-card">
+                                            <div class="ebook-card-img">
+                                                <img src="https://images.unsplash.com/photo-1529257414842-38a715565578?q=80&w=2070" alt="Motivation Book">
+                                                <div class="price-badge">$30</div>
+                                            </div>
+                                            <div class="ebook-card-body">
+                                                <p class="ebook-card-category">Motivation</p>
+                                                <a href="#" class="ebook-card-title">Greatness Begins With a Single Step</a>
+                                                <p class="ebook-card-author">by John Maxwell</p>
+                                                <div class="ebook-card-footer">
+                                                    <div class="ebook-card-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                            class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                                                    <button class="btn-details">View details</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Card 3 -->
+                                    <div class="col" data-aos="fade-up" data-aos-delay="200">
+                                        <div class="ebook-card">
+                                            <div class="ebook-card-img">
+                                                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726a?q=80&w=2070" alt="Sci-Fi Book">
+                                                <div class="price-badge free">Free</div>
+                                            </div>
+                                            <div class="ebook-card-body">
+                                                <p class="ebook-card-category">Science Fiction</p>
+                                                <a href="#" class="ebook-card-title">A House Between Earth and the Moon</a>
+                                                <p class="ebook-card-author">by Jane Doe</p>
+                                                <div class="ebook-card-footer">
+                                                    <div class="ebook-card-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                            class="bi bi-star"></i><i class="bi bi-star"></i></div>
+                                                    <button class="btn-details">View details</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Pagination -->
+                                <nav class="d-flex justify-content-center mt-5">
+                                    <ul class="pagination ebook-pagination">
+                                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                    </ul>
+                                </nav>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+
+
+
+        <!-- 📱 Mobile Bottom Navigation -->
+        <nav class="bottom-nav">
+            <a href="index.html" class="bottom-nav__item "><i class="bi bi-house-door-fill"></i><span>Home</span></a>
+            <a href="events.html" class="bottom-nav__item"><i class="bi bi-calendar-event-fill"></i><span>Events</span></a>
+            <a href="course.html" class="bottom-nav__item "><i class="bi bi-journal-bookmark-fill"></i><span>Courses</span></a>
+            <a href="ebook.html" class="bottom-nav__item active"><i class="bi bi-book-fill"></i><span>Ebook</span></a>
+            <a href="shop.html" class="bottom-nav__item "><i class="bi bi-cart-fill"></i><span>Shop</span></a>
+            <a href="#blog" class="bottom-nav__item"><i class="bi bi-chat-square-text-fill"></i><span>Blog</span></a>
+            <a href="#donate" class="bottom-nav__item"><i class="bi bi-heart-fill"></i><span>Donate</span></a>
+        </nav>
+
+        <!-- Footer -->
+        <!-- ============================================= -->
+        <!-- Footer Section                                -->
+        <!-- ============================================= -->
+        <footer id="footer" class="site-footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <!-- Column 1: Brand & Tagline -->
+                    <div class="footer-column">
+                        <h3 class="footer-brand">AKF</h3>
+                        <p class="footer-tagline">A sanctuary for peace, wisdom, and connection in the digital age.</p>
+                    </div>
+
+                    <!-- Column 2: Quick Links -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Quick Links</h5>
+                        <ul class="footer-links">
+                            <li><a href="#hero">Home</a></li>
+                            <li><a href="#introduction">About Us</a></li>
+                            <li><a href="#courses">Courses</a></li>
+                            <li><a href="#blog">Blog</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 3: Support -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Support</h5>
+                        <ul class="footer-links">
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#donate">Donate</a></li>
+                            <li><a href="#">Community Guidelines</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 4: Follow Us -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Follow Us</h5>
+                        <div class="social-icons">
+                            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                            <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>© 2024 AKF. All Rights Reserved.</p>
+                    <div class="footer-legal-links">
+                        <a href="#">Privacy Policy</a>
+                        <span>•</span>
+                        <a href="#">Terms of Service Sammo</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+
+
+        <!-- Scripts -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <!-- AOS.js for Scroll Animations -->
+
+        <!-- Swiper.js JS -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script src="js/script.js"></script>
+
+
+
+    </body>

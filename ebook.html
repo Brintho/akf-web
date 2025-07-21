@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Ebook - AKF</title>
+        <title>Courses - AKF</title>
 
         <!-- SEO Meta Tags -->
         <meta name="description" content="Explore live and recorded courses on spiritual wisdom, meditation, yoga, and personal growth offered by AKF.">
@@ -25,8 +25,6 @@
 
 
         <link rel="stylesheet" href="css/style.css">
-        <!-- Custom CSS for Ebook Listing Page (Dark Theme) -->
-
         <style>
             :root {
                 --color-primary-dark: #161618;
@@ -363,8 +361,7 @@
     <body class="">
         <!-- Consistent Header, same as other pages -->
         <main id="main-content">
-
-            <header class="topbar ">
+            <header class="topbar">
                 <div class="topbar__container">
                     <div class="topbar__logo">
                         <a href="index.html">
@@ -373,8 +370,8 @@
                     </div>
                     <nav class="topbar__nav--desktop">
                         <a href="index.html">Home</a>
-                        <a href="course.html">Courses</a>
-                        <a href="ebook.html" class="active">Ebook</a>
+                        <a href="course.html" class="active">Courses</a>
+                        <a href="ebook.html">Ebook</a>
                         <a href="shop.html">Shop</a>
                         <a href="blog.html">Blog</a>
                         <a href="about.html">About Us</a>
@@ -465,6 +462,25 @@
                     </div>
                 </div>
             </header>
+
+            <div class="mobile-nav__overlay" id="nav-overlay">
+                <nav class="mobile-nav" id="mobile-nav">
+                    <div class="mobile-nav__header">
+                        <span>Menu</span>
+                        <button class="close-menu" id="close-nav-btn" aria-label="Close Menu"><i class="bi bi-x"></i></button>
+                    </div>
+                    <a href="index.html" class="active">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="events.html">Events</a>
+                    <a href="course.html">Courses</a>
+                    <a href="ebook.html">Ebook</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="#donate">Donate</a>
+                    <hr>
+                    <a href="#" class="mobile-nav-profile">My Profile</a>
+                    <a href="#" class="mobile-nav-logout">Logout</a>
+                </nav>
+            </div>
             <div class="ebook-page-content">
 
                 <!-- Hero -->
@@ -627,9 +643,8 @@
                 </section>
 
             </div>
+
         </main>
-
-
 
         <!-- 📱 Mobile Bottom Navigation -->
         <nav class="bottom-nav">
