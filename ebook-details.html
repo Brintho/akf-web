@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Courses - AKF</title>
+
+        <!-- SEO Meta Tags -->
+        <meta name="description" content="Explore live and recorded courses on spiritual wisdom, meditation, yoga, and personal growth offered by AKF.">
+        <meta name="keywords" content="live courses, recorded courses, spiritual education, vedanta, yoga, meditation">
+
+
+        <!-- Dependencies -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <!-- Swiper.js CSS -->
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+
+        <link rel="stylesheet" href="css/style.css">
+        <!-- Custom CSS for eBook Details Page (Dark Theme) -->
+        <style>
+            /* Using your provided theme variables */
+            :root {
+                --color-primary-dark: #161618;
+                --color-secondary-dark: #1e1e1e;
+                --color-accent-gold: #D4AF37;
+                --color-text-light: #f0f0f0;
+                --color-text-medium: #a0a0a0;
+                --glass-bg: rgba(30, 30, 30, 0.7);
+                --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+                --font-primary: 'Poppins', sans-serif;
+                --soft-transition: all 0.3s ease-in-out;
+            }
+
+            .ebook-details-page {
+                background-color: var(--color-primary-dark);
+                color: var(--color-text-light);
+                font-family: var(--font-primary);
+                padding: 50px 0;
+            }
+
+            .section-card {
+                background: var(--glass-bg);
+                border: var(--glass-border);
+                border-radius: 16px;
+                padding: 2.5rem;
+                backdrop-filter: blur(12px);
+                margin-bottom: 2.5rem;
+            }
+
+            /* 1. Left Section: eBook Cover */
+            .ebook-cover-wrapper {
+                background: linear-gradient(145deg, #2a2a2e, #1a1a1d);
+                border-radius: 16px;
+                padding: 20px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+                position: relative;
+                overflow: hidden;
+            }
+
+            .ebook-cover-image {
+                width: 100%;
+                border-radius: 8px;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+                aspect-ratio: 2 / 3;
+                object-fit: cover;
+            }
+
+            .ebook-price-overlay {
+                position: absolute;
+                bottom: 20px;
+                left: 20px;
+                right: 20px;
+                background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+                padding: 40px 20px 20px;
+                text-align: center;
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
+            }
+
+            .ebook-price {
+                font-size: 2.5rem;
+                font-weight: 700;
+                color: #fff;
+                text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            }
+
+            /* 2. Right Section: eBook Info */
+            .ebook-title {
+                font-size: 2.5rem;
+                font-weight: 700;
+                color: var(--color-text-light);
+            }
+
+            .ebook-author {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin: 1rem 0;
+            }
+
+            .ebook-author img {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+            }
+
+            .ebook-author span {
+                color: var(--color-text-medium);
+            }
+
+            .ebook-rating {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                color: var(--color-accent-gold);
+                margin-bottom: 1rem;
+            }
+
+            .ebook-short-desc {
+                color: var(--color-text-medium);
+                margin-bottom: 1.5rem;
+            }
+
+            .ebook-meta-table {
+                font-size: 0.95rem;
+            }
+
+            .ebook-meta-table .meta-label {
+                color: var(--color-text-medium);
+            }
+
+            .ebook-meta-table .meta-value {
+                color: var(--color-text-light);
+                font-weight: 500;
+            }
+
+            .btn-gradient {
+                background: linear-gradient(90deg, #8B5CF6, #6366F1);
+                border: none;
+                color: #fff;
+                font-weight: 600;
+                padding: 12px 30px;
+                border-radius: 8px;
+                transition: var(--soft-transition);
+                box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
+            }
+
+            .btn-gradient:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+            }
+
+            .btn-gradient.preview {
+                background: transparent;
+                border: 2px solid #8B5CF6;
+            }
+
+            /* 3. Tabbed Interface */
+            .ebook-tabs .nav-link {
+                background: none;
+                border: none;
+                color: var(--color-text-medium);
+                font-weight: 500;
+                padding: 10px 0;
+                margin-right: 25px;
+                border-bottom: 2px solid transparent;
+                border-radius: 0;
+            }
+
+            .ebook-tabs .nav-link.active {
+                color: var(--color-accent-gold);
+                border-bottom-color: var(--color-accent-gold);
+            }
+
+            .tab-content {
+                padding-top: 2rem;
+                color: var(--color-text-medium);
+            }
+
+            .spec-table .spec-label {
+                color: var(--color-text-medium);
+            }
+
+            .spec-table .spec-value {
+                color: var(--color-text-light);
+            }
+
+            /* About Author Tab */
+            .author-info-card {
+                display: flex;
+                gap: 25px;
+                align-items: flex-start;
+            }
+
+            .author-info-card img {
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+            }
+
+            .author-stats {
+                display: flex;
+                gap: 20px;
+                margin-top: 10px;
+                color: var(--color-text-medium);
+            }
+
+            .author-socials a {
+                color: var(--color-text-medium);
+                border: var(--glass-border);
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                text-decoration: none;
+                transition: var(--soft-transition);
+            }
+
+            .author-socials a:hover {
+                color: #fff;
+                background-color: var(--color-accent-gold);
+            }
+
+            /* 4. Related eBooks Section */
+            .section-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 1.5rem;
+            }
+
+            .section-header h2 {
+                color: var(--color-text-light);
+                font-weight: 600;
+                margin: 0;
+            }
+
+            .related-ebook-card {
+                background: var(--glass-bg);
+                border: var(--glass-border);
+                border-radius: 12px;
+                overflow: hidden;
+                transition: var(--soft-transition);
+            }
+
+            .related-ebook-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            }
+
+            .related-ebook-card .card-img-top {
+                aspect-ratio: 2/3;
+                object-fit: cover;
+            }
+
+            .related-ebook-card .card-body {
+                padding: 1.25rem;
+            }
+
+            .related-ebook-card .card-title {
+                color: var(--color-text-light);
+                font-size: 1rem;
+                font-weight: 500;
+            }
+
+            .related-ebook-card .card-price {
+                color: var(--color-accent-gold);
+                font-weight: 600;
+            }
+
+            .related-ebook-card .learn-more {
+                color: var(--color-text-medium);
+                text-decoration: none;
+                font-weight: 500;
+            }
+
+            .related-ebook-card .learn-more:hover {
+                color: var(--color-accent-gold);
+            }
+
+            .ebook-details-page-section {
+                margin-top: 50px;
+            }
+
+            #related-ebooks {
+                margin-bottom: 50px;
+            }
+
+            /* === REVIEW TAB STYLES === */
+            .review-form-wrapper {
+                background: var(--glass-bg);
+                padding: 20px;
+                border-radius: 12px;
+                border: var(--glass-border);
+            }
+
+            .star-rating-input {
+                gap: 2px;
+                display: flex;
+                align-items: center;
+            }
+
+            .star-rating-input i {
+                font-size: 1.5rem;
+                color: var(--color-accent-gold);
+                cursor: pointer;
+                transition: var(--soft-transition);
+            }
+
+            .star-rating-input i:hover,
+            .star-rating-input i.hover,
+            .star-rating-input i.filled {
+                color: var(--color-accent-gold);
+                transform: scale(1.1);
+            }
+
+            .btn-remove-rating {
+                background: var(--color-accent-gold);
+                color: #000000;
+                border: none;
+                font-size: 0.8rem;
+                padding: 6px 12px;
+                border-radius: 50px;
+            }
+
+            .review-textarea {
+                background-color: var(--color-secondary-dark);
+                border: var(--glass-border);
+                color: var(--color-text-light);
+                border-radius: 8px;
+                padding: 15px;
+            }
+
+            .review-textarea:focus {
+                background-color: var(--color-secondary-dark);
+                color: var(--color-text-light);
+                border-color: var(--color-accent-gold);
+                box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25);
+            }
+
+            .reviews-title {
+                font-weight: 600;
+                color: var(--color-text-light);
+                padding-bottom: 10px;
+                border-bottom: var(--glass-border);
+            }
+
+            .review-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 20px 0;
+                border-bottom: var(--glass-border);
+            }
+
+            .review-item:last-child {
+                border-bottom: none;
+            }
+
+            .review-main {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .review-rating-display {
+                text-align: center;
+            }
+
+            .rating-score {
+                font-size: 2rem;
+                font-weight: 600;
+                color: var(--color-text-light);
+            }
+
+            .review-author {
+                font-weight: 600;
+                color: var(--color-text-light);
+            }
+
+            .review-comment-text {
+                color: var(--color-text-medium);
+                margin: 0;
+            }
+
+            .review-date {
+                font-size: 0.85rem;
+                color: var(--color-text-medium);
+            }
+
+            .review-actions .action-link {
+                font-size: 0.9rem;
+                text-decoration: none;
+                color: var(--color-accent-gold);
+                margin-left: 15px;
+                font-weight: 500;
+            }
+
+        </style>
+
+    </head>
+
+    <body class="">
+        <!-- Consistent Header, same as other pages -->
+        <main id="main-content">
+            <header class="topbar">
+                <div class="topbar__container">
+                    <div class="topbar__logo">
+                        <a href="index.html">
+                            <img src="images/bg.png" alt="Arya Kalyan Foundation Logo">
+                        </a>
+                    </div>
+                    <nav class="topbar__nav--desktop">
+                        <a href="index.html">Home</a>
+                        <a href="course.html">Courses</a>
+                        <a href="ebook.html" class="active">Ebook</a>
+                        <a href="shop.html">Shop</a>
+                        <a href="blog.html">Blog</a>
+                        <a href="about.html">About Us</a>
+                        <a href="events.html">Events</a>
+                        <a href="#donate">Donate</a>
+                    </nav>
+                    <div class="topbar__actions">
+                        <!-- Search Icon -->
+                        <div class="event-search" id="search-icon">
+                            <i class="bi bi-search"></i>
+                        </div>
+
+                        <!-- Cart -->
+                        <a href="#" class="action-icon cart-icon" id="cart-toggle">
+                            <i class="bi bi-cart3"></i>
+                            <span class="notification-badge">0</span>
+                        </a>
+                        <!-- Notification Bell -->
+                        <!-- Notification Wrapper with Bootstrap Dropdown Functionality -->
+                        <div class="notification-wrapper dropdown">
+                            <!-- Bell icon acts as the dropdown toggle -->
+                            <a href="#" class="action-icon notification-bell" id="notification-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                <i class="bi bi-bell"></i>
+                                <span class="notification-badge">3</span>
+                            </a>
+
+                            <!-- Dropdown menu with responsive enhancements -->
+                            <div class="notification-dropdown dropdown-menu dropdown-menu-dark dropdown-menu-end" id="notification-dropdown" style="min-width: 340px;">
+                                <div class="notification-header">
+                                    <h4>Notifications</h4>
+                                    <button class="mark-all-read">Mark all as read</button>
+                                </div>
+                                <!-- Scrollable list for mobile -->
+                                <div class="notification-list" style="max-height: 70vh; overflow-y: auto;">
+                                    <!-- Notification Item 1 -->
+                                    <a href="#" class="notification-item unread">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">Your class on <strong>Module 17</strong> has started.</p>
+                                            <small class="notification-meta">12 hours ago • Full Stack Web Development</small>
+                                        </div>
+                                    </a>
+                                    <!-- Notification Item 2 -->
+                                    <a href="#" class="notification-item unread">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">Your class will start at 12:00 PM</p>
+                                            <small class="notification-meta"><span class="live-badge-small">LIVE</span> 10 hours ago • Full Stack Web Development</small>
+                                        </div>
+                                    </a>
+                                    <!-- Notification Item 3 -->
+                                    <a href="#" class="notification-item">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">Your assignment has been graded.</p>
+                                            <small class="notification-meta">1 day ago • Veda Education</small>
+                                        </div>
+                                    </a>
+                                    <!-- Add more notifications here to test scrolling -->
+                                    <a href="#" class="notification-item">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">A new article has been published in the blog.</p>
+                                            <small class="notification-meta">2 days ago • Insights & Articles</small>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="notification-footer">
+                                    <a href="#" class="see-all-btn">See All Notifications</a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <a href="#" class="btn-login">Login</a>
+                        <a href="#" class="action-icon profile-avatar">
+                            <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar">
+                        </a>
+                        <button class="hamburger-menu" id="hamburger-toggle" aria-label="Toggle Menu">
+                            <i class="bi bi-list"></i>
+                        </button>
+                    </div>
+
+                    <!-- Fullscreen Search Bar (HTML-এ এটিকে topbar__container এর শেষে রাখা ভালো) -->
+                    <div class="fullscreen-search" id="fullscreen-search">
+                        <input type="text" placeholder="Search here..." id="fullscreen-search-input" />
+                        <button class="close-search" id="close-search-btn">×</button>
+                    </div>
+                </div>
+            </header>
+
+            <div class="mobile-nav__overlay" id="nav-overlay">
+                <nav class="mobile-nav" id="mobile-nav">
+                    <div class="mobile-nav__header">
+                        <span>Menu</span>
+                        <button class="close-menu" id="close-nav-btn" aria-label="Close Menu"><i class="bi bi-x"></i></button>
+                    </div>
+                    <a href="index.html" class="active">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="events.html">Events</a>
+                    <a href="course.html">Courses</a>
+                    <a href="ebook.html">Ebook</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="#donate">Donate</a>
+                    <hr>
+                    <a href="#" class="mobile-nav-profile">My Profile</a>
+                    <a href="#" class="mobile-nav-logout">Logout</a>
+                </nav>
+            </div>
+
+
+
+            <div class="ebook-page-content">
+                <section class="ebook-hero">
+                    <div class="container position-relative">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#"><i class="bi bi-house-door-fill"></i> Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Ebooks</li>
+                            </ol>
+                        </nav>
+                        <h1 class="ebook-hero-title">Ebooks</h1>
+                    </div>
+                </section>
+
+                <div class="ebook-details-page-section">
+                    <div class="container ">
+                        <div class="row g-5">
+                            <!-- Left Column: eBook Cover -->
+                            <div class="col-lg-4">
+                                <div class="ebook-cover-wrapper" data-aos="fade-right">
+                                    <img src="https://i.ibb.co/L5QxVf5/ebook-cover-roman.png" alt="Demo Ebook Cover" class="ebook-cover-image">
+                                    <div class="ebook-price-overlay">
+                                        <h2 class="ebook-price">$1,200.00</h2>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right Column: eBook Info -->
+                            <div class="col-lg-8" data-aos="fade-left" data-aos-delay="100">
+                                <h1 class="ebook-title">Demo Ebook: Roman</h1>
+                                <div class="ebook-author">
+                                    <img src="https://i.ibb.co/mG7p5k1/author-avatar.png" alt="Author Avatar">
+                                    <span>Admin</span>
+                                </div>
+                                <div class="ebook-rating">
+                                    <span>0.00</span>
+                                    <div class="stars">
+                                        <i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+                                    </div>
+                                </div>
+                                <p class="ebook-short-desc">This is a demo description for the eBook. It provides a brief overview of the content inside.</p>
+
+                                <div class="ebook-meta-table">
+                                    <div class="row mb-2">
+                                        <div class="col-5 col-md-4 meta-label">Publication Name</div>
+                                        <div class="col-7 col-md-8 meta-value">Sham's Publication</div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-5 col-md-4 meta-label">Published Date</div>
+                                        <div class="col-7 col-md-8 meta-value">09 Jun 2024</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-5 col-md-4 meta-label">Category</div>
+                                        <div class="col-7 col-md-8 meta-value">Classic Literature</div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex gap-3 mt-4">
+                                    <button class="btn btn-login preview">Read Preview</button>
+                                    <button class="btn btn-login">Buy Now</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tabbed Section -->
+                        <div class="section-card mt-5" data-aos="fade-up">
+                            <ul class="nav ebook-tabs" id="ebookTab" role="tablist">
+                                <li class="nav-item" role="presentation"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#summary-tab-pane" type="button">Summary</button></li>
+                                <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#specification-tab-pane" type="button">Specification</button>
+                                </li>
+                                <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#review-tab-pane" type="button">Review</button></li>
+                                <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#author-tab-pane" type="button">About Author</button></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="summary-tab-pane" role="tabpanel">
+                                    This is the demo summary of the book. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque.
+                                </div>
+                                <div class="tab-pane fade" id="specification-tab-pane" role="tabpanel">
+                                    <div class="spec-table row">
+                                        <div class="col-md-6">
+                                            <div class="row mb-2">
+                                                <div class="col-5 spec-label">Publication Name</div>
+                                                <div class="col-7 spec-value">: Sham's Publication</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row mb-2">
+                                                <div class="col-5 spec-label">Language</div>
+                                                <div class="col-7 spec-value">: English</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row mb-2">
+                                                <div class="col-5 spec-label">Published Date</div>
+                                                <div class="col-7 spec-value">: 01 Jan, 1970</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row mb-2">
+                                                <div class="col-5 spec-label">Category</div>
+                                                <div class="col-7 spec-value">: Classic Literature</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row mb-2">
+                                                <div class="col-5 spec-label">Rating</div>
+                                                <div class="col-7 spec-value">: 0.00 <span class="ebook-rating small"><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i
+                                                            class="bi bi-star"></i><i class="bi bi-star"></i></span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Review Tab Pane -->
+                                <div class="tab-pane fade" id="review-tab-pane" role="tabpanel">
+                                    <!-- Review Submission Form -->
+                                    <div class="review-form-wrapper">
+                                        <form id="ebook-review-form">
+                                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+                                                <label for="review-comment" class="form-label mb-0">Write a review:</label>
+                                                <div class="star-rating-input">
+                                                    <i class="bi bi-star" data-value="1"></i>
+                                                    <i class="bi bi-star" data-value="2"></i>
+                                                    <i class="bi bi-star" data-value="3"></i>
+                                                    <i class="bi bi-star" data-value="4"></i>
+                                                    <i class="bi bi-star" data-value="5"></i>
+                                                    <input type="hidden" name="rating" id="rating-value" value="0">
+                                                    <button type="button" class="btn-remove-rating  ms-2">Remove all</button>
+                                                </div>
+
+                                            </div>
+                                            <textarea class="form-control review-textarea" id="review-comment" rows="4" placeholder="Write your comment..."></textarea>
+                                            <button type="submit" class="btn btn-login btn-submit w-100 mt-3 d-flex justify-content-center">Submit</button>
+                                        </form>
+                                    </div>
+                                    <!-- Existing Reviews List -->
+                                    <div class="reviews-list mt-5">
+                                        <h5 class="reviews-title">Reviews</h5>
+
+                                        <!-- Review Item 1 -->
+                                        <div class="review-item">
+                                            <div class="row g-3 align-items-md-center">
+                                                <!-- Left Column: Rating Score -->
+                                                <div class="col-12 col-md-auto">
+                                                    <div class="review-rating-display">
+                                                        <div class="rating-score">5.00</div>
+                                                        <div class="stars text-warning">
+                                                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                                class="bi bi-star-fill"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Middle Column: Review Content -->
+                                                <div class="col-12 col-md">
+                                                    <div class="review-content">
+                                                        <h6 class="review-author mb-1">Marsden Holman</h6>
+                                                        <small class="review-date d-block mb-2">22 Jul, 2025</small>
+                                                        <p class="review-comment-text">"nice"</p>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Right Column: Actions -->
+                                                <div class="col-12 col-md-auto">
+                                                    <div class="review-actions">
+                                                        <a href="#" class="action-link">Edit</a>
+                                                        <a href="#" class="action-link text-danger">Delete</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Review Item 2 (with 4 stars) -->
+                                        <div class="review-item">
+                                            <div class="row g-3 align-items-md-center">
+                                                <!-- Left Column: Rating Score -->
+                                                <div class="col-12 col-md-auto">
+                                                    <div class="review-rating-display">
+                                                        <div class="rating-score">4.00</div>
+                                                        <div class="stars text-warning">
+                                                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                                class="bi bi-star"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Middle Column: Review Content -->
+                                                <div class="col-12 col-md">
+                                                    <div class="review-content">
+                                                        <h6 class="review-author mb-1">Marsden Holman</h6>
+                                                        <small class="review-date d-block mb-2">22 Jul, 2025</small>
+                                                        <p class="review-comment-text">"boi ta amr valo lage che"</p>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Right Column: Actions -->
+                                                <div class="col-12 col-md-auto">
+                                                    <div class="review-actions">
+                                                        <a href="#" class="action-link">Edit</a>
+                                                        <a href="#" class="action-link text-danger">Delete</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="author-tab-pane" role="tabpanel">
+                                    <div class="author-info-card">
+                                        <img src="https://i.ibb.co/mG7p5k1/author-avatar.png" alt="Author Avatar" class="d-none d-md-block">
+                                        <div>
+                                            <h4 class="text-light">Admin</h4>
+                                            <p class="text-medium">Developer, Designer, Creator</p>
+                                            <div class="author-stats">
+                                                <span><i class="bi bi-cart3"></i> 0 Purchase</span>
+                                                <span><i class="bi bi-book"></i> 8 Ebook</span>
+                                                <span><i class="bi bi-star"></i> 0 review</span>
+                                            </div>
+                                            <p class="mt-3">Ea est ducimus quibusdam asperiores rem et ab magni quae aut harum incidunt dolorum natus? Laborum reiciendis dolore facilis cumque ea
+                                                incidunt.
+                                            </p>
+                                            <div class="author-socials d-flex gap-3 mt-3">
+                                                <a href="#"><i class="bi bi-twitter-x"></i></a>
+                                                <a href="#"><i class="bi bi-instagram"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Related eBooks Section -->
+                        <section id="related-ebooks" data-aos="fade-up">
+                            <div class="section-header">
+                                <h2>Related eBooks</h2>
+                                <a href="#" class="btn btn-login">View All eBooks</a>
+                            </div>
+                            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+
+                                <!-- Card 1 -->
+                                <div class="col" data-aos="fade-up">
+                                    <a href="ebook-details.html" class="ebook-card-link">
+                                        <div class="ebook-card">
+                                            <div class="ebook-card-img">
+                                                <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=2070" alt="Research Book">
+                                                <div class="price-badge free">Free</div>
+                                            </div>
+                                            <div class="ebook-card-body">
+                                                <p class="ebook-card-category">Education</p>
+                                                <h5 class="ebook-card-title">Research Basics for Beginners</h5>
+                                                <p class="ebook-card-author">by Dr. Emily Carter</p>
+                                                <div class="ebook-card-footer">
+                                                    <div class="ebook-card-rating">
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-half"></i>
+                                                    </div>
+                                                    <button class="btn-details">View details</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <!-- Card 2 -->
+                                <div class="col" data-aos="fade-up" data-aos-delay="100">
+                                    <a href="ebook-details.html" class="ebook-card-link">
+                                        <div class="ebook-card">
+                                            <div class="ebook-card-img">
+                                                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070" alt="Motivation Book">
+                                                <div class="price-badge">$30</div>
+                                            </div>
+                                            <div class="ebook-card-body">
+                                                <p class="ebook-card-category">Motivation</p>
+                                                <h5 class="ebook-card-title">Greatness Begins With a Single Step</h5>
+                                                <p class="ebook-card-author">by John Maxwell</p>
+                                                <div class="ebook-card-footer">
+                                                    <div class="ebook-card-rating">
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                    </div>
+                                                    <button class="btn-details">View details</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <!-- Card 3 -->
+                                <div class="col" data-aos="fade-up" data-aos-delay="200">
+                                    <a href="ebook-details.html" class="ebook-card-link">
+                                        <div class="ebook-card">
+                                            <div class="ebook-card-img">
+                                                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070" alt="Sci‑Fi Book Cover">
+
+                                                <div class="price-badge free">Free</div>
+                                            </div>
+                                            <div class="ebook-card-body">
+                                                <p class="ebook-card-category">Science Fiction</p>
+                                                <h5 class="ebook-card-title">A House Between Earth and the Moon</h5>
+                                                <p class="ebook-card-author">by Jane Doe</p>
+                                                <div class="ebook-card-footer">
+                                                    <div class="ebook-card-rating">
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                    </div>
+                                                    <button class="btn-details">View details</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                            </div>
+
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- 📱 Mobile Bottom Navigation -->
+        <nav class="bottom-nav">
+            <a href="index.html" class="bottom-nav__item "><i class="bi bi-house-door-fill"></i><span>Home</span></a>
+            <a href="events.html" class="bottom-nav__item"><i class="bi bi-calendar-event-fill"></i><span>Events</span></a>
+            <a href="course.html" class="bottom-nav__item "><i class="bi bi-journal-bookmark-fill"></i><span>Courses</span></a>
+            <a href="ebook.html" class="bottom-nav__item active"><i class="bi bi-book-fill"></i><span>Ebook</span></a>
+            <a href="shop.html" class="bottom-nav__item "><i class="bi bi-cart-fill"></i><span>Shop</span></a>
+            <a href="#blog" class="bottom-nav__item"><i class="bi bi-chat-square-text-fill"></i><span>Blog</span></a>
+            <a href="#donate" class="bottom-nav__item"><i class="bi bi-heart-fill"></i><span>Donate</span></a>
+        </nav>
+
+        <!-- Footer -->
+        <!-- ============================================= -->
+        <!-- Footer Section                                -->
+        <!-- ============================================= -->
+        <footer id="footer" class="site-footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <!-- Column 1: Brand & Tagline -->
+                    <div class="footer-column">
+                        <h3 class="footer-brand">AKF</h3>
+                        <p class="footer-tagline">A sanctuary for peace, wisdom, and connection in the digital age.</p>
+                    </div>
+
+                    <!-- Column 2: Quick Links -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Quick Links</h5>
+                        <ul class="footer-links">
+                            <li><a href="#hero">Home</a></li>
+                            <li><a href="#introduction">About Us</a></li>
+                            <li><a href="#courses">Courses</a></li>
+                            <li><a href="#blog">Blog</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 3: Support -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Support</h5>
+                        <ul class="footer-links">
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#donate">Donate</a></li>
+                            <li><a href="#">Community Guidelines</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 4: Follow Us -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Follow Us</h5>
+                        <div class="social-icons">
+                            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                            <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>© 2024 AKF. All Rights Reserved.</p>
+                    <div class="footer-legal-links">
+                        <a href="#">Privacy Policy</a>
+                        <span>•</span>
+                        <a href="#">Terms of Service Sammo</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+
+
+        <!-- Scripts -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <!-- AOS.js for Scroll Animations -->
+
+        <!-- Swiper.js JS -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script src="js/script.js"></script>
+
+        <script>
+            const stars = $('.star-rating-input i');
+            const ratingInput = $('#rating-value');
+            const removeButton = $('.btn-remove-rating');
+
+            function updateStars(rating) {
+                stars.each(function (index) {
+                    if (index < rating) {
+                        $(this).removeClass('bi-star').addClass('bi-star-fill');
+                    } else {
+                        $(this).removeClass('bi-star-fill').addClass('bi-star');
+                    }
+                });
+            }
+
+            stars.on('mouseenter', function () {
+                let index = $(this).index();
+                updateStars(index + 1);
+            }).on('mouseleave', function () {
+                let currentRating = parseInt(ratingInput.val());
+                updateStars(currentRating);
+            }).on('click', function () {
+                let value = $(this).data('value');
+                ratingInput.val(value);
+                updateStars(value);
+            });
+
+            removeButton.on('click', function () {
+                ratingInput.val(0);
+                updateStars(0);
+            });
+
+            // Load initial rating on page load (optional)
+            updateStars(parseInt(ratingInput.val()));
+
+        </script>
+
+    </body>
