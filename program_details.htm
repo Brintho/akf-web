@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Courses - AKF</title>
+
+        <!-- SEO Meta Tags -->
+        <meta name="description" content="Explore live and recorded courses on spiritual wisdom, meditation, yoga, and personal growth offered by AKF.">
+        <meta name="keywords" content="live courses, recorded courses, spiritual education, vedanta, yoga, meditation">
+
+
+        <!-- Dependencies -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <!-- Swiper.js CSS -->
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+
+        <link rel="stylesheet" href="css/style.css">
+        <style>
+            /* Your provided theme variables */
+            :root {
+                --color-primary-dark: #161618;
+                --color-secondary-dark: #1e1e1e;
+                --color-accent-gold: #D4AF37;
+                --color-text-light: #f0f0f0;
+                --color-text-medium: #a0a0a0;
+                --glass-bg: rgba(30, 30, 30, 0.7);
+                --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+                --font-primary: 'Poppins', sans-serif;
+                --font-bengali: 'Hind Siliguri', sans-serif;
+                --soft-transition: all 0.3s ease-in-out;
+            }
+
+            .event-details-page {
+                padding-top: 100px;
+                background-color: var(--color-primary-dark);
+                color: var(--color-text-light);
+                font-family: var(--font-primary);
+            }
+
+            .section-card {
+                background: var(--glass-bg);
+                border: var(--glass-border);
+                border-radius: 16px;
+                padding: 2rem;
+                backdrop-filter: blur(12px);
+                margin-bottom: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+                font-weight: 600;
+                color: var(--color-text-light);
+                margin-bottom: 1.5rem;
+                padding-bottom: 10px;
+                border-bottom: 1px solid var(--glass-border);
+            }
+
+            /* 1. Hero Section */
+            .event-hero {
+                height: 60vh;
+                min-height: 400px;
+                border-radius: 16px;
+                background-size: cover;
+                background-position: center;
+                position: relative;
+                display: flex;
+                align-items: flex-end;
+                padding: 2.5rem;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            }
+
+            .event-hero::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 20%, transparent 100%);
+                border-radius: 16px;
+            }
+
+            .hero-content {
+                position: relative;
+                z-index: 2;
+            }
+
+            .hero-category-badge {
+                background-color: var(--color-accent-gold);
+                color: var(--color-primary-dark);
+                font-weight: 600;
+                padding: 5px 15px;
+                border-radius: 50px;
+                display: inline-block;
+                margin-bottom: 1rem;
+            }
+
+            .hero-title {
+                font-size: clamp(2rem, 5vw, 3.5rem);
+                font-weight: 700;
+                color: #fff;
+                line-height: 1.2;
+            }
+
+            .hero-meta {
+                color: var(--color-text-light);
+                font-size: 1.1rem;
+            }
+
+            /* 2-3. Details & Description */
+            .details-grid {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .detail-item {
+                background: var(--color-secondary-dark);
+                padding: 1rem;
+                border-radius: 8px;
+                flex: 1 1 200px;
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .detail-item i {
+                font-size: 1.5rem;
+                color: var(--color-accent-gold);
+            }
+
+            .detail-item .label {
+                color: var(--color-text-medium);
+                font-size: 0.9rem;
+            }
+
+            .detail-item .value {
+                color: var(--color-text-light);
+                font-weight: 500;
+            }
+
+            .description-content p {
+                color: var(--color-text-medium);
+                line-height: 1.8;
+            }
+
+            /* 4. iFrame Visibility Fix (For Video & Map) */
+            .iframe-wrapper {
+                position: relative;
+                width: 100%;
+                overflow: hidden;
+                border-radius: 12px;
+                aspect-ratio: 16 / 9;
+            }
+
+            .iframe-wrapper iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border: 0;
+            }
+
+            /* 5. Gallery & Lightbox */
+            .gallery-swiper .swiper-slide {
+                aspect-ratio: 16/10;
+                border-radius: 12px;
+                overflow: hidden;
+                cursor: pointer;
+            }
+
+            .gallery-swiper img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .gallery-swiper .swiper-pagination-bullet {
+                background-color: var(--color-text-medium);
+                opacity: 0.6;
+            }
+
+            .gallery-swiper .swiper-pagination-bullet-active {
+                background-color: var(--color-accent-gold);
+                transform: scale(1.2);
+                opacity: 1;
+            }
+
+            .lightbox-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.9);
+                z-index: 9999;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 20px;
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.4s ease, visibility 0.4s ease;
+            }
+
+            .lightbox-overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .lightbox-image {
+                max-width: 90%;
+                max-height: 90%;
+                object-fit: contain;
+                border-radius: 8px;
+                transform: scale(0.8);
+                transition: transform 0.4s ease;
+            }
+
+            .lightbox-overlay.active .lightbox-image {
+                transform: scale(1);
+            }
+
+            .lightbox-close {
+                position: absolute;
+                top: 20px;
+                right: 30px;
+                font-size: 3rem;
+                color: #fff;
+                background: none;
+                border: none;
+                cursor: pointer;
+                line-height: 1;
+            }
+
+            /* 6. Schedule */
+            .timeline-item {
+                position: relative;
+                padding-left: 30px;
+                border-left: 2px solid var(--glass-border);
+                padding-bottom: 2rem;
+            }
+
+            .timeline-item::before {
+                content: '';
+                position: absolute;
+                left: -9px;
+                top: 0;
+                width: 16px;
+                height: 16px;
+                background-color: var(--color-accent-gold);
+                border-radius: 50%;
+                border: 3px solid var(--color-secondary-dark);
+            }
+
+            .timeline-time {
+                font-weight: 600;
+                color: var(--color-accent-gold);
+            }
+
+            /* 7. Guests */
+            .guest-card img {
+                width: 120px;
+                height: 120px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 3px solid var(--color-accent-gold);
+            }
+
+            .guest-name {
+                color: var(--color-text-light);
+                font-weight: 600;
+                margin-top: 1rem;
+            }
+
+            /* 9-11. Actions & Social */
+            .btn-gradient {
+                background: linear-gradient(90deg, #D4AF37, #e0a800);
+                border: none;
+                color: var(--color-primary-dark);
+                font-weight: 600;
+                padding: 12px 30px;
+                border-radius: 8px;
+                transition: var(--soft-transition);
+            }
+
+            .btn-gradient:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+            }
+
+            .social-share a {
+                color: var(--color-text-medium);
+                font-size: 1.5rem;
+                transition: var(--soft-transition);
+            }
+
+            .social-share a:hover {
+                color: var(--color-accent-gold);
+                transform: scale(1.1);
+            }
+
+            /* 12. Comments */
+            .comment-item {
+                display: flex;
+                gap: 15px;
+                padding: 20px 0;
+                border-top: var(--glass-border);
+            }
+
+            .comment-avatar {
+                width: 45px;
+                height: 45px;
+                border-radius: 50%;
+            }
+
+        </style>
+    </head>
+
+    <body class="">
+        <!-- Consistent Header, same as other pages -->
+        <main id="main-content">
+
+            <header class="topbar">
+                <div class="topbar__container">
+                    <div class="topbar__logo">
+                        <a href="index.html">
+                            <img src="images/bg.png" alt="Arya Kalyan Foundation Logo">
+                        </a>
+                    </div>
+                    <nav class="topbar__nav--desktop">
+                        <a href="index.html">Home</a>
+                        <a href="course.html" class="active">Courses</a>
+                        <a href="ebook.html">Ebook</a>
+                        <a href="shop.html">Shop</a>
+                        <a href="blog.html">Blog</a>
+                        <a href="about.html">About Us</a>
+                        <a href="events.html">Events</a>
+                        <a href="#donate">Donate</a>
+                    </nav>
+                    <div class="topbar__actions">
+                        <!-- Search Icon -->
+                        <div class="event-search" id="search-icon">
+                            <i class="bi bi-search"></i>
+                        </div>
+
+                        <!-- Cart -->
+                        <a href="#" class="action-icon cart-icon" id="cart-toggle">
+                            <i class="bi bi-cart3"></i>
+                            <span class="notification-badge">0</span>
+                        </a>
+                        <!-- Notification Bell -->
+                        <!-- Notification Wrapper with Bootstrap Dropdown Functionality -->
+                        <div class="notification-wrapper dropdown">
+                            <!-- Bell icon acts as the dropdown toggle -->
+                            <a href="#" class="action-icon notification-bell" id="notification-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                <i class="bi bi-bell"></i>
+                                <span class="notification-badge">3</span>
+                            </a>
+
+                            <!-- Dropdown menu with responsive enhancements -->
+                            <div class="notification-dropdown dropdown-menu dropdown-menu-dark dropdown-menu-end" id="notification-dropdown" style="min-width: 340px;">
+                                <div class="notification-header">
+                                    <h4>Notifications</h4>
+                                    <button class="mark-all-read">Mark all as read</button>
+                                </div>
+                                <!-- Scrollable list for mobile -->
+                                <div class="notification-list" style="max-height: 70vh; overflow-y: auto;">
+                                    <!-- Notification Item 1 -->
+                                    <a href="#" class="notification-item unread">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">Your class on <strong>Module 17</strong> has started.</p>
+                                            <small class="notification-meta">12 hours ago • Full Stack Web Development</small>
+                                        </div>
+                                    </a>
+                                    <!-- Notification Item 2 -->
+                                    <a href="#" class="notification-item unread">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">Your class will start at 12:00 PM</p>
+                                            <small class="notification-meta"><span class="live-badge-small">LIVE</span> 10 hours ago • Full Stack Web Development</small>
+                                        </div>
+                                    </a>
+                                    <!-- Notification Item 3 -->
+                                    <a href="#" class="notification-item">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">Your assignment has been graded.</p>
+                                            <small class="notification-meta">1 day ago • Veda Education</small>
+                                        </div>
+                                    </a>
+                                    <!-- Add more notifications here to test scrolling -->
+                                    <a href="#" class="notification-item">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">A new article has been published in the blog.</p>
+                                            <small class="notification-meta">2 days ago • Insights & Articles</small>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="notification-footer">
+                                    <a href="#" class="see-all-btn">See All Notifications</a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <a href="#" class="btn-login">Login</a>
+                        <a href="#" class="action-icon profile-avatar">
+                            <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar">
+                        </a>
+                        <button class="hamburger-menu" id="hamburger-toggle" aria-label="Toggle Menu">
+                            <i class="bi bi-list"></i>
+                        </button>
+                    </div>
+
+                    <!-- Fullscreen Search Bar (HTML-এ এটিকে topbar__container এর শেষে রাখা ভালো) -->
+                    <div class="fullscreen-search" id="fullscreen-search">
+                        <input type="text" placeholder="Search here..." id="fullscreen-search-input" />
+                        <button class="close-search" id="close-search-btn">×</button>
+                    </div>
+                </div>
+            </header>
+
+
+            <div class="event-details-page">
+                <div class="container">
+                    <!-- 1. Hero Section -->
+                    <section class="event-hero" style="background-image: url('images/our_programs-img/18963040.jpg');" data-aos="fade-in">
+                        <div class="hero-content">
+                            <span class="hero-category-badge">Cultural Program</span>
+                            <h1 class="hero-title">Sindoor Khela & Cultural Celebration</h1>
+                            <p class="hero-meta"><i class="bi bi-calendar3"></i> 24 October 2023 | <i class="bi bi-geo-alt-fill"></i> Kumartuli, Kolkata</p>
+                        </div>
+                    </section>
+
+                    <div class="row mt-5">
+                        <div class="col-lg-8">
+                            <!-- 2. Basic Details & 3. Description -->
+                            <div class="section-card" data-aos="fade-up">
+                                <div class="details-grid mb-4">
+                                    <div class="detail-item"><i class="bi bi-calendar-event"></i>
+                                        <div>
+                                            <div class="label">Date & Time</div>
+                                            <div class="value">24 Oct 2023, 3:00 PM</div>
+                                        </div>
+                                    </div>
+                                    <div class="detail-item"><i class="bi bi-geo-alt"></i>
+                                        <div>
+                                            <div class="label">Location</div>
+                                            <div class="value">Kumartuli, Kolkata</div>
+                                        </div>
+                                    </div>
+                                    <div class="detail-item"><i class="bi bi-tag"></i>
+                                        <div>
+                                            <div class="label">Category</div>
+                                            <div class="value">Cultural</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr style="border-color: var(--glass-border);">
+                                <div class="description-content pt-3">
+                                    <p>A vibrant celebration marking the culmination of Durga Puja. Join us for the traditional Sindoor Khela, a joyous ritual where married women apply vermilion to
+                                        each
+                                        other, followed by an evening of cultural performances.</p>
+                                    <p class="font-bengali">দুর্গা পূজার সমাপ্তি উপলক্ষে একটি বর্ণাঢ্য উদযাপন। আমাদের সাথে ঐতিহ্যবাহী সিঁদুর খেলায় যোগ দিন, যেখানে বিবাহিত মহিলারা একে অপরের সিঁথিতে
+                                        সিঁদুর
+                                        লাগিয়ে দেন। এরপর সাংস্কৃতিক অনুষ্ঠানের আয়োজন করা হয়েছে।</p>
+                                </div>
+                            </div>
+
+
+                            <!-- 5. Video Section -->
+                            <div class="section-card" data-aos="fade-up">
+                                <h3 class="section-title">Watch Highlights</h3>
+                                <div class="iframe-wrapper">
+                                    <iframe src="https://www.youtube.com/embed/uKXg9IGGDCo?si=TwtYq1ZpFkG6N0Rp" title=" YouTube video player"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <!-- 6. Schedule -->
+
+
+                            <!-- 7. Guests -->
+                            <div class="section-card" data-aos="fade-up">
+                                <h3 class="section-title">Special Guests</h3>
+                                <div class="row text-center">
+                                    <div class="col-6">
+                                        <div class="guest-card"><img src="https://i.pravatar.cc/150?u=guest1" alt="Guest 1">
+                                            <h6 class="guest-name">Smt. Roy</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="guest-card"><img src="https://i.pravatar.cc/150?u=guest2" alt="Guest 2">
+                                            <h6 class="guest-name">Sri. Sharma</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="guest-card"><img src="https://i.pravatar.cc/150?u=guest1" alt="Guest 1">
+                                            <h6 class="guest-name">Smt. Roy</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="guest-card"><img src="https://i.pravatar.cc/150?u=guest2" alt="Guest 2">
+                                            <h6 class="guest-name">Sri. Sharma</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 9-11. Actions -->
+                            <div class="section-card text-center" data-aos="fade-up">
+                                <h3 class="section-title">Join Us</h3>
+                                <button class="btn btn-gradient w-100 mb-3">Register Now</button>
+                                <a href="#" class="btn btn-outline-light w-100 mb-4"><i class="bi bi-download me-2"></i> Download Schedule</a>
+                                <hr style="border-color: var(--glass-border);">
+                                <p class="text-medium mt-3">Share this event:</p>
+                                <div class="social-share d-flex justify-content-center gap-4">
+                                    <a href="#"><i class="bi bi-facebook"></i></a><a href="#"><i class="bi bi-whatsapp"></i></a><a href="#"><i class="bi bi-twitter-x"></i></a><a href="#"><i
+                                            class="bi bi-linkedin"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 4. Image Gallery -->
+                    <div class="section-card" data-aos="fade-up">
+                        <h3 class="section-title">Event Gallery</h3>
+                        <div class="swiper gallery-swiper">
+                            <div class="swiper-wrapper">
+                                <a href="images/our_programs-img/18963040.jpg" class="swiper-slide gallery-lightbox-item"><img src="images/our_programs-img/18963040.jpg" alt="Gallery Image 1"></a>
+                                <a href="images/our_programs-img/Jagannath-rath-yatra.avif" class="swiper-slide gallery-lightbox-item"><img src="images/our_programs-img/Jagannath-rath-yatra.avif"
+                                        alt="Gallery Image 2"></a>
+                                <a href="https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=2070" class="swiper-slide gallery-lightbox-item"><img
+                                        src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=2070" alt="Gallery Image 3"></a>
+                            </div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                    </div>
+
+                    <!-- 8. Map Location -->
+                    <div class="section-card" data-aos="fade-up">
+                        <h3 class="section-title">Event Location</h3>
+                        <div class="iframe-wrapper">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3683.432811444199!2d88.36389531546736!3d22.59938898516757!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a0277a6a8b9f1e1%3A0x5a7d7b3b4f67c4a1!2sKumartuli!5e0!3m2!1sen!2sbd!4v1671816361494!5m2!1sen!2sbd"
+                                style="border:0;" loading="lazy"></iframe>
+                        </div>
+                    </div>
+
+                    <!-- 12. Comments Section Placeholder -->
+                    <div class="section-card" data-aos="fade-up">
+                        <h3 class="section-title">Discussion</h3>
+                        <!--  Comment Section -->
+                        <div class="section-card" data-aos="fade-up">
+                            <h3 class="section-title">Leave a Comment</h3>
+                            <form id="comment-form" class="mb-5">
+                                <div class="d-flex align-items-start">
+                                    <img src="https://i.pravatar.cc/150?u=guest" alt="Your Avatar" class="comment-avatar me-3">
+                                    <div class="w-100">
+                                        <textarea class="form-control" id="comment-text" rows="3" placeholder="Write your thoughts..." required></textarea>
+                                        <button type="submit" class="btn btn-submit-comment mt-2">Post Comment</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <div class="comment-list">
+                                <h4 class="mb-3">Comments (3)</h4>
+
+                                <!-- Comment Thread 1 (With a Reply) -->
+                                <div class="comment-thread">
+                                    <div class="comment-item">
+                                        <img src="https://i.pravatar.cc/150?u=sumit" alt="Sumit Sharma" class="comment-avatar">
+                                        <div class="comment-content">
+                                            <div class="comment-header">
+                                                <span class="comment-author-name">Sumit Sharma</span>
+                                                <span class="comment-time">2 hours ago</span>
+                                            </div>
+                                            <div class="comment-body">
+                                                <p>Very insightful article. Thank you for sharing these simple yet powerful techniques.</p>
+                                            </div>
+                                            <div class="comment-actions">
+                                                <button class="btn-love"><i class="bi bi-heart"></i> Love <span class="love-count">12</span></button>
+                                                <button class="btn-reply"><i class="bi bi-reply-fill"></i> Reply</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Replies to Comment 1 -->
+                                    <div class="comment-replies">
+                                        <div class="comment-thread reply-thread">
+                                            <div class="comment-item reply-item">
+                                                <img src="https://i.pravatar.cc/150?u=akfteam" alt="AKF Team" class="comment-avatar">
+                                                <div class="comment-content">
+                                                    <div class="comment-header">
+                                                        <span class="comment-author-name">AKF Team</span>
+                                                        <span class="comment-time">1 hour ago</span>
+                                                    </div>
+                                                    <div class="comment-body">
+                                                        <p class="replying-to"><i class="bi bi-arrow-return-right"></i> Replying to Sumit Sharma</p>
+                                                        <p>Thank you for your kind words, Sumit! We are glad you found it helpful.</p>
+                                                    </div>
+                                                    <div class="comment-actions">
+                                                        <button class="btn-love loved"><i class="bi bi-heart-fill"></i> Love <span class="love-count">6</span></button>
+                                                        <button class="btn-reply"><i class="bi bi-reply-fill"></i> Reply</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Nested Reply Form Container (Hidden by default) -->
+                                            <div class="reply-form-container"></div>
+                                        </div>
+                                    </div>
+                                    <!-- Reply Form Container (Hidden by default) -->
+                                    <div class="reply-form-container"></div>
+                                </div>
+
+                                <!-- Comment Thread 2 (No Replies) -->
+                                <div class="comment-thread">
+                                    <div class="comment-item">
+                                        <img src="https://i.pravatar.cc/150?u=anika" alt="Anika Rahman" class="comment-avatar">
+                                        <div class="comment-content">
+                                            <div class="comment-header">
+                                                <span class="comment-author-name">Anika Rahman</span>
+                                                <span class="comment-time">5 hours ago</span>
+                                            </div>
+                                            <div class="comment-body">
+                                                <p>This is exactly what I needed to read today. The blockquote is very inspiring!</p>
+                                            </div>
+                                            <div class="comment-actions">
+                                                <button class="btn-love"><i class="bi bi-heart"></i> Love <span class="love-count">9</span></button>
+                                                <button class="btn-reply"><i class="bi bi-reply-fill"></i> Reply</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Reply Form Container (Hidden by default) -->
+                                    <div class="reply-form-container"></div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lightbox HTML Structure (Placed once, before the end of main) -->
+            <div class="lightbox-overlay" id="gallery-lightbox">
+                <button class="lightbox-close">×</button>
+                <img src="" alt="Fullscreen Gallery Image" class="lightbox-image">
+            </div>
+        </main>
+
+
+        <!-- 📱 Mobile Bottom Navigation -->
+        <nav class="bottom-nav">
+            <a href="index.html" class="bottom-nav__item "><i class="bi bi-house-door-fill"></i><span>Home</span></a>
+            <a href="events.html" class="bottom-nav__item"><i class="bi bi-calendar-event-fill"></i><span>Events</span></a>
+            <a href="course.html" class="bottom-nav__item active"><i class="bi bi-journal-bookmark-fill"></i><span>Courses</span></a>
+            <a href="shop.html" class="bottom-nav__item "><i class="bi bi-cart-fill"></i><span>Shop</span></a>
+            <a href="#blog" class="bottom-nav__item"><i class="bi bi-chat-square-text-fill"></i><span>Blog</span></a>
+            <a href="#donate" class="bottom-nav__item"><i class="bi bi-heart-fill"></i><span>Donate</span></a>
+        </nav>
+
+        <!-- Footer -->
+        <!-- ============================================= -->
+        <!-- Footer Section                                -->
+        <!-- ============================================= -->
+        <footer id="footer" class="site-footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <!-- Column 1: Brand & Tagline -->
+                    <div class="footer-column">
+                        <h3 class="footer-brand">AKF</h3>
+                        <p class="footer-tagline">A sanctuary for peace, wisdom, and connection in the digital age.</p>
+                    </div>
+
+                    <!-- Column 2: Quick Links -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Quick Links</h5>
+                        <ul class="footer-links">
+                            <li><a href="#hero">Home</a></li>
+                            <li><a href="#introduction">About Us</a></li>
+                            <li><a href="#courses">Courses</a></li>
+                            <li><a href="#blog">Blog</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 3: Support -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Support</h5>
+                        <ul class="footer-links">
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#donate">Donate</a></li>
+                            <li><a href="#">Community Guidelines</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 4: Follow Us -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Follow Us</h5>
+                        <div class="social-icons">
+                            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                            <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>© 2024 AKF. All Rights Reserved.</p>
+                    <div class="footer-legal-links">
+                        <a href="#">Privacy Policy</a>
+                        <span>•</span>
+                        <a href="#">Terms of Service Sammo</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+
+
+        <!-- Scripts -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <!-- Custom Script -->
+        <script src="js/script.js"></script>
+        <script>
+            $(document).ready(function () {
+                // Initialize AOS
+                AOS.init({
+                    duration: 900,
+                    once: true,
+                    offset: 80,
+                    easing: 'ease-in-out',
+                });
+
+                // Refresh AOS after all content (including iframes) is loaded
+                $(window).on('load', function () {
+                    AOS.refresh();
+                });
+
+                // --- ENHANCED Event Gallery Swiper with Lightbox ---
+                const gallerySwiper = new Swiper('.gallery-swiper', {
+                    loop: true,
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                    autoplay: {
+                        delay: 4000,
+                        disableOnInteraction: false,
+                    },
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                    breakpoints: {
+                        576: {
+                            slidesPerView: 2,
+                        }
+                    }
+                });
+
+                // --- Lightbox Functionality ---
+                const $lightbox = $('#gallery-lightbox');
+                const $lightboxImage = $('.lightbox-image');
+
+                $('.gallery-lightbox-item').on('click', function (e) {
+                    e.preventDefault();
+                    $lightboxImage.attr('src', $(this).attr('href'));
+                    $lightbox.addClass('active');
+                });
+
+                function closeLightbox() {
+                    $lightbox.removeClass('active');
+                }
+
+                $('.lightbox-close').on('click', closeLightbox);
+                $lightbox.on('click', function (e) {
+                    if ($(e.target).is($lightbox)) {
+                        closeLightbox();
+                    }
+                });
+
+                // Your other page-specific scripts (like comments) can go here
+            });
+
+        </script>
+
+
+    </body>

@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Product Details</title>
+        <!-- Dependencies -->
+        <!-- Dependencies -->
+        <!-- Google Fonts: Poppins & Hind Siliguri (for consistency) -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+        <!-- AOS.js (Animate on Scroll) CSS -->
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <!-- Swiper.js CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+        <!-- Custom Stylesheet -->
+        <link rel="stylesheet" href="css/style.css">
+
+    </head>
+
+    <body>
+        <!-- Your Header Would Go Here -->
+
+        <main id="main-content">
+
+            <!-- Custom CSS for Program Listing Page (Dark Theme) -->
+            <style>
+                /* Your provided theme variables */
+                :root {
+                    --color-primary-dark: #161618;
+                    --color-secondary-dark: #1e1e1e;
+                    --color-accent-gold: #D4AF37;
+                    --color-text-light: #f0f0f0;
+                    --color-text-medium: #a0a0a0;
+                    --glass-bg: rgba(30, 30, 30, 0.7);
+                    --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+                    --tag-blue: #60a5fa;
+                    --tag-green: #4ade80;
+                    --font-primary: 'Poppins', sans-serif;
+                    --soft-transition: all 0.3s ease-in-out;
+                }
+
+                .program-page-content {
+                    margin-top: 100px;
+                    background-color: var(--color-primary-dark);
+                    font-family: var(--font-primary);
+                    color: var(--color-text-light);
+                }
+
+                /* 1. Page Header Section */
+                .program-header {
+                    background: var(--glass-bg);
+                    border: var(--glass-border);
+                    border-radius: 16px;
+                    padding: 2.5rem;
+                    margin-top: 2rem;
+                    margin-bottom: 2.5rem;
+                    backdrop-filter: blur(12px);
+                }
+
+                .program-header .page-title {
+                    font-weight: 700;
+                }
+
+                .program-header .page-tagline {
+                    color: var(--color-text-medium);
+                }
+
+                .program-header .form-control,
+                .program-header .form-select {
+                    background-color: var(--color-secondary-dark);
+                    color: var(--color-text-light);
+                    border: var(--glass-border);
+                    border-radius: 8px;
+                }
+
+                .program-header .form-control:focus,
+                .program-header .form-select:focus {
+                    border-color: var(--color-accent-gold);
+                    box-shadow: 0 0 0 0.25rem rgba(212, 175, 55, 0.25);
+                }
+
+                .program-header .form-control::placeholder {
+                    color: var(--color-text-medium);
+                }
+
+                /* 2. Filter Sidebar */
+                .filter-sidebar {
+                    background: var(--glass-bg);
+                    border: var(--glass-border);
+                    border-radius: 16px;
+                    padding: 25px;
+                    backdrop-filter: blur(12px);
+                }
+
+                @media (min-width: 992px) {
+                    .filter-sidebar {
+                        position: sticky;
+                        top: 100px;
+                    }
+                }
+
+                .filter-group-title {
+                    font-size: 1.2rem;
+                    font-weight: 600;
+                    color: var(--color-text-light);
+                    margin-bottom: 20px;
+                    padding-bottom: 15px;
+                    border-bottom: 1px solid var(--glass-border);
+                }
+
+                .filter-list {
+                    list-style: none;
+                    padding-left: 0;
+                }
+
+                .filter-list .form-check {
+                    padding-left: 2.2em;
+                    margin-bottom: 15px;
+                }
+
+                .filter-list .form-check-input {
+                    display: none;
+                }
+
+                .filter-list .form-check-label {
+                    color: var(--color-text-medium);
+                    cursor: pointer;
+                    position: relative;
+                    display: flex;
+                    justify-content: space-between;
+                    transition: var(--soft-transition);
+                }
+
+                .filter-list .form-check:hover .form-check-label {
+                    color: var(--color-text-light);
+                }
+
+                .filter-list .form-check-label::before {
+                    content: '';
+                    position: absolute;
+                    left: -2.2em;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 50%;
+                    border: 2px solid var(--color-text-medium);
+                    transition: var(--soft-transition);
+                }
+
+                .filter-list .form-check-label::after {
+                    content: '';
+                    position: absolute;
+                    left: -1.8em;
+                    top: 50%;
+                    transform: translateY(-50%) scale(0);
+                    width: 12px;
+                    height: 12px;
+                    border-radius: 50%;
+                    background-color: var(--color-accent-gold);
+                    transition: var(--soft-transition);
+                }
+
+                .filter-list .form-check-input:checked+.form-check-label {
+                    color: var(--color-accent-gold);
+                    font-weight: 500;
+                }
+
+                .filter-list .form-check-input:checked+.form-check-label::before {
+                    border-color: var(--color-accent-gold);
+                }
+
+                .filter-list .form-check-input:checked+.form-check-label::after {
+                    transform: translateY(-50%) scale(1);
+                }
+
+                .rating-filter .bi {
+                    color: var(--color-accent-gold);
+                }
+
+                /* 3. Program Card */
+                .program-card {
+                    background: var(--glass-bg);
+                    border: var(--glass-border);
+                    border-radius: 12px;
+                    overflow: hidden;
+                    transition: var(--soft-transition);
+                    backdrop-filter: blur(10px);
+                    display: flex;
+                    flex-direction: column;
+                    height: 100%;
+                    text-decoration: none;
+                }
+
+                .program-card:hover {
+                    transform: translateY(-8px);
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+                    border-color: rgba(212, 175, 55, 0.5);
+                }
+
+                .program-card-img {
+                    aspect-ratio: 16 / 10;
+                    overflow: hidden;
+                    position: relative;
+                }
+
+                .program-card-img img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    transition: transform 0.4s ease;
+                }
+
+                .program-card:hover .program-card-img img {
+                    transform: scale(1.05);
+                }
+
+                .price-badge {
+                    position: absolute;
+                    top: 15px;
+                    right: 15px;
+                    background-color: var(--tag-green);
+                    color: var(--color-primary-dark);
+                    padding: 4px 12px;
+                    border-radius: 50px;
+                    font-size: 0.85rem;
+                    font-weight: 600;
+                }
+
+                .price-badge.free {
+                    background-color: var(--tag-blue);
+                    color: #fff;
+                }
+
+                .program-card-body {
+                    padding: 20px;
+                    display: flex;
+                    flex-direction: column;
+                    flex-grow: 1;
+                }
+
+                .program-card-title {
+                    color: var(--color-text-light);
+                    font-size: 1.1rem;
+                    font-weight: 600;
+                    line-height: 1.4;
+                    margin-bottom: 10px;
+                }
+
+                .program-card-instructor {
+                    font-size: 0.9rem;
+                    color: var(--color-text-medium);
+                    margin-bottom: 15px;
+                }
+
+                .program-card-footer {
+                    margin-top: auto;
+                    padding-top: 15px;
+                    border-top: 1px solid var(--glass-border);
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+
+                .program-card-rating {
+                    color: var(--color-accent-gold);
+                    font-size: 0.9rem;
+                }
+
+
+                */ .btn-details:hover {
+                    background-color: var(--color-accent-gold-dark);
+                }
+
+                /* Mobile Filter Toggle Button */
+                #mobile-filter-toggle {
+                    background-color: var(--glass-bg);
+                    color: var(--color-accent-gold);
+                    border: var(--glass-border);
+                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+                    font-weight: 600;
+                }
+
+            </style>
+            <header class="topbar">
+                <div class="topbar__container">
+                    <div class="topbar__logo">
+                        <a href="index.html">
+                            <img src="images/bg.png" alt="Arya Kalyan Foundation Logo">
+                        </a>
+                    </div>
+                    <nav class="topbar__nav--desktop">
+                        <a href="index.html">Home</a>
+                        <a href="about.html">About Us</a>
+                        <a href="events.html">Events</a>
+                        <a href="course.html">Courses</a>
+                        <a href="shop.html">Shop</a>
+                        <a href="blog.html">Blog</a>
+                        <a href="our_programs.html" class="active">Our Program</a>
+                        <a href="#donate">Donate</a>
+                    </nav>
+                    <div class="topbar__actions">
+                        <!-- Search Icon -->
+                        <div class="event-search" id="search-icon">
+                            <i class="bi bi-search"></i>
+                        </div>
+
+                        <!-- Cart -->
+                        <a href="#" class="action-icon cart-icon" id="cart-toggle">
+                            <i class="bi bi-cart3"></i>
+                            <span class="notification-badge">0</span>
+                        </a>
+                        <!-- Notification Bell -->
+                        <!-- Notification Wrapper with Bootstrap Dropdown Functionality -->
+                        <div class="notification-wrapper dropdown">
+                            <!-- Bell icon acts as the dropdown toggle -->
+                            <a href="#" class="action-icon notification-bell" id="notification-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                <i class="bi bi-bell"></i>
+                                <span class="notification-badge">3</span>
+                            </a>
+
+                            <!-- Dropdown menu with responsive enhancements -->
+                            <div class="notification-dropdown dropdown-menu dropdown-menu-dark dropdown-menu-end" id="notification-dropdown" style="min-width: 340px;">
+                                <div class="notification-header">
+                                    <h4>Notifications</h4>
+                                    <button class="mark-all-read">Mark all as read</button>
+                                </div>
+                                <!-- Scrollable list for mobile -->
+                                <div class="notification-list" style="max-height: 70vh; overflow-y: auto;">
+                                    <!-- Notification Item 1 -->
+                                    <a href="#" class="notification-item unread">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">Your class on <strong>Module 17</strong> has started.</p>
+                                            <small class="notification-meta">12 hours ago • Full Stack Web Development</small>
+                                        </div>
+                                    </a>
+                                    <!-- Notification Item 2 -->
+                                    <a href="#" class="notification-item unread">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">Your class will start at 12:00 PM</p>
+                                            <small class="notification-meta"><span class="live-badge-small">LIVE</span> 10 hours ago • Full Stack Web Development</small>
+                                        </div>
+                                    </a>
+                                    <!-- Notification Item 3 -->
+                                    <a href="#" class="notification-item">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">Your assignment has been graded.</p>
+                                            <small class="notification-meta">1 day ago • Veda Education</small>
+                                        </div>
+                                    </a>
+                                    <!-- Add more notifications here to test scrolling -->
+                                    <a href="#" class="notification-item">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">A new article has been published in the blog.</p>
+                                            <small class="notification-meta">2 days ago • Insights & Articles</small>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="notification-footer">
+                                    <a href="#" class="see-all-btn">See All Notifications</a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <a href="#" class="btn-login">Login</a>
+                        <a href="#" class="action-icon profile-avatar">
+                            <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar">
+                        </a>
+                        <button class="hamburger-menu" id="hamburger-toggle" aria-label="Toggle Menu">
+                            <i class="bi bi-list"></i>
+                        </button>
+                    </div>
+
+                    <!-- Fullscreen Search Bar (HTML-এ এটিকে topbar__container এর শেষে রাখা ভালো) -->
+                    <div class="fullscreen-search" id="fullscreen-search">
+                        <i class="bi bi-search"></i>
+                        <input type="text" placeholder="Search here..." id="fullscreen-search-input" />
+                        <button class="close-search" id="close-search-btn">×</button>
+                    </div>
+                </div>
+            </header>
+
+            <div class="mobile-nav__overlay" id="nav-overlay"></div>
+            <nav class="mobile-nav" id="mobile-nav">
+                <div class="mobile-nav__header">
+                    <span>Menu</span>
+                    <button class="close-menu" id="close-nav-btn" aria-label="Close Menu"><i class="bi bi-x"></i></button>
+                </div>
+                <a href="index.html" class="active">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="events.html">Events</a>
+                <a href="course.html">Courses</a>
+                <a href="blog.html">Blog</a>
+                <a href="our_programs.html">Blog</a>
+                <a href="#donate">Donate</a>
+                <hr>
+                <a href="#" class="mobile-nav-profile">My Profile</a>
+                <a href="#" class="mobile-nav-logout">Logout</a>
+            </nav>
+
+
+            <div class="program-page-content">
+                <div class="container">
+                    <!-- 1. Page Header Section -->
+                    <section class="program-header" data-aos="fade-in">
+                        <h1 class="page-title">Programs</h1>
+                        <p class="page-tagline">Choose from a variety of learning paths to achieve your goals.</p>
+                        <div class="row g-3 mt-3">
+                            <div class="col-lg-6"><input type="text" class="form-control" placeholder="Search programs..."></div>
+                            <div class="col-lg-2 col-md-4 col-6"><select class="form-select">
+                                    <option selected>Category</option>
+                                </select></div>
+                            <div class="col-lg-2 col-md-4 col-6"><select class="form-select">
+                                    <option selected>Price</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <div class="col-lg-12">
+                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+                            <p class="text-secondary mb-0">Showing 6 Of 8 Results</p>
+                        </div>
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+
+                            <!-- Card 1: Durga Puja -->
+                            <div class="col" data-aos="fade-up">
+                                <a href="program_details.htm" class="ebook-card-link">
+                                    <div class="ebook-card">
+                                        <div class="ebook-card-img">
+                                            <img src="images/our_programs-img/18963040.jpg" alt="Durga Puja">
+                                        </div>
+                                        <div class="ebook-card-body">
+                                            <p class="ebook-card-category">Durga Puja</p>
+                                            <h5 class="ebook-card-title">Celebrating Durga Puja</h5>
+                                            <button class="btn-details">View details</button>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Card 2: Jagannath Rath Yatra -->
+                            <div class="col" data-aos="fade-up" data-aos-delay="100">
+                                <a href="program_details.htm" class="ebook-card-link">
+                                    <div class="ebook-card">
+                                        <div class="ebook-card-img">
+                                            <img src="images/our_programs-img/Jagannath-rath-yatra.avif" alt="Jagannath Rath Yatra">
+                                        </div>
+                                        <div class="ebook-card-body">
+                                            <p class="ebook-card-category">Jagannath Rath Yatra</p>
+                                            <h5 class="ebook-card-title">Rath Yatra Traditions</h5>
+                                            <button class="btn-details">View details</button>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Card 3: Diwali -->
+                            <div class="col" data-aos="fade-up" data-aos-delay="200">
+                                <a href="program_details.htm" class="ebook-card-link">
+                                    <div class="ebook-card">
+                                        <div class="ebook-card-img">
+                                            <img src="images/our_programs-img/diwali.avif" alt="Diwali Festival">
+                                        </div>
+                                        <div class="ebook-card-body">
+                                            <p class="ebook-card-category">Diwali</p>
+                                            <h5 class="ebook-card-title">Festival of Lights</h5>
+                                            <button class="btn-details">View details</button>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Card 4: Maha Shivaratri -->
+                            <div class="col" data-aos="fade-up" data-aos-delay="300">
+                                <a href="program_details.htm" class="ebook-card-link">
+                                    <div class="ebook-card">
+                                        <div class="ebook-card-img">
+                                            <img src="images/our_programs-img/shivratri.avif" alt="Maha Shivaratri">
+                                        </div>
+                                        <div class="ebook-card-body">
+                                            <p class="ebook-card-category">Maha Shivaratri</p>
+                                            <h5 class="ebook-card-title">Night of Shiva</h5>
+                                            <button class="btn-details">View details</button>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                        </div>
+
+                        <!-- Pagination -->
+                        <nav class="d-flex justify-content-center mt-5">
+                            <ul class="pagination ebook-pagination">
+                                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            </ul>
+                        </nav>
+
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- Reusing the same mobile nav and footer -->
+        <nav class="bottom-nav">
+            <a href="index.html" class="bottom-nav__item"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
+            <a href="events.html" class="bottom-nav__item"><i class="bi bi-calendar-event-fill"></i><span>Events</span></a>
+            <a href="course.html" class="bottom-nav__item "><i class="bi bi-journal-bookmark-fill"></i><span>Courses</span></a>
+            <a href="shop.html" class="bottom-nav__item active"><i class="bi bi-cart-fill"></i><span>Shop</span></a>
+            <a href="#blog" class="bottom-nav__item"><i class="bi bi-chat-square-text-fill"></i><span>Blog</span></a>
+            <a href="#donate" class="bottom-nav__item"><i class="bi bi-heart-fill"></i><span>Donate</span></a>
+        </nav>
+
+
+        <!-- Footer -->
+        <!-- ============================================= -->
+        <!-- Footer Section                                -->
+        <!-- ============================================= -->
+        <footer id="footer" class="site-footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <!-- Column 1: Brand & Tagline -->
+                    <div class="footer-column">
+                        <h3 class="footer-brand">AKF</h3>
+                        <p class="footer-tagline">A sanctuary for peace, wisdom, and connection in the digital age.</p>
+                    </div>
+
+                    <!-- Column 2: Quick Links -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Quick Links</h5>
+                        <ul class="footer-links">
+                            <li><a href="#hero">Home</a></li>
+                            <li><a href="#introduction">About Us</a></li>
+                            <li><a href="#courses">Courses</a></li>
+                            <li><a href="#blog">Blog</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 3: Support -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Support</h5>
+                        <ul class="footer-links">
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#donate">Donate</a></li>
+                            <li><a href="#">Community Guidelines</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 4: Follow Us -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Follow Us</h5>
+                        <div class="social-icons">
+                            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                            <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>© 2024 AKF. All Rights Reserved.</p>
+                    <div class="footer-legal-links">
+                        <a href="#">Privacy Policy</a>
+                        <span>•</span>
+                        <a href="#">Terms of Service Sammo</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Scripts -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <!-- AOS.js for Scroll Animations -->
+
+        <!-- Swiper.js JS -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script src="js/script.js"></script>
+        <script>
+
+
+        </script>
+    </body>
+
+</html>

@@ -20,27 +20,33 @@ function initHomePage($) {
 
     const $loader = $('#loader');
     const $mainContent = $('#main-content');
+
     if ($loader.length) {
-        const sound = new Howl({
-            src: ['audio/om.mp3'],
-            volume: 0.5,
-        });
-        sound.on('playerror', () => {
+        const sound = new Howl({ src: ['audio/om.mp3'], volume: 0.5 });
+
+        const hideLoader = () => {
+            $loader.addClass('hidden');
+            $mainContent.addClass('visible');
+        };
+
+        // Loader hide independent of audio
+        setTimeout(hideLoader, 3000);  // 3s পরে hide
+        setTimeout(hideLoader, 3000); // Extra fallback: 3s পরে hide
+
+        // Try to play sound
+        sound.play().catch(() => {
             console.log('Autoplay blocked. Waiting for user interaction.');
-            const playOnFirstInteraction = () => sound.play();
-            $('body').one('click touchend', playOnFirstInteraction);
-        });
-        $(window).on('load', () => {
-            sound.play();
-            setTimeout(() => {
-                $loader.addClass('hidden');
-                $mainContent.addClass('visible');
-            }, 3000);
+            $('body').one('click touchend', () => {
+                sound.play();
+            });
         });
     }
 
-    // বাকি কোড অপরিবর্তিত
+    // ========================
+    // Nav active class logic
+    // ========================
     const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+
     $('.topbar__nav--desktop a').each(function () {
         const href = $(this).attr('href');
         if (href === currentPath || (currentPath === '' && href === 'index.html')) {
@@ -59,6 +65,9 @@ function initHomePage($) {
         }
     });
 
+    // ========================
+    // Section scroll observer
+    // ========================
     const $sections = $('.page-section');
     if ($sections.length) {
         const $desktopNavLinks = $('.topbar__nav--desktop a');

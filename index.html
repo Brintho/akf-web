@@ -25,17 +25,86 @@
 
         <!-- Custom Stylesheet -->
         <link rel="stylesheet" href="css/style.css">
+        <style>
+            .profile-dropdown-wrapper .dropdown-menu {
+                background-color: #1F2229;
+                border: var(--glass-border, 1px solid rgba(255, 255, 255, 0.1));
+                border-radius: 12px;
+                min-width: 300px;
+                padding: 0.5rem 0;
+                transition: all 0.3s ease;
+                box-shadow: var(--shadow-md, 0 8px 24px rgba(0, 0, 0, 0.4));
+            }
+
+            .profile-dropdown-wrapper .dropdown-item {
+                color: #D1D5DB;
+                font-weight: 500;
+                padding: 0.5rem 1rem;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                border-radius: 8px;
+            }
+
+            .name-text {
+                color: #D1D5DB;
+
+            }
+
+            .profile-dropdown-wrapper .dropdown-item:hover {
+                background: var(--color-accent-gold, #D4AF37);
+                color: #D1D5DB;
+            }
+
+            .profile-dropdown-wrapper .dropdown-toggle img {
+                width: 45px;
+                height: 45px;
+                object-fit: cover;
+                border-radius: 50%;
+                border: 2px solid var(--color-accent-gold, #D4AF37);
+                transition: transform 0.2s ease;
+            }
+
+            .profile-dropdown-wrapper .dropdown-toggle img:hover {
+                transform: scale(1.05);
+            }
+
+            .profile-img {
+                border: 3px solid var(--color-accent-gold, #D4AF37);
+                border-radius: 50%;
+                padding: 1px;
+                background-color: #D4AF37;
+                box-shadow: 0 0 2px var(--color-accent-gold, #D4AF37),
+                    0 0 20px rgba(212, 175, 55, 0.6);
+            }
+
+
+
+
+            /* Responsive adjustments */
+            @media (max-width: 768px) {
+                .profile-dropdown-wrapper .dropdown-menu {
+                    min-width: 180px;
+                }
+
+                .profile-dropdown-wrapper .dropdown-toggle img {
+                    width: 40px;
+                    height: 40px;
+                }
+
+                .profile-dropdown-wrapper .dropdown-item {
+                    font-size: 14px;
+                    padding: 0.4rem 0.8rem;
+                }
+            }
+
+        </style>
     </head>
 
     <body>
 
-        <div id="loader">
-            <!-- NOTE: The <audio> tag is removed from here because Howler.js handles it entirely. -->
-            <div class="sun-container">
-                <div class="sun"></div>
-                <div class="om-symbol">ॐ</div>
-            </div>
-        </div>
+
 
         <main id="main-content">
             <header class="topbar">
@@ -124,9 +193,40 @@
 
 
                         <a href="#" class="btn-login">Login</a>
-                        <a href="#" class="action-icon profile-avatar">
-                            <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar">
-                        </a>
+
+                        <!-- Profile Avatar -->
+                        <div class="dropdown profile-dropdown-wrapper">
+                            <a href="#" class="action-icon profile-avatar" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar" class="rounded-circle profile-img">
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-end p-2 shadow-lg" aria-labelledby="profileDropdown">
+                                <!-- User Info -->
+                                <li class="px-3 py-2 border-bottom d-flex align-items-center">
+                                    <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" class="rounded-circle me-2" width="45" height="45" alt="Avatar">
+                                    <div>
+                                        <p class="mb-0 fw-bold name-text">Brinto Chakroborty Sammo</p>
+                                        <small class="text-muted">+8801750756133</small>
+                                    </div>
+                                </li>
+
+                                <!-- Links -->
+                                <li><a class="dropdown-item d-flex align-items-center" href="#"><img src="https://cdn.ostad.app/public/icons/video-add-line.svg" class="me-2 dropdown-item-svg "
+                                            width="18">Go To Class
+                                        Joining</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center" href="#"><img src="https://cdn.ostad.app/public/icons/book-2-line.svg" class="me-2 dropdown-item-svg"
+                                            width="18">My Courses</a>
+                                </li>
+                                <li><a class="dropdown-item d-flex align-items-center" href="#"><img src="https://cdn.ostad.app/public/icons/device-line.svg" class="me-2 dropdown-item-svg"
+                                            width="18">Device
+                                        Management</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center" href="#"><img src="https://cdn.ostad.app/public/icons/account-circle-line.svg" class="me-2 dropdown-item-svg"
+                                            width="18">Profile</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center text-danger" href="#"><img src="https://cdn.ostad.app/public/icons/logout-box-r-line.svg"
+                                            class="me-2 dropdown-item-svg" width="18">Logout</a></li>
+                            </ul>
+                        </div>
+
                         <button class="hamburger-menu" id="hamburger-toggle" aria-label="Toggle Menu">
                             <i class="bi bi-list"></i>
                         </button>
@@ -392,6 +492,13 @@
                 </div>
             </div>
         </footer>
+        <div id="loader">
+            <!-- NOTE: The <audio> tag is removed from here because Howler.js handles it entirely. -->
+            <div class="sun-container">
+                <div class="sun"></div>
+                <div class="om-symbol">ॐ</div>
+            </div>
+        </div>
 
         <!-- Scripts -->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -402,6 +509,7 @@
         <!-- AOS.js for Scroll Animations -->
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
         <!-- Custom JavaScript -->
+
         <script src="js/script.js"></script>
 
 

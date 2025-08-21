@@ -116,7 +116,6 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* FIX: Relative positioning for the search overlay */
     position: relative;
 }
 
@@ -1095,51 +1094,6 @@ body {
 }
 
 /* স্লাইডারের নেভিগেশন বাটনগুলোর স্টাইল */
-.course-tab-prev,
-.course-tab-next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 50%;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    z-index: 10;
-    color: var(--color-accent-gold, #d4af37);
-    /* আপনার থিমের অ্যাকসেন্ট রঙ */
-    transition: opacity 0.3s, background-color 0.3s;
-}
-
-.course-tab-prev:hover,
-.course-tab-next:hover {
-    background-color: #fff;
-}
-
-.course-tab-prev::after,
-.course-tab-next::after {
-    font-size: 1.1rem;
-    /* আইকনের আকার */
-    font-weight: bold;
-}
-
-.course-tab-prev {
-    left: 0;
-}
-
-.course-tab-next {
-    right: 0;
-}
-
-.swiper-button-disabled {
-    opacity: 0;
-    pointer-events: none;
-}
-
-.course-card {
-    display: flex;
-    flex-direction: column;
-}
 
 
 /* --- 7. Blog Section --- */
@@ -5342,10 +5296,7 @@ body {
         /* মোবাইলে কোনো প্যাডিং থাকবে না */
     }
 
-    .course-tab-prev,
-    .course-tab-next {
-        display: none;
-    }
+
 }
 
 /* course datalist page  */
