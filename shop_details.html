@@ -14,6 +14,9 @@
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/responsive.css">
+
+
     </head>
 
     <body>
@@ -28,7 +31,7 @@
                         </a>
                     </div>
                     <nav class="topbar__nav--desktop">
-                        <a href="index.html" >Home</a>
+                        <a href="index.html">Home</a>
                         <a href="course.html">Courses</a>
                         <a href="shop.html" class="active">Shop</a>
                         <a href="ebook.html">Ebook</a>
@@ -45,7 +48,7 @@
                         </div>
 
                         <!-- Cart -->
-                        <a href="#" class="action-icon cart-icon" id="cart-toggle">
+                        <a href="ad-to-cat.html" class="action-icon cart-icon" id="cart-toggle">
                             <i class="bi bi-cart3"></i>
                             <span class="notification-badge">0</span>
                         </a>
@@ -107,15 +110,45 @@
 
 
                         <a href="#" class="btn-login">Login</a>
-                        <a href="#" class="action-icon profile-avatar">
-                            <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar">
-                        </a>
+
+                        <!-- Profile Avatar -->
+                        <div class="dropdown profile-dropdown-wrapper">
+                            <a href="#" class="action-icon profile-avatar" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar" class="rounded-circle profile-img">
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-end p-2 shadow-lg" aria-labelledby="profileDropdown">
+                                <!-- User Info -->
+                                <li class="px-3 py-2 border-bottom d-flex align-items-center">
+                                    <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" class="rounded-circle me-2" width="45" height="45" alt="Avatar">
+                                    <div>
+                                        <p class="mb-0 fw-bold name-text">Brinto Chakroborty Sammo</p>
+                                        <small class="text-muted">+8801750756133</small>
+                                    </div>
+                                </li>
+
+                                <!-- Links -->
+                                <li><a class="dropdown-item d-flex align-items-center" href="#"><img src="https://cdn.ostad.app/public/icons/video-add-line.svg" class="me-2 dropdown-item-svg "
+                                            width="18">Go To Class
+                                        Joining</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center" href="#"><img src="https://cdn.ostad.app/public/icons/book-2-line.svg" class="me-2 dropdown-item-svg"
+                                            width="18">My Courses</a>
+                                </li>
+                                <li><a class="dropdown-item d-flex align-items-center" href="#"><img src="https://cdn.ostad.app/public/icons/device-line.svg" class="me-2 dropdown-item-svg"
+                                            width="18">Device
+                                        Management</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center" href="#"><img src="https://cdn.ostad.app/public/icons/account-circle-line.svg" class="me-2 dropdown-item-svg"
+                                            width="18">Profile</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center text-danger" href="#"><img src="https://cdn.ostad.app/public/icons/logout-box-r-line.svg"
+                                            class="me-2 dropdown-item-svg" width="18">Logout</a></li>
+                            </ul>
+                        </div>
+
                         <button class="hamburger-menu" id="hamburger-toggle" aria-label="Toggle Menu">
                             <i class="bi bi-list"></i>
                         </button>
                     </div>
 
-                    <!-- Fullscreen Search Bar (HTML-এ এটিকে topbar__container এর শেষে রাখা ভালো) -->
                     <div class="fullscreen-search" id="fullscreen-search">
                         <input type="text" placeholder="Search here..." id="fullscreen-search-input" />
                         <button class="close-search" id="close-search-btn">×</button>
@@ -196,14 +229,14 @@
                         </div>
 
                         <div class="row g-3">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="info-card">
                                     <h6><i class="bi bi-truck me-2"></i>Delivery Options</h6>
                                     <p class="mb-2">Standard Delivery: 3-5 days</p>
                                     <p class="mb-0">Express Delivery: 1-2 days</p>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <!-- <div class="col-md-6">
                                 <div class="info-card">
                                     <h6><i class="bi bi-shield-check me-2"></i>Seller Information</h6>
                                     <p class="mb-2">Sold by: <span class="text-white">AudioPhile Inc.</span></p>
@@ -216,7 +249,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -256,14 +289,6 @@
                                                 <td>Studio Pro X</td>
                                             </tr>
                                             <tr>
-                                                <td>Connectivity</td>
-                                                <td>Bluetooth 5.2, 3.5mm Aux</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Battery Life</td>
-                                                <td>Up to 40 hours (ANC on)</td>
-                                            </tr>
-                                            <tr>
                                                 <td>Weight</td>
                                                 <td>250g</td>
                                             </tr>
@@ -271,29 +296,72 @@
                                     </table>
                                 </div>
                                 <div class="tab-pane fade" id="reviews-pane">
-                                    <div class="review-card">
-                                        <div class="d-flex align-items-center mb-2 review-author">
-                                            <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="Reviewer" class="me-2">
-                                            <div>
-                                                <strong>Anika Rahman</strong>
-                                                <div class="stars text-warning small"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+
+                                    <!-- Review Submission Form -->
+                                    <div class="review-form-wrapper mb-4">
+                                        <form id="ebook-review-form">
+                                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+                                                <label for="review-comment" class="form-label mb-0">Write a review:</label>
+                                                <div class="star-rating-input">
+                                                    <i class="bi bi-star" data-value="1"></i>
+                                                    <i class="bi bi-star" data-value="2"></i>
+                                                    <i class="bi bi-star" data-value="3"></i>
+                                                    <i class="bi bi-star" data-value="4"></i>
+                                                    <i class="bi bi-star" data-value="5"></i>
+                                                    <input type="hidden" name="rating" id="rating-value" value="0">
+                                                    <button type="button" class="btn-remove-rating ms-2">Remove all</button>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <p>Absolutely amazing sound quality! The noise cancellation is a game-changer for my daily commute. Highly recommended.</p>
+                                            <textarea class="form-control review-textarea" id="review-comment" rows="4" placeholder="Write your comment..."></textarea>
+                                            <button type="submit" class="btn btn-login btn-submit w-100 mt-3 d-flex justify-content-center">Submit</button>
+                                        </form>
                                     </div>
-                                    <div class="review-card">
-                                        <div class="d-flex align-items-center mb-2 review-author">
-                                            <img src="https://i.pravatar.cc/150?u=a042581f4e29026703d" alt="Reviewer" class="me-2">
-                                            <div>
-                                                <strong>Sumit Sharma</strong>
-                                                <div class="stars text-warning small"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                                        class="bi bi-star-fill"></i><i class="bi bi-star"></i></div>
+
+                                    <!-- Existing Reviews -->
+                                    <div class="reviews-list">
+                                        <h5 class="reviews-title mb-3">Reviews</h5>
+
+                                        <!-- Review Card 1 -->
+                                        <div class="review-card mb-3">
+                                            <div class="d-flex align-items-center mb-2 review-author">
+                                                <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="Reviewer" class="me-2 rounded-circle" width="40" height="40">
+                                                <div>
+                                                    <strong>Anika Rahman</strong>
+                                                    <div class="stars text-warning small">
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                    </div>
+                                                    <small class="d-block text-muted">22 Jul, 2025</small>
+                                                </div>
                                             </div>
+                                            <p>Absolutely amazing sound quality! The noise cancellation is a game-changer for my daily commute. Highly recommended.</p>
                                         </div>
-                                        <p>Great headphones for the price. The battery lasts forever. Only downside is they feel a bit tight after long hours.</p>
+
+                                        <!-- Review Card 2 -->
+                                        <div class="review-card mb-3">
+                                            <div class="d-flex align-items-center mb-2 review-author">
+                                                <img src="https://i.pravatar.cc/150?u=a042581f4e29026703d" alt="Reviewer" class="me-2 rounded-circle" width="40" height="40">
+                                                <div>
+                                                    <strong>Sumit Sharma</strong>
+                                                    <div class="stars text-warning small">
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star"></i>
+                                                    </div>
+                                                    <small class="d-block text-muted">22 Jul, 2025</small>
+                                                </div>
+                                            </div>
+                                            <p>Great headphones for the price. The battery lasts forever. Only downside is they feel a bit tight after long hours.</p>
+                                        </div>
+
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>

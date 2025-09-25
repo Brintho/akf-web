@@ -522,7 +522,7 @@ function initShopPage($) {
  * Initializes functionalities for the Shop Details Page.
  */
 function initShopDetailsPage($) {
-    console.log("Initializing Shop Details Page scripts (jQuery)...");
+
     $('.thumbnail-item').on('click', function () {
         $('#main-product-image').attr('src', $(this).find('img').data('src'));
         $('.thumbnail-item.active').removeClass('active');
@@ -537,8 +537,6 @@ function initShopDetailsPage($) {
  * Initializes common components found on most pages.
  */
 function initCommonComponents($) {
-    console.log("Initializing common components (jQuery)...");
-
     // Mobile Navigation
     $('#hamburger-toggle').on('click', () => {
         $('#mobile-nav, #nav-overlay').addClass('is-active');
@@ -780,6 +778,118 @@ $(document).ready(function () {
             $(this).empty();
         });
     });
+
+    // program single page js 
+
+    if ($('.hidden-program').length === 0) {
+        $('#load-more-programs').hide();
+    }
+
+    $('#load-more-programs').on('click', function (e) {
+        e.preventDefault();
+
+        // Find the *next* hidden year section and show it
+        const $nextSection = $('.hidden-program.d-none').first();
+
+        if ($nextSection.length > 0) {
+            $nextSection.removeClass('d-none').hide().slideDown();
+            // We need to re-initialize AOS for the newly visible elements
+            AOS.refresh();
+        }
+
+        // After showing, check if there are any more hidden sections left.
+        // If not, hide the "Load More" button.
+        if ($('.hidden-program.d-none').length === 0) {
+            $(this).fadeOut();
+        }
+    });
+    // program single page js end
+
+    // program details page js  
+    // Refresh AOS after all content (including iframes) is loaded
+    $(window).on('load', function () {
+        AOS.refresh();
+    });
+
+    // --- ENHANCED Event Gallery Swiper with Lightbox ---
+    const gallerySwiper = new Swiper('.gallery-swiper', {
+        loop: true,
+        slidesPerView: 1,
+        spaceBetween: 20,
+        autoplay: {
+            delay: 4000,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        breakpoints: {
+            576: {
+                slidesPerView: 2,
+            }
+        }
+    });
+
+    // --- Lightbox Functionality ---
+    const $lightbox = $('#gallery-lightbox');
+    const $lightboxImage = $('.lightbox-image');
+
+    $('.gallery-lightbox-item').on('click', function (e) {
+        e.preventDefault();
+        $lightboxImage.attr('src', $(this).attr('href'));
+        $lightbox.addClass('active');
+    });
+
+    function closeLightbox() {
+        $lightbox.removeClass('active');
+    }
+
+    $('.lightbox-close').on('click', closeLightbox);
+    $lightbox.on('click', function (e) {
+        if ($(e.target).is($lightbox)) {
+            closeLightbox();
+        }
+    });
+    // program details page js end
+
+    // ebook details page js 
+
+
+    const stars = $('.star-rating-input i');
+    const ratingInput = $('#rating-value');
+    const removeButton = $('.btn-remove-rating');
+
+    function updateStars(rating) {
+        stars.each(function (index) {
+            if (index < rating) {
+                $(this).removeClass('bi-star').addClass('bi-star-fill');
+            } else {
+                $(this).removeClass('bi-star-fill').addClass('bi-star');
+            }
+        });
+    }
+
+    stars.on('mouseenter', function () {
+        let index = $(this).index();
+        updateStars(index + 1);
+    }).on('mouseleave', function () {
+        let currentRating = parseInt(ratingInput.val());
+        updateStars(currentRating);
+    }).on('click', function () {
+        let value = $(this).data('value');
+        ratingInput.val(value);
+        updateStars(value);
+    });
+
+    removeButton.on('click', function () {
+        ratingInput.val(0);
+        updateStars(0);
+    });
+
+    // Load initial rating on page load (optional)
+    updateStars(parseInt(ratingInput.val()));
+    // ebook details page js end
 
 
 });

@@ -1,0 +1,417 @@
+/* === Responsive CSS for 992px, 768px, 576px Breakpoints === */
+
+/* --- 992px Breakpoint --- */
+@media (max-width: 992px) {
+
+    /* General */
+    body {
+        padding-bottom: 0;
+        /* Reset padding for larger screens */
+    }
+
+    /* Navigation */
+    .topbar__nav--desktop {
+        display: none;
+        /* Hidden as hamburger menu takes over */
+    }
+
+    /* Event Page */
+    .event-details-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .event-sidebar {
+        margin-top: 50px;
+    }
+
+    .sidebar-sticky-panel {
+        position: static;
+        /* Disable sticky on smaller screens */
+    }
+
+    .event-title {
+        font-size: 2.5rem;
+    }
+
+    .price {
+        padding-left: 15px;
+    }
+
+    /* Event Details Page */
+    .section-title {
+        font-size: 2.2rem;
+    }
+
+    .hero-title {
+        font-size: 3rem;
+    }
+
+    .intro-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .intro-image {
+        order: 1;
+    }
+
+    .intro-text {
+        order: 2;
+        text-align: center;
+    }
+
+    .intro-text h2 {
+        text-align: center;
+    }
+
+    .courses-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    /* About Page */
+    .about-page-title {
+        font-size: 2.8rem;
+    }
+
+    .mission-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 30px;
+        padding: 40px;
+    }
+
+    /* Course Page */
+    .hero-grid,
+    .app-download-card,
+    .course-hero-grid,
+    .curriculum-grid,
+    .community-container {
+        grid-template-columns: 1fr;
+        flex-direction: column;
+    }
+
+    .hero-image-wrapper,
+    .hero-video-content {
+        margin-top: 40px;
+    }
+
+    .hero-text-content,
+    .community-text {
+        text-align: center;
+    }
+
+    .hero-actions,
+    .course-rating {
+        display: flex;
+        justify-content: center;
+    }
+
+    .course-nav-container {
+        justify-content: flex-start;
+        overflow-x: auto;
+    }
+
+    .testimonial-grid {
+        column-count: 2;
+    }
+
+    /* Footer */
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        /* 2-column layout */
+    }
+
+    /* Shop Page */
+    .voucher-content-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+}
+
+/* --- 768px Breakpoint --- */
+@media (max-width: 768px) {
+
+    /* General */
+    body {
+        padding-bottom: 70px;
+        /* Space for bottom nav */
+    }
+
+    /* Navigation */
+    #bottom-nav {
+        display: flex;
+    }
+
+    /* Event Page */
+    .page-title {
+        font-size: 2.5rem;
+    }
+
+    .page-section {
+        padding: 80px 0;
+    }
+
+    .events-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .event-search,
+    #event-search-input {
+        width: 100%;
+    }
+
+    .time-block span {
+        font-size: 2.5rem;
+    }
+
+    .time-block small {
+        font-size: 0.8rem;
+    }
+
+    #timer {
+        gap: 15px;
+    }
+
+    .countdown-title,
+    .live-title {
+        font-size: 1.4rem;
+    }
+
+    .speaker-info {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    /* Calendar */
+    .calendar-wrapper {
+        padding: 20px;
+    }
+
+    .weekdays {
+        display: none;
+        font-size: 0.8rem;
+    }
+
+    .calendar-body {
+        max-height: 125px;
+    }
+
+    .days {
+        display: flex;
+        overflow-x: auto;
+        padding-bottom: 15px;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+    }
+
+    .days div {
+        flex: 0 0 calc(100% / 5);
+        /* Show 5 days at a time */
+        height: 90px;
+        scroll-snap-align: start;
+        padding: 3px;
+    }
+
+    .date-num {
+        width: 24px;
+        height: 24px;
+        font-size: 0.8rem;
+    }
+
+    .event-title-text {
+        font-size: 0.65rem;
+    }
+
+    #month-year {
+        font-size: 1.2rem;
+    }
+
+    /* About Page */
+    .about-page-section {
+        padding: 80px 0;
+    }
+
+    .about-page-title {
+        font-size: 2.2rem;
+    }
+
+    .about-page-subtitle {
+        font-size: 1rem;
+    }
+
+    /* Timeline */
+    .timeline::after {
+        left: 20px;
+    }
+
+    .timeline-item {
+        width: 100%;
+        padding-left: 60px;
+        padding-right: 15px;
+    }
+
+    .timeline-item:nth-child(even) {
+        left: 0;
+    }
+
+    .timeline-dot,
+    .timeline-item:nth-child(even) .timeline-dot {
+        left: 11px;
+        /* 20px (line pos) - 9px (half of dot width) */
+    }
+
+    /* Course Page */
+    .section-title,
+    .hero-title,
+    .app-download-content h3 {
+        font-size: 2.2rem;
+    }
+
+    .hero-text-content h1 {
+        font-size: 2rem;
+    }
+
+    #course-hero {
+        padding-top: 90px;
+    }
+
+    #course-nav-sticky.is-sticky {
+        top: 70px;
+    }
+
+    .instructor-grid,
+    .courses-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .testimonial-grid {
+        column-count: 1;
+    }
+
+    .app-download-card {
+        padding: 30px;
+        text-align: center;
+    }
+
+    .download-buttons {
+        justify-content: center;
+    }
+
+    .course-tabs-slider-wrapper {
+        padding: 0;
+        /* No padding on mobile */
+    }
+
+    /* Footer */
+    .footer-grid {
+        grid-template-columns: 1fr;
+        /* Single column */
+        text-align: center;
+    }
+
+    .footer-tagline {
+        margin: 0 auto 30px auto;
+        /* Center tagline */
+    }
+
+    .social-icons,
+    .footer-bottom {
+        justify-content: center;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .footer-contact-section,
+    .footer-container {
+        display: none;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    /* Miscellaneous */
+    .donate-banner {
+        padding: 40px 20px;
+    }
+}
+
+/* --- 576px Breakpoint --- */
+@media (max-width: 576px) {
+
+    /* General */
+    body {
+        padding-bottom: 80px;
+        /* Increased padding for smaller screens */
+    }
+
+    /* Course Page */
+    .community-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .sticky-enroll-footer {
+        padding: 10px 0;
+    }
+
+    .footer-price-section .price {
+        font-size: 1.4rem;
+    }
+
+    .promo-code-link {
+        font-size: 0.8rem;
+    }
+
+    .btn-enroll-sticky {
+        padding: 10px 15px;
+        font-size: 1rem;
+    }
+
+    /* Shop Page */
+    .voucher-ticket {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .voucher-separator {
+        height: 2px;
+        width: 80%;
+        border-left: none;
+        border-top: 2px dashed #e0e0e0;
+        margin: 15px auto;
+    }
+
+    .category-icon {
+        width: 90px;
+        height: 90px;
+    }
+}
+
+/* --- Styles Outside Media Queries --- */
+#related-events {
+    background-color: #1a1a1d;
+    /* Slightly different dark shade */
+}
+
+/* --- Sticky Elements (min-width for larger screens) --- */
+@media (min-width: 992px) {
+
+    .filter-sidebar,
+    .order-summary-card {
+        position: sticky;
+        top: 100px;
+    }
+
+    .order-summary-card {
+        top: 120px;
+        /* Specific for order summary */
+    }
+
+    .topbar__nav--desktop {
+        display: flex;
+    }
+
+    .hamburger-menu,
+    .bottom-nav {
+        display: none;
+    }
+}

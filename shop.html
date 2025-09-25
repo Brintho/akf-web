@@ -15,7 +15,8 @@
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
         <link rel="stylesheet" href="css/style.css">
-    </head>   
+        <link rel="stylesheet" href="css/responsive.css">
+    </head>
 
     <body>
         <main id="main-content">
@@ -69,8 +70,10 @@
                                     <a href="#" class="notification-item unread">
                                         <span class="status-dot"></span>
                                         <div class="notification-content">
-                                            <p class="notification-text">Your class on <strong>Module 17</strong> has started.</p>
-                                            <small class="notification-meta">12 hours ago • Full Stack Web Development</small>
+                                            <p class="notification-text">Your class on <strong>Module 17</strong> has
+                                                started.</p>
+                                            <small class="notification-meta">12 hours ago • Full Stack Web
+                                                Development</small>
                                         </div>
                                     </a>
                                     <!-- Notification Item 2 -->
@@ -78,7 +81,8 @@
                                         <span class="status-dot"></span>
                                         <div class="notification-content">
                                             <p class="notification-text">Your class will start at 12:00 PM</p>
-                                            <small class="notification-meta"><span class="live-badge-small">LIVE</span> 10 hours ago • Full Stack Web Development</small>
+                                            <small class="notification-meta"><span class="live-badge-small">LIVE</span> 10
+                                                hours ago • Full Stack Web Development</small>
                                         </div>
                                     </a>
                                     <!-- Notification Item 3 -->
@@ -173,7 +177,8 @@
                                             <div class="voucher-details">
                                                 <h5>VOUCHER MAX</h5>
                                                 <p>Special Products</p>
-                                                <div class="voucher-actions"><a href="#" class="tnc-link">T&C ></a><button class="btn btn-collect">Collect</button></div>
+                                                <div class="voucher-actions"><a href="#" class="tnc-link">T&C
+                                                        ></a><button class="btn btn-collect">Collect</button></div>
                                             </div>
                                         </div>
                                     </div>
@@ -197,7 +202,8 @@
                                             <div class="voucher-details">
                                                 <h5>FLASH SALE</h5>
                                                 <p>All Electronics</p>
-                                                <div class="voucher-actions"><a href="#" class="tnc-link">T&C ></a><button class="btn btn-collect">Collect</button></div>
+                                                <div class="voucher-actions"><a href="#" class="tnc-link">T&C
+                                                        ></a><button class="btn btn-collect">Collect</button></div>
                                             </div>
                                         </div>
                                         <div class="voucher-ticket">
@@ -209,7 +215,8 @@
                                             <div class="voucher-details">
                                                 <h5>MEGA VOUCHER</h5>
                                                 <p>For All Products</p>
-                                                <div class="voucher-actions"><a href="#" class="tnc-link">T&C ></a><button class="btn btn-collect">Collect</button></div>
+                                                <div class="voucher-actions"><a href="#" class="tnc-link">T&C
+                                                        ></a><button class="btn btn-collect">Collect</button></div>
                                             </div>
                                         </div>
                                     </div>
@@ -266,143 +273,279 @@
                 </section>
 
                 <!-- 3. MAIN PRODUCT GRID SECTION -->
-                <section id="product-grid-section">
-                    <h3 class="section-heading" data-aos="fade-right">All Products</h3>
-                    <div class="row g-4" id="product-grid">
-
-                        <!-- =================================== -->
-                        <!--  VISIBLE PRODUCTS (FIRST BATCH)     -->
-                        <!-- =================================== -->
-
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 product-item" data-aos="fade-up">
-                            <a href="shop_details.html" class="text-decoration-none">
-                                <div class="product-card">
-                                    <div class="product-image"><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=2070" alt="Studio Headphones"></div>
-                                    <div class="product-info">
-                                        <div class="product-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                                class="bi bi-star-half"></i></div>
-                                        <h5 class="product-title">Studio Headphones</h5>
-                                        <p class="product-price">$149.00</p>
-                                    </div>
-                                    <span class="btn btn-add-to-cart">Add to Cart</span>
-                                </div>
-                            </a>
+                <section class="py-5">
+                    <div class="container">
+                        <div class="d-lg-none mb-4 text-end">
+                            <button class="btn" id="mobile-filter-toggle" data-bs-toggle="collapse" data-bs-target="#filter-sidebar-content">
+                                <i class="bi bi-funnel-fill me-2"></i> Show Filters
+                            </button>
                         </div>
+                        <div class="row">
+                            <!-- Sidebar -->
 
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 product-item" data-aos="fade-up" data-aos-delay="100">
-                            <a href="shop_details.html" class="text-decoration-none">
-                                <div class="product-card">
-                                    <div class="product-image"><img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999" alt="Analog Watch"></div>
-                                    <div class="product-info">
-                                        <div class="product-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                                class="bi bi-star"></i></div>
-                                        <h5 class="product-title">Classic Analog Watch</h5>
-                                        <p class="product-price">$220.50</p>
+                            <div class="col-lg-3">
+                                <div class="collapse d-lg-block" id="filter-sidebar-content">
+                                    <div class="filter-sidebar">
+                                        <div class="mb-4">
+                                            <h5 class="filter-group-title">Categories</h5>
+                                            <ul class="filter-list">
+                                                <li>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="categoryFilter" id="catAll" checked=""><label class="form-check-label" for="catAll">All
+                                                            category <span class="count">(8)</span></label>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="categoryFilter" id="catEdu"><label class="form-check-label" for="catEdu">Education <span
+                                                                class="count">(3)</span></label>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="categoryFilter" id="catSciFi"><label class="form-check-label" for="catSciFi">Science Fiction
+                                                            <span class="count">(2)</span></label>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="mb-4">
+                                            <h5 class="filter-group-title">Price</h5>
+                                            <ul class="filter-list">
+
+                                                <li>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="priceFilter" id="priceFree">
+                                                        <label class="form-check-label" for="priceFree">Free</label>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="priceFilter" id="pricePaid">
+                                                        <label class="form-check-label" for="pricePaid">Paid</label>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="priceFilter" id="priceDiscount">
+                                                        <label class="form-check-label" for="priceDiscount">Discount</label>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <div>
+                                            <h5 class="filter-group-title">Ratings</h5>
+                                            <ul class="filter-list rating-filter">
+
+                                                <!-- 5 Stars -->
+                                                <li>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="ratingFilter" id="rating5">
+                                                        <label class="form-check-label" for="rating5">
+                                                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                                        </label>
+                                                    </div>
+                                                </li>
+
+                                                <!-- 4 Stars -->
+                                                <li>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="ratingFilter" id="rating4">
+                                                        <label class="form-check-label" for="rating4">
+                                                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star"></i>
+                                                        </label>
+                                                    </div>
+                                                </li>
+
+                                                <!-- 3 Stars -->
+                                                <li>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="ratingFilter" id="rating3">
+                                                        <label class="form-check-label" for="rating3">
+                                                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i><i class="bi bi-star"></i>
+                                                            <i class="bi bi-star"></i>
+                                                        </label>
+                                                    </div>
+                                                </li>
+
+                                                <!-- 2 Stars -->
+                                                <li>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="ratingFilter" id="rating2">
+                                                        <label class="form-check-label" for="rating2">
+                                                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star"></i><i class="bi bi-star"></i>
+                                                            <i class="bi bi-star"></i>
+                                                        </label>
+                                                    </div>
+                                                </li>
+
+                                                <!-- 1 Star -->
+                                                <li>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="ratingFilter" id="rating1">
+                                                        <label class="form-check-label" for="rating1">
+                                                            <i class="bi bi-star-fill"></i><i class="bi bi-star"></i>
+                                                            <i class="bi bi-star"></i><i class="bi bi-star"></i>
+                                                            <i class="bi bi-star"></i>
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+
                                     </div>
-                                    <span class="btn btn-add-to-cart">Add to Cart</span>
                                 </div>
-                            </a>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 product-item" data-aos="fade-up" data-aos-delay="200">
-                            <a href="shop_details.html" class="text-decoration-none">
-                                <div class="product-card">
-                                    <div class="product-image"><img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&w=1780" alt="Wayfarer Sunglasses"></div>
-                                    <div class="product-info">
-                                        <div class="product-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i><i
-                                                class="bi bi-star"></i></div>
-                                        <h5 class="product-title">Wayfarer Sunglasses</h5>
-                                        <p class="product-price">$45.00</p>
+                            </div>
+                            <div class="col-lg-9">
+                                <h3 class="section-heading" data-aos="fade-right">All Products</h3>
+                                <div class="row g-4" id="product-grid">
+                                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+                                        <p class="text-secondary mb-0">Showing 6 Of 8 Results</p>
+                                        <div class="search-ebook"><i class="bi bi-search search-icon"></i><input type="text" placeholder="Search..."></div>
                                     </div>
-                                    <span class="btn btn-add-to-cart">Add to Cart</span>
-                                </div>
-                            </a>
-                        </div>
+                                    <!-- =================================== -->
+                                    <!--  VISIBLE PRODUCTS (FIRST BATCH)     -->
+                                    <!-- =================================== -->
 
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 product-item" data-aos="fade-up" data-aos-delay="300">
-                            <a href="shop_details.html" class="text-decoration-none">
-                                <div class="product-card">
-                                    <div class="product-image"><img src="https://images.unsplash.com/photo-1627483407943-3e1b480a373b?q=80&w=2070" alt="Mechanical Keyboard"></div>
-                                    <div class="product-info">
-                                        <div class="product-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                                class="bi bi-star-fill"></i></div>
-                                        <h5 class="product-title">Mechanical Keyboard</h5>
-                                        <p class="product-price">$125.00</p>
+
+
+                                    <div class="col-12 col-sm-6 col-md-4 col-lg-4 product-item" data-aos="fade-up" data-aos-delay="100">
+                                        <a href="shop_details.html" class="text-decoration-none">
+                                            <div class="product-card">
+                                                <div class="product-image"><img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999" alt="Analog Watch"></div>
+                                                <div class="product-info">
+                                                    <div class="product-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                            class="bi bi-star-fill"></i><i class="bi bi-star"></i></div>
+                                                    <h5 class="product-title">Classic Analog Watch</h5>
+                                                    <p class="product-price">$220.50</p>
+                                                </div>
+                                                <span class="btn btn-add-to-cart">Add to Cart</span>
+                                            </div>
+                                        </a>
                                     </div>
-                                    <span class="btn btn-add-to-cart">Add to Cart</span>
-                                </div>
-                            </a>
-                        </div>
 
-                        <!-- =================================== -->
-                        <!--  HIDDEN PRODUCTS (FOR LOAD MORE)    -->
-                        <!-- =================================== -->
-
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 product-item d-none hidden-product" data-aos="fade-up">
-                            <a href="shop_details.html" class="text-decoration-none">
-                                <div class="product-card">
-                                    <div class="product-image"><img src="https://images.unsplash.com/photo-1622560481075-c546051772de?q=80&w=1887" alt="Leather Wallet"></div>
-                                    <div class="product-info">
-                                        <div class="product-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                                class="bi bi-star"></i></div>
-                                        <h5 class="product-title">Minimalist Leather Wallet</h5>
-                                        <p class="product-price">$35.00</p>
+                                    <div class="col-12 col-sm-6 col-md-4 col-lg-4 product-item" data-aos="fade-up" data-aos-delay="200">
+                                        <a href="shop_details.html" class="text-decoration-none">
+                                            <div class="product-card">
+                                                <div class="product-image"><img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&w=1780" alt="Wayfarer Sunglasses"></div>
+                                                <div class="product-info">
+                                                    <div class="product-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                            class="bi bi-star-half"></i><i class="bi bi-star"></i></div>
+                                                    <h5 class="product-title">Wayfarer Sunglasses</h5>
+                                                    <p class="product-price">$45.00</p>
+                                                </div>
+                                                <span class="btn btn-add-to-cart">Add to Cart</span>
+                                            </div>
+                                        </a>
                                     </div>
-                                    <span class="btn btn-add-to-cart">Add to Cart</span>
-                                </div>
-                            </a>
-                        </div>
 
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 product-item d-none hidden-product" data-aos="fade-up">
-                            <a href="shop_details.html" class="text-decoration-none">
-                                <div class="product-card">
-                                    <div class="product-image"><img src="https://images.unsplash.com/photo-1565623124424-4c8f742c83c2?q=80&w=1887" alt="Coffee Maker"></div>
-                                    <div class="product-info">
-                                        <div class="product-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                                class="bi bi-star-half"></i></div>
-                                        <h5 class="product-title">Drip Coffee Maker</h5>
-                                        <p class="product-price">$55.99</p>
+                                    <div class="col-12 col-sm-6 col-md-4 col-lg-4 product-item" data-aos="fade-up" data-aos-delay="300">
+                                        <a href="shop_details.html" class="text-decoration-none">
+                                            <div class="product-card">
+                                                <div class="product-image"><img src="https://images.unsplash.com/photo-1627483407943-3e1b480a373b?q=80&w=2070" alt="Mechanical Keyboard"></div>
+                                                <div class="product-info">
+                                                    <div class="product-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                            class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                                    </div>
+                                                    <h5 class="product-title">Mechanical Keyboard</h5>
+                                                    <p class="product-price">$125.00</p>
+                                                </div>
+                                                <span class="btn btn-add-to-cart">Add to Cart</span>
+                                            </div>
+                                        </a>
                                     </div>
-                                    <span class="btn btn-add-to-cart">Add to Cart</span>
-                                </div>
-                            </a>
-                        </div>
 
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 product-item d-none hidden-product" data-aos="fade-up">
-                            <a href="shop_details.html" class="text-decoration-none">
-                                <div class="product-card">
-                                    <div class="product-image"><img src="https://images.unsplash.com/photo-1593030103051-7133c2541913?q=80&w=1887" alt="Cotton T-Shirt"></div>
-                                    <div class="product-info">
-                                        <div class="product-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                                class="bi bi-star-fill"></i></div>
-                                        <h5 class="product-title">Organic Cotton T-Shirt</h5>
-                                        <p class="product-price">$24.00</p>
+                                    <!-- =================================== -->
+                                    <!--  HIDDEN PRODUCTS (FOR LOAD MORE)    -->
+                                    <!-- =================================== -->
+
+                                    <div class="col-12 col-sm-6 col-md-4 col-lg-4 product-item d-none hidden-product" data-aos="fade-up">
+                                        <a href="shop_details.html" class="text-decoration-none">
+                                            <div class="product-card">
+                                                <div class="product-image"><img src="https://images.unsplash.com/photo-1622560481075-c546051772de?q=80&w=1887" alt="Leather Wallet"></div>
+                                                <div class="product-info">
+                                                    <div class="product-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                            class="bi bi-star-fill"></i><i class="bi bi-star"></i></div>
+                                                    <h5 class="product-title">Minimalist Leather Wallet</h5>
+                                                    <p class="product-price">$35.00</p>
+                                                </div>
+                                                <span class="btn btn-add-to-cart">Add to Cart</span>
+                                            </div>
+                                        </a>
                                     </div>
-                                    <span class="btn btn-add-to-cart">Add to Cart</span>
-                                </div>
-                            </a>
-                        </div>
 
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 product-item d-none hidden-product" data-aos="fade-up">
-                            <a href="shop_details.html" class="text-decoration-none">
-                                <div class="product-card">
-                                    <div class="product-image"><img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?q=80&w=1615" alt="Denim Jeans"></div>
-                                    <div class="product-info">
-                                        <div class="product-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                                class="bi bi-star"></i></div>
-                                        <h5 class="product-title">Classic Denim Jeans</h5>
-                                        <p class="product-price">$79.50</p>
+                                    <div class="col-12 col-sm-6 col-md-4 col-lg-4 product-item d-none hidden-product" data-aos="fade-up">
+                                        <a href="shop_details.html" class="text-decoration-none">
+                                            <div class="product-card">
+                                                <div class="product-image"><img src="https://images.unsplash.com/photo-1565623124424-4c8f742c83c2?q=80&w=1887" alt="Coffee Maker"></div>
+                                                <div class="product-info">
+                                                    <div class="product-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                            class="bi bi-star-fill"></i><i class="bi bi-star-half"></i>
+                                                    </div>
+                                                    <h5 class="product-title">Drip Coffee Maker</h5>
+                                                    <p class="product-price">$55.99</p>
+                                                </div>
+                                                <span class="btn btn-add-to-cart">Add to Cart</span>
+                                            </div>
+                                        </a>
                                     </div>
-                                    <span class="btn btn-add-to-cart">Add to Cart</span>
-                                </div>
-                            </a>
-                        </div>
 
-                    </div>
-                    <!-- Load More Button -->
-                    <div class="row">
-                        <div class="col-12 text-center">
-                            <button id="load-more-btn">Load More Products</button>
+                                    <div class="col-12 col-sm-6 col-md-4 col-lg-4 product-item d-none hidden-product" data-aos="fade-up">
+                                        <a href="shop_details.html" class="text-decoration-none">
+                                            <div class="product-card">
+                                                <div class="product-image"><img src="https://images.unsplash.com/photo-1593030103051-7133c2541913?q=80&w=1887" alt="Cotton T-Shirt"></div>
+                                                <div class="product-info">
+                                                    <div class="product-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                            class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                                    </div>
+                                                    <h5 class="product-title">Organic Cotton T-Shirt</h5>
+                                                    <p class="product-price">$24.00</p>
+                                                </div>
+                                                <span class="btn btn-add-to-cart">Add to Cart</span>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-12 col-sm-6 col-md-4 col-lg-4 product-item d-none hidden-product" data-aos="fade-up">
+                                        <a href="shop_details.html" class="text-decoration-none">
+                                            <div class="product-card">
+                                                <div class="product-image"><img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?q=80&w=1615" alt="Denim Jeans"></div>
+                                                <div class="product-info">
+                                                    <div class="product-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                                            class="bi bi-star-fill"></i><i class="bi bi-star"></i></div>
+                                                    <h5 class="product-title">Classic Denim Jeans</h5>
+                                                    <p class="product-price">$79.50</p>
+                                                </div>
+                                                <span class="btn btn-add-to-cart">Add to Cart</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- Load More Button -->
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <button id="load-more-btn">Load More Products</button>
+                                </div>
+
+                                <nav class="d-flex justify-content-center mt-5">
+                                    <ul class="pagination ebook-pagination">
+                                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a>
+                                        </li>
+                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+
                         </div>
                     </div>
                 </section>

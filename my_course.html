@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>Course Player - AKF</title>
+
+        <!-- Fonts & Icons -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+
+        <style>
+            :root {
+                --color-primary-dark: #161618;
+                --color-secondary-dark: #1e1e1e;
+                --color-accent-gold: #D4AF37;
+                --color-text-light: #f0f0f0;
+                --color-text-medium: #a0a0a0;
+                --glass-bg: rgba(30, 30, 30, 0.7);
+                --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+                --soft-transition: all 0.18s ease-in-out;
+            }
+
+            html,
+            body {
+                height: 100%;
+                margin: 0;
+                background: var(--color-primary-dark);
+                color: var(--color-text-light);
+                font-family: 'Poppins', sans-serif;
+            }
+
+            .course-player-page {
+                display: flex;
+                flex-direction: column;
+                height: 100vh;
+            }
+
+            /* Header */
+            .player-header {
+                padding: 1rem 1.25rem;
+                background: var(--color-secondary-dark);
+                border-bottom: var(--glass-border);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .nav-btn {
+                background: var(--glass-bg);
+                border: var(--glass-border);
+                color: var(--color-text-light);
+                padding: .4rem .8rem;
+                border-radius: 8px;
+                text-decoration: none;
+            }
+
+            .nav-btn:hover {
+                background: var(--color-accent-gold);
+                color: var(--color-primary-dark);
+            }
+
+            /* Main */
+            .player-main-content {
+                display: flex;
+                flex: 1;
+                overflow: hidden;
+            }
+
+            @media (max-width:991.98px) {
+                .player-main-content {
+                    flex-direction: column;
+                }
+            }
+
+            /* Video area */
+            .video-player-container {
+                flex: 1;
+                background: #000;
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 320px;
+            }
+
+            video#custom-player {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                background: #000;
+            }
+
+            /* Controls bar */
+            .custom-controls {
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                padding: 10px 14px;
+                display: flex;
+                gap: 12px;
+                align-items: center;
+                background: linear-gradient(transparent, rgba(0, 0, 0, 0.78));
+                opacity: 0;
+                transition: opacity .22s ease;
+            }
+
+            .video-player-container:hover .custom-controls,
+            .video-player-container.controls-visible .custom-controls {
+                opacity: 1;
+            }
+
+            .control-btn {
+                background: none;
+                border: none;
+                color: #fff;
+                font-size: 1.25rem;
+                cursor: pointer;
+            }
+
+            .control-btn:hover {
+                transform: scale(1.06);
+            }
+
+            .time-display {
+                width: 64px;
+                text-align: center;
+                font-size: .9rem;
+                color: var(--color-text-light);
+            }
+
+            /* Progress */
+            .progress-bar-container {
+                flex: 1;
+                height: 8px;
+                background: rgba(255, 255, 255, 0.18);
+                border-radius: 8px;
+                position: relative;
+                cursor: pointer;
+                overflow: hidden;
+            }
+
+            .progress-bar-fill {
+                height: 100%;
+                width: 0%;
+                background: linear-gradient(90deg, var(--color-accent-gold), #f3d97a);
+                box-shadow: 0 0 10px rgba(212, 175, 55, 0.35);
+                transition: width .12s linear;
+            }
+
+            /* thumb as pseudo */
+            .progress-bar-fill::after {
+                content: '';
+                position: absolute;
+                right: -8px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 14px;
+                height: 14px;
+                border-radius: 50%;
+                background: #fff;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+                opacity: 0;
+                transition: opacity .12s ease, right .12s linear;
+            }
+
+            .progress-bar-container:hover .progress-bar-fill::after {
+                opacity: 1;
+            }
+
+            /* Volume group */
+            .volume-group {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .volume-slider {
+                width: 110px;
+                accent-color: var(--color-accent-gold);
+            }
+
+            /* Settings menu (multi-level) */
+            .settings-shell {
+                position: absolute;
+                bottom: 64px;
+                right: 18px;
+                width: 220px;
+                background: var(--glass-bg);
+                border: var(--glass-border);
+                border-radius: 10px;
+                padding: 8px;
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+                transform-origin: bottom right;
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity .18s ease, transform .18s ease, visibility .18s;
+                z-index: 60;
+            }
+
+            .settings-shell.open {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(-6px) scale(1);
+            }
+
+            .settings-shell .menu-main,
+            .settings-shell .menu-sub {
+                min-height: 40px;
+            }
+
+            .settings-item {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 8px;
+                padding: 8px;
+                border-radius: 6px;
+                color: var(--color-text-light);
+                cursor: pointer;
+                transition: background .12s ease;
+            }
+
+            .settings-item:hover {
+                background: rgba(255, 255, 255, 0.03);
+            }
+
+            .settings-item .label {
+                display: flex;
+                gap: 8px;
+                align-items: center;
+            }
+
+            /* Submenu container - sliding */
+            .menu-sub {
+                position: relative;
+                overflow: hidden;
+                height: auto;
+            }
+
+            .sub-panel {
+                position: relative;
+                transition: transform .22s ease;
+                padding: 6px;
+            }
+
+            .sub-panel.hidden {
+                display: none;
+            }
+
+            .sub-list {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+                padding: 6px;
+            }
+
+            .sub-list button {
+                text-align: left;
+                background: none;
+                border: none;
+                padding: 8px;
+                border-radius: 6px;
+                color: var(--color-text-light);
+                cursor: pointer;
+            }
+
+            .sub-list button.active {
+                background: var(--color-accent-gold);
+                color: var(--color-primary-dark);
+                font-weight: 600;
+            }
+
+            .settings-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 8px;
+                padding: 6px 4px;
+            }
+
+            .settings-back {
+                background: none;
+                border: none;
+                color: var(--color-text-light);
+                cursor: pointer;
+                font-size: 1rem;
+            }
+
+            /* Small toast message (for Quality simulation) */
+            .ui-toast {
+                position: absolute;
+                left: 50%;
+                top: 18px;
+                transform: translateX(-50%);
+                background: rgba(0, 0, 0, 0.6);
+                padding: 6px 12px;
+                border-radius: 999px;
+                color: #fff;
+                font-size: .9rem;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity .18s ease;
+                z-index: 90;
+            }
+
+            .ui-toast.show {
+                opacity: 1;
+            }
+
+            /* Sidebar / accordion & lessons */
+            .course-content-sidebar {
+                width: 100%;
+                background: var(--color-secondary-dark);
+                padding: 1rem;
+                overflow: auto;
+                flex-shrink: 0;
+                border-left: var(--glass-border);
+            }
+
+            @media (min-width:992px) {
+                .course-content-sidebar {
+                    width: 360px;
+                }
+            }
+
+            .course-accordion .accordion-button {
+                background: var(--glass-bg);
+                color: var(--color-text-light);
+                border-radius: 8px;
+            }
+
+            .lesson-list {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .lesson-item {
+                display: flex;
+                gap: 10px;
+                align-items: center;
+                padding: .6rem;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: var(--soft-transition);
+            }
+
+            .lesson-item.active {
+                background: linear-gradient(90deg, rgba(192, 132, 252, 0.08), rgba(96, 165, 250, 0.08));
+                border: 1px solid rgba(192, 132, 252, 0.18);
+            }
+
+            .lesson-checkbox {
+                width: 22px;
+                height: 22px;
+                border-radius: 4px;
+                background: var(--glass-bg);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                border: 2px solid var(--color-text-medium);
+                color: transparent;
+            }
+
+            .lesson-item.watched .lesson-checkbox {
+                background: var(--color-accent-gold);
+                border-color: var(--color-accent-gold);
+                color: var(--color-primary-dark);
+            }
+
+            /* small responsiveness */
+            @media (max-width:700px) {
+                .settings-shell {
+                    right: 10px;
+                    width: 200px;
+                    bottom: 70px;
+                }
+
+                .volume-slider {
+                    width: 70px;
+                }
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <div class="course-player-page">
+            <!-- Header -->
+            <header class="player-header">
+                <div class="d-flex align-items-center gap-3">
+                    <a href="#" class="nav-btn"><i class="bi bi-arrow-left"></i></a>
+                    <strong class="d-none d-md-inline">The Complete Python Bootcamp</strong>
+                </div>
+
+                <div class="d-flex align-items-center gap-2">
+                    <a class="nav-btn" href="#">My Courses <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </header>
+
+            <!-- Main -->
+            <div class="player-main-content">
+                <!-- Video area -->
+                <div class="video-player-container">
+                    <video id="custom-player" poster="https://i.ibb.co/6y45r3H/video-placeholder.png" preload="metadata">
+                        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                    </video>
+
+                    <!-- Controls -->
+                    <div class="custom-controls">
+                        <button class="control-btn" id="play-pause-btn" title="Play / Pause"><i class="bi bi-play-fill"></i></button>
+
+                        <div class="time-display" id="current-time">00:00</div>
+
+                        <div class="progress-bar-container" id="progress-bar-container" aria-label="Progress">
+                            <div class="progress-bar-fill" id="progress-bar-fill"></div>
+                        </div>
+
+                        <div class="time-display" id="duration">00:00</div>
+
+                        <!-- Volume group -->
+                        <div class="volume-group">
+                            <button class="control-btn" id="mute-btn" title="Mute / Unmute"><i class="bi bi-volume-up-fill"></i></button>
+                            <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.01" value="1" />
+                        </div>
+
+                        <!-- Settings (gear) -->
+                        <div style="position:relative;">
+                            <button class="control-btn" id="settings-btn" title="Settings"><i class="bi bi-gear-fill"></i></button>
+
+                            <!-- Settings shell -->
+                            <div class="settings-shell" id="settings-shell" aria-hidden="true">
+                                <div class="settings-header">
+                                    <div style="font-weight:600">Settings</div>
+                                    <button class="settings-back" id="settings-close" title="Close">&times;</button>
+                                </div>
+
+                                <!-- MAIN MENU -->
+                                <div class="menu-main" id="menu-main">
+                                    <div class="settings-item" data-action="speed">
+                                        <div class="label"><i class="bi bi-tachometer"></i>
+                                            <div>Playback Speed</div>
+                                        </div>
+                                        <div class="meta text-muted">1x</div>
+                                    </div>
+                                    <div class="settings-item" data-action="quality">
+                                        <div class="label"><i class="bi bi-camera-video"></i>
+                                            <div>Quality</div>
+                                        </div>
+                                        <div class="meta text-muted">Auto</div>
+                                    </div>
+                                </div>
+
+                                <!-- SUB MENU: SPEED -->
+                                <div class="menu-sub" id="menu-speed" style="display:none;">
+                                    <div class="settings-header">
+                                        <button class="settings-back" id="speed-back"><i class="bi bi-chevron-left"></i> Back</button>
+                                        <div style="font-weight:600">Playback Speed</div>
+                                        <div style="width:28px"></div>
+                                    </div>
+                                    <div class="sub-panel" id="speed-panel">
+                                        <div class="sub-list" id="speed-list">
+                                            <!-- buttons injected / or static -->
+                                            <button data-speed="0.5">0.5x</button>
+                                            <button data-speed="0.75">0.75x</button>
+                                            <button data-speed="1" class="active">1x (Normal)</button>
+                                            <button data-speed="1.25">1.25x</button>
+                                            <button data-speed="1.5">1.5x</button>
+                                            <button data-speed="2">2x</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- SUB MENU: QUALITY -->
+                                <div class="menu-sub" id="menu-quality" style="display:none;">
+                                    <div class="settings-header">
+                                        <button class="settings-back" id="quality-back"><i class="bi bi-chevron-left"></i> Back</button>
+                                        <div style="font-weight:600">Quality </div>
+                                        <div style="width:28px"></div>
+                                    </div>
+                                    <div class="sub-panel" id="quality-panel">
+                                        <div class="sub-list" id="quality-list">
+                                            <button data-quality="auto" class="active">Auto</button>
+                                            <button data-quality="1080">1080p</button>
+                                            <button data-quality="720">720p</button>
+                                            <button data-quality="480">480p</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end settings shell -->
+                        </div>
+
+                        <!-- Fullscreen -->
+                        <button class="control-btn" id="fullscreen-btn" title="Fullscreen"><i class="bi bi-fullscreen"></i></button>
+                    </div>
+
+                    <!-- UI toast (for quality simulation messages) -->
+                    <div class="ui-toast" id="ui-toast" role="status" aria-live="polite"></div>
+                </div>
+
+                <!-- Sidebar -->
+                <aside class="course-content-sidebar">
+                    <h3 class="sidebar-title">Course content</h3>
+
+                    <div class="accordion course-accordion" id="courseAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Module 1: Introduction
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#courseAccordion">
+                                <div class="accordion-body p-0">
+                                    <ul class="lesson-list p-2">
+                                        <li class="lesson-item active" data-video-src="https://www.w3schools.com/html/mov_bbb.mp4" data-poster="https://i.ibb.co/6y45r3H/video-placeholder.png">
+                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
+                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <i class="bi bi-pause-circle-fill lesson-play-icon"></i>
+                                                    <div>
+                                                        <p class="lesson-title mb-0">Introduction - What & How</p>
+                                                    </div>
+                                                </div>
+                                                <span class="lesson-duration">00:05</span>
+                                            </div>
+                                        </li>
+
+                                        <li class="lesson-item" data-video-src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" data-poster="">
+                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
+                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
+                                                    <div>
+                                                        <p class="lesson-title mb-0">Understanding The Layout</p>
+                                                    </div>
+                                                </div>
+                                                <span class="lesson-duration">00:15</span>
+                                            </div>
+                                        </li>
+
+                                        <li class="lesson-item" data-video-src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" data-poster="">
+                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
+                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
+                                                    <div>
+                                                        <p class="lesson-title mb-0">Essential Tools Overview</p>
+                                                    </div>
+                                                </div>
+                                                <span class="lesson-duration">00:15</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </aside>
+            </div>
+        </div>
+
+        <!-- Scripts -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            $(function () {
+                // Elements
+                const player = $('#custom-player')[0];
+                const $playBtn = $('#play-pause-btn');
+                const $playIcon = $('#play-pause-btn i');
+                const $progressContainer = $('#progress-bar-container');
+                const $progressFill = $('#progress-bar-fill');
+                const $currentTime = $('#current-time');
+                const $duration = $('#duration');
+                const $muteBtn = $('#mute-btn');
+                const $muteIcon = $('#mute-btn i');
+                const $volumeSlider = $('#volume-slider');
+                const $fullscreen = $('#fullscreen-btn');
+
+                // Settings elements
+                const $settingsBtn = $('#settings-btn');
+                const $settingsShell = $('#settings-shell');
+                const $menuMain = $('#menu-main');
+                const $menuSpeed = $('#menu-speed');
+                const $menuQuality = $('#menu-quality');
+                const $speedList = $('#speed-list');
+                const $qualityList = $('#quality-list');
+                const $speedBack = $('#speed-back');
+                const $qualityBack = $('#quality-back');
+                const $settingsClose = $('#settings-close');
+                const $uiToast = $('#ui-toast');
+
+                // state
+                let isDragging = false;
+
+                // --- Basic player controls ---
+                function formatTime(t) {
+                    if (isNaN(t)) return '00:00';
+                    const m = Math.floor(t / 60);
+                    const s = Math.floor(t % 60);
+                    return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+                }
+
+                function updatePlayIcon() {
+                    const cls = player.paused ? 'bi-play-fill' : 'bi-pause-fill';
+                    $playIcon.removeClass('bi-play-fill bi-pause-fill').addClass(cls);
+                }
+
+                $playBtn.on('click', () => {
+                    if (player.paused) player.play();
+                    else player.pause();
+                });
+                $('#custom-player').on('click', () => {
+                    if (player.paused) player.play();
+                    else player.pause();
+                });
+
+                player.addEventListener('play', updatePlayIcon);
+                player.addEventListener('pause', updatePlayIcon);
+
+                player.addEventListener('loadedmetadata', () => {
+                    $duration.text(formatTime(player.duration));
+                });
+
+                // Progress update
+                player.addEventListener('timeupdate', () => {
+                    if (!isDragging && isFinite(player.duration)) {
+                        const pct = (player.currentTime / player.duration) * 100;
+                        $progressFill.css('width', pct + '%');
+                    }
+                    $currentTime.text(formatTime(player.currentTime));
+                });
+
+                // Scrub
+                function scrub(e) {
+                    const pageX = e.pageX || (e.originalEvent.touches && e.originalEvent.touches[0].pageX);
+                    if (pageX === undefined) return;
+                    const left = $progressContainer.offset().left;
+                    const w = $progressContainer.width();
+                    let x = pageX - left;
+                    x = Math.max(0, Math.min(w, x));
+                    const pct = (x / w) * 100;
+                    $progressFill.css('width', pct + '%');
+                    if (isFinite(player.duration)) {
+                        player.currentTime = (pct / 100) * player.duration;
+                    }
+                }
+
+                $progressContainer.on('mousedown touchstart', function (e) {
+                    e.preventDefault();
+                    isDragging = true;
+                    scrub(e);
+                });
+                $(document).on('mousemove touchmove', function (e) {
+                    if (isDragging) {
+                        e.preventDefault();
+                        scrub(e);
+                    }
+                });
+                $(document).on('mouseup touchend', function (e) {
+                    if (isDragging) {
+                        isDragging = false;
+                        // final scrub on release
+                        scrub(e);
+                    }
+                });
+
+                // Volume & mute
+                function updateVolumeUI() {
+                    const isMuted = player.muted || player.volume === 0;
+                    const cls = isMuted ? 'bi-volume-mute-fill' : 'bi-volume-up-fill';
+                    $muteIcon.removeClass('bi-volume-up-fill bi-volume-mute-fill').addClass(cls);
+                    $volumeSlider.val(player.volume);
+                }
+
+                $muteBtn.on('click', () => {
+                    player.muted = !player.muted;
+                    updateVolumeUI();
+                });
+
+                $volumeSlider.on('input', function () {
+                    player.volume = parseFloat($(this).val());
+                    if (player.volume > 0) player.muted = false;
+                    updateVolumeUI();
+                });
+
+                player.addEventListener('volumechange', updateVolumeUI);
+                // initialize volume UI
+                player.volume = 1;
+                updateVolumeUI();
+
+                // fullscreen
+                $fullscreen.on('click', () => {
+                    if (!document.fullscreenElement) {
+                        $('.video-player-container')[0].requestFullscreen().catch(() => { });
+                    } else {
+                        document.exitFullscreen().catch(() => { });
+                    }
+                });
+
+                // Lessons click
+                $('.lesson-list').on('click', '.lesson-item .lesson-content', function () {
+                    const $li = $(this).closest('.lesson-item');
+                    if ($li.hasClass('active')) {
+                        // toggle play/pause
+                        if (player.paused) player.play();
+                        else player.pause();
+                        return;
+                    }
+                    $('.lesson-item').removeClass('active');
+                    $li.addClass('active');
+                    const src = $li.data('video-src');
+                    const poster = $li.data('poster') || '';
+                    if (src) {
+                        const currentTime = 0;
+                        player.pause();
+                        player.src = src;
+                        if (poster) player.poster = poster;
+                        player.load();
+                        player.play();
+                    }
+                });
+
+                // Checkbox toggle
+                $('.lesson-list').on('click', '.lesson-checkbox', function (e) {
+                    e.stopPropagation();
+                    const $li = $(this).closest('.lesson-item');
+                    $li.toggleClass('watched');
+                    const is = $li.hasClass('watched');
+                    $(this).attr('aria-checked', String(is));
+                });
+
+                // Auto next
+                player.addEventListener('ended', () => {
+                    const $current = $('.lesson-item.active');
+                    $current.addClass('watched').find('.lesson-checkbox').attr('aria-checked', 'true');
+                    const $next = $current.next('.lesson-item');
+                    if ($next.length) {
+                        $next.find('.lesson-content').trigger('click');
+                    }
+                });
+
+                // ---------------- SETTINGS MENU (multi-level) ----------------
+                function openSettings() {
+                    $settingsShell.addClass('open').attr('aria-hidden', 'false');
+                }
+                function closeSettings() {
+                    $settingsShell.removeClass('open').attr('aria-hidden', 'true');
+                    // ensure back to main
+                    $menuSpeed.hide();
+                    $menuQuality.hide();
+                    $menuMain.show();
+                }
+
+                $settingsBtn.on('click', function (e) {
+                    e.stopPropagation();
+                    if ($settingsShell.hasClass('open')) closeSettings();
+                    else openSettings();
+                });
+
+                // close clicking outside
+                $(document).on('click', function (e) {
+                    if ($(e.target).closest('#settings-shell, #settings-btn').length === 0) {
+                        closeSettings();
+                    }
+                });
+
+                $settingsClose.on('click', () => closeSettings());
+
+                // main menu item actions
+                $menuMain.on('click', '.settings-item', function () {
+                    const action = $(this).data('action');
+                    if (action === 'speed') {
+                        $menuMain.hide();
+                        $menuSpeed.show();
+                    } else if (action === 'quality') {
+                        $menuMain.hide();
+                        $menuQuality.show();
+                    }
+                });
+
+                // back buttons
+                $speedBack.on('click', function () {
+                    $menuSpeed.hide(); $menuMain.show();
+                });
+                $qualityBack.on('click', function () {
+                    $menuQuality.hide(); $menuMain.show();
+                });
+
+                // speed selection
+                $speedList.on('click', 'button', function () {
+                    $speedList.find('button').removeClass('active');
+                    $(this).addClass('active');
+                    const sp = parseFloat($(this).data('speed'));
+                    if (!isNaN(sp) && isFinite(sp)) {
+                        player.playbackRate = sp;
+                        // update main menu label
+                        $menuMain.find('[data-action="speed"] .meta').text(sp + 'x');
+                    }
+                });
+
+                // quality selection (UI only)
+                function showToast(txt) {
+                    $uiToast.text(txt).addClass('show');
+                    setTimeout(() => $uiToast.removeClass('show'), 1600);
+                }
+                $qualityList.on('click', 'button', function () {
+                    $qualityList.find('button').removeClass('active');
+                    $(this).addClass('active');
+                    const q = $(this).data('quality');
+                    // UI simulation - display message
+                    showToast('Quality set to: ' + (q === 'auto' ? 'Auto' : q + 'p'));
+                    // update main menu label
+                    $menuMain.find('[data-action="quality"] .meta').text(q === 'auto' ? 'Auto' : q + 'p');
+
+                    // NOTE: to actually change quality you must provide multiple source files
+                    // and switch player.src accordingly while preserving time/playing state.
+                    // This is just the UI part.
+                    console.log('QUALITY SELECTED (UI only):', q);
+                });
+
+                // initialize speed active based on player.playbackRate
+                function setInitialSpeedUI() {
+                    const current = player.playbackRate || 1;
+                    $speedList.find('button').each(function () {
+                        if (parseFloat($(this).data('speed')) === current) {
+                            $(this).addClass('active');
+                        } else $(this).removeClass('active');
+                    });
+                    $menuMain.find('[data-action="speed"] .meta').text(current + 'x');
+                }
+                setInitialSpeedUI();
+
+                // keyboard: space to toggle
+                $(document).on('keydown', function (e) {
+                    if (e.code === 'Space' && !$(e.target).is('input,textarea')) {
+                        e.preventDefault();
+                        if (player.paused) player.play(); else player.pause();
+                    }
+                });
+            });
+        </script>
+    </body>
+
+</html>

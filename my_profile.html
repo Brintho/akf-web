@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Product Details</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/responsive.css">
+
+
+
+    </head>
+
+
+    <body class="">
+        <!-- Consistent Header, same as other pages -->
+        <main id="main-content">
+
+            <!-- Custom CSS for User Dashboard (Dark Theme) -->
+            <style>
+                /* Your provided theme variables */
+                :root {
+                    --color-primary-dark: #161618;
+                    --color-secondary-dark: #1e1e1e;
+                    --color-accent-gold: #D4AF37;
+                    --color-text-light: #f0f0f0;
+                    --color-text-medium: #a0a0a0;
+                    --glass-bg: rgba(30, 30, 30, 0.7);
+                    --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+                    --font-primary: 'Poppins', sans-serif;
+                    --font-bengali: 'Hind Siliguri', sans-serif;
+                    --soft-transition: all 0.3s ease-in-out;
+                }
+
+            </style>
+
+            <header class="topbar">
+                <div class="topbar__container">
+                    <div class="topbar__logo">
+                        <a href="index.html">
+                            <img src="images/bg.png" alt="Arya Kalyan Foundation Logo">
+                        </a>
+                    </div>
+                    <nav class="topbar__nav--desktop">
+                        <a href="index.html" class="active">Home</a>
+                        <a href="course.html">Courses</a>
+                        <a href="shop.html">Shop</a>
+                        <a href="ebook.html">Ebook</a>
+                        <a href="events.html">Events</a>
+                        <a href="our_programs.html">Our Programs</a>
+                        <a href="blog.html">Blog</a>
+                        <a href="about.html">About Us</a>
+                        <a href="#donate">Donate</a>
+                    </nav>
+                    <div class="topbar__actions">
+
+
+                        <!-- Cart -->
+                        <a href="ad-to-cat.html" class="action-icon cart-icon" id="cart-toggle">
+                            <i class="bi bi-cart3"></i>
+                            <span class="notification-badge">0</span>
+                        </a>
+                        <!-- Notification Bell -->
+                        <!-- Notification Wrapper with Bootstrap Dropdown Functionality -->
+
+                        <div class="notification-wrapper dropdown">
+                            <!-- Bell icon acts as the dropdown toggle -->
+                            <a href="#" class="action-icon notification-bell" id="notification-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                <i class="bi bi-bell"></i>
+                                <span class="notification-badge">3</span>
+                            </a>
+
+                            <!-- Dropdown menu with responsive enhancements -->
+                            <div class="notification-dropdown dropdown-menu dropdown-menu-dark dropdown-menu-end" id="notification-dropdown" style="min-width: 340px;">
+                                <div class="notification-header">
+                                    <h4>Notifications</h4>
+                                    <button class="mark-all-read">Mark all as read</button>
+                                </div>
+                                <!-- Scrollable list for mobile -->
+                                <div class="notification-list" style="max-height: 70vh; overflow-y: auto;">
+                                    <!-- Notification Item 1 -->
+                                    <a href="#" class="notification-item unread">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">Your class on <strong>Module 17</strong> has started.</p>
+                                            <small class="notification-meta">12 hours ago • Full Stack Web Development</small>
+                                        </div>
+                                    </a>
+                                    <!-- Notification Item 2 -->
+                                    <a href="#" class="notification-item unread">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">Your class will start at 12:00 PM</p>
+                                            <small class="notification-meta"><span class="live-badge-small">LIVE</span> 10 hours ago • Full Stack Web Development</small>
+                                        </div>
+                                    </a>
+                                    <!-- Notification Item 3 -->
+                                    <a href="#" class="notification-item">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">Your assignment has been graded.</p>
+                                            <small class="notification-meta">1 day ago • Veda Education</small>
+                                        </div>
+                                    </a>
+                                    <!-- Add more notifications here to test scrolling -->
+                                    <a href="#" class="notification-item">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">A new article has been published in the blog.</p>
+                                            <small class="notification-meta">2 days ago • Insights & Articles</small>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="notification-footer">
+                                    <a href="#" class="see-all-btn">See All Notifications</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="#" class="btn-login">Login</a>
+
+                        <!-- Profile Avatar -->
+                        <div class="dropdown profile-dropdown-wrapper">
+                            <a href="#" class="action-icon profile-avatar show" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="true">
+                                <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar" class="rounded-circle profile-img">
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-end p-2 shadow-lg show" aria-labelledby="profileDropdown"
+                                style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(0px, 42px);" data-popper-placement="bottom-end">
+                                <!-- User Info -->
+                                <li class="px-3 py-2 border-bottom d-flex align-items-center">
+                                    <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" class="rounded-circle me-2" width="45" height="45" alt="Avatar">
+                                    <div>
+                                        <p class="mb-0 fw-bold name-text">Brinto Chakroborty Sammo</p>
+                                        <small class="text-muted">+8801750756133</small>
+                                    </div>
+                                </li>
+
+                                <!-- Links -->
+                                <li><a class="dropdown-item d-flex align-items-center" href="#"><img src="https://cdn.ostad.app/public/icons/video-add-line.svg" class="me-2 dropdown-item-svg "
+                                            width="18">Go To Class
+                                        Joining</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center" href="#"><img src="https://cdn.ostad.app/public/icons/book-2-line.svg" class="me-2 dropdown-item-svg"
+                                            width="18">My Courses</a>
+                                </li>
+                                <li><a class="dropdown-item d-flex align-items-center" href="#"><img src="https://cdn.ostad.app/public/icons/device-line.svg" class="me-2 dropdown-item-svg"
+                                            width="18">Device
+                                        Management</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center" href="#"><img src="https://cdn.ostad.app/public/icons/account-circle-line.svg" class="me-2 dropdown-item-svg"
+                                            width="18">Profile</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center text-danger" href="#"><img src="https://cdn.ostad.app/public/icons/logout-box-r-line.svg"
+                                            class="me-2 dropdown-item-svg" width="18">Logout</a></li>
+                            </ul>
+                        </div>
+
+                        <button class="hamburger-menu" id="hamburger-toggle" aria-label="Toggle Menu">
+                            <i class="bi bi-list"></i>
+                        </button>
+                    </div>
+
+
+                </div>
+            </header>
+
+            <div class="dashboard-page">
+                <div class="container">
+                    <!-- 1. Profile Header Section -->
+                    <div class="profile-header mb-5">
+                        <div class="profile-banner" data-aos="fade-in">
+                            <svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,138.7C672,128,768,160,864,176C960,192,1056,192,1152,181.3C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+                                    fill="rgba(255,255,255,0.05)"></path>
+                            </svg>
+                        </div>
+                        <div class="profile-header-card d-flex flex-column flex-md-row align-items-center gap-4" data-aos="fade-up">
+                            <img src="https://i.ibb.co/hZntY5k/avatar-hijab.png" alt="User Avatar" class="profile-avatar-dashbord">
+                            <div class="text-center text-md-start">
+                                <h2 class="profile-name">Marsden Holman</h2>
+                                <div class="profile-stats">
+                                    <span><i class="bi bi-book-fill me-2"></i> 0 Course Enrolled</span>
+                                    <span><i class="bi bi-patch-check-fill me-2"></i> 0 certificate</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-4">
+                        <!-- 2. Sidebar Navigation -->
+                        <div class="col-lg-3">
+                            <div class="dashboard-sidebar" data-aos="fade-right">
+                                <p class="sidebar-welcome-text px-3">WELCOME, MARSDEN HOLMAN</p>
+                                <ul class="nav flex-column sidebar-nav">
+                                    <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-journal-bookmark-fill"></i> My Courses</a></li>
+                                    <li class="nav-item"><a class="nav-link " href="my_ebook_profile.html"><i class="bi bi-book-half"></i> My Ebooks</a></li>
+                                    <li class="nav-item"><a class="nav-link active" href="my_profile.html"><i class="bi bi-person-circle"></i> My Profile</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-heart-fill"></i> Wishlist</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-chat-dots-fill"></i> Message</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-clock-history"></i> Purchase History</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-box-arrow-left"></i> Logout</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- 3. Main Content Area -->
+                        <div class="col-lg-9">
+                            <div class="dashboard-content-card" data-aos="fade-up" data-aos-delay="100">
+                                <h3 class="content-title">Membership Form</h3>
+                                <form class="row g-4">
+                                    <!-- Member Name -->
+                                    <div class="col-md-6">
+                                        <label class="form-label">সদস্য নাম (Member Name)</label>
+                                        <input type="text" class="form-control" placeholder="আপনার নাম লিখুন">
+                                    </div>
+
+                                    <!-- Father's/Husband's Name -->
+                                    <div class="col-md-6">
+                                        <label class="form-label">পিতার/স্বামীর নাম (Father’s/Husband’s Name)</label>
+                                        <input type="text" class="form-control" placeholder="পিতার/স্বামীর নাম">
+                                    </div>
+
+                                    <!-- DOB -->
+                                    <div class="col-md-6">
+                                        <label class="form-label">জন্ম তারিখ (Date of Birth)</label>
+                                        <input type="date" class="form-control">
+                                    </div>
+
+                                    <!-- Nationality -->
+                                    <div class="col-md-6">
+                                        <label class="form-label">জাতীয়তা (Nationality)</label>
+                                        <input type="text" class="form-control" placeholder="বাংলাদেশী / অন্য দেশ">
+                                    </div>
+
+                                    <!-- Gender -->
+                                    <div class="col-md-6">
+                                        <label class="form-label">লিঙ্গ (Gender)</label>
+                                        <select class="form-select">
+                                            <option>নারী</option>
+                                            <option>পুরুষ</option>
+                                            <option>অন্যান্য</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Marital Status -->
+                                    <div class="col-md-6">
+                                        <label class="form-label">বৈবাহিক তথ্য (Marital Status)</label>
+                                        <select class="form-select">
+                                            <option>বিবাহিত</option>
+                                            <option>অবিবাহিত</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Blood Group -->
+                                    <div class="col-md-6">
+                                        <label class="form-label">রক্তের গ্রুপ</label>
+                                        <input type="text" class="form-control" placeholder="A+, B+, O- ইত্যাদি">
+                                    </div>
+
+                                    <!-- Education -->
+                                    <div class="col-md-6">
+                                        <label class="form-label">শিক্ষাগত যোগ্যতা</label>
+                                        <input type="text" class="form-control" placeholder="SSC/HSC/Graduate">
+                                    </div>
+
+                                    <!-- Profession -->
+                                    <div class="col-md-6">
+                                        <label class="form-label">পেশা</label>
+                                        <input type="text" class="form-control" placeholder="আপনার বর্তমান পেশা">
+                                    </div>
+
+                                    <!-- Permanent Address -->
+                                    <div class="col-md-12">
+                                        <label class="form-label">স্থায়ী ঠিকানা</label>
+                                        <textarea class="form-control" rows="2"></textarea>
+                                    </div>
+
+                                    <!-- Current Address -->
+                                    <div class="col-md-12">
+                                        <label class="form-label">বর্তমান ঠিকানা</label>
+                                        <textarea class="form-control" rows="2"></textarea>
+                                    </div>
+
+                                    <!-- Mobile -->
+                                    <div class="col-md-6">
+                                        <label class="form-label">মোবাইল নাম্বার</label>
+                                        <input type="text" class="form-control" placeholder="01XXXXXXXXX">
+                                    </div>
+
+                                    <!-- Other Number -->
+                                    <div class="col-md-6">
+                                        <label class="form-label">বিকল্প নাম্বার</label>
+                                        <input type="text" class="form-control" placeholder="Optional">
+                                    </div>
+
+                                    <!-- Email -->
+                                    <div class="col-md-12">
+                                        <label class="form-label">ইমেইল</label>
+                                        <input type="email" class="form-control" placeholder="example@email.com">
+                                    </div>
+
+                                    <!-- NID/Passport -->
+                                    <div class="col-md-12">
+                                        <label class="form-label">জাতীয় পরিচয়পত্র/পাসপোর্ট/জন্ম নিবন্ধন</label>
+                                        <input type="text" class="form-control" placeholder="NID / Passport / Birth Reg. Number">
+                                    </div>
+
+                                    <!-- Why Join -->
+                                    <div class="col-md-12">
+                                        <label class="form-label">কেন আপনি এই সংগঠনের সদস্য হতে চান?</label>
+                                        <textarea class="form-control" rows="3"></textarea>
+                                    </div>
+
+                                    <!-- Skills -->
+                                    <div class="col-md-12">
+                                        <label class="form-label">আপনার বিশেষ দক্ষতা কি?</label>
+                                        <textarea class="form-control" rows="2"></textarea>
+                                    </div>
+
+                                    <!-- Other Organization -->
+                                    <div class="col-md-12">
+                                        <label class="form-label">পূর্বে/বর্তমানে অন্য সংগঠনের সাথে যুক্ত আছেন কি?</label>
+                                        <textarea class="form-control" rows="2"></textarea>
+                                    </div>
+
+                                    <!-- Thoughts -->
+                                    <div class="col-md-12">
+                                        <label class="form-label">সনাতন সমাজ নিয়ে আপনার ভাবনা কি?</label>
+                                        <textarea class="form-control" rows="3"></textarea>
+                                    </div>
+
+                                    <!-- Expectations -->
+                                    <div class="col-md-12">
+                                        <label class="form-label">এই সংগঠন থেকে আপনার প্রত্যাশা কি?</label>
+                                        <textarea class="form-control" rows="3"></textarea>
+                                    </div>
+
+                                    <!-- Recommending Member -->
+                                    <div class="col-md-6">
+                                        <label class="form-label">সুপারিশকারীর নাম</label>
+                                        <input type="text" class="form-control" placeholder="Recommending Member Name">
+                                    </div>
+
+                                    <!-- Recommending Member Phone -->
+                                    <div class="col-md-6">
+                                        <label class="form-label">সুপারিশকারীর ফোন নাম্বার</label>
+                                        <input type="text" class="form-control" placeholder="01XXXXXXXXX">
+                                    </div>
+
+                                    <!-- Declaration -->
+                                    <div class="col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="declaration">
+                                            <label class="form-check-label" for="declaration">
+                                                আমি ঘোষণা করছি যে প্রদত্ত সকল তথ্য সত্য এবং আমি সংগঠনের নীতিমালা মেনে চলতে সম্মত।
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Submit Button -->
+                                    <div class="col-12 text-end">
+                                        <button type="submit" class="btn btn-primary px-4">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- Reusing the same mobile nav and footer -->
+        <nav class="bottom-nav">
+            <a href="index.html" class="bottom-nav__item"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
+            <a href="events.html" class="bottom-nav__item"><i class="bi bi-calendar-event-fill"></i><span>Events</span></a>
+            <a href="course.html" class="bottom-nav__item "><i class="bi bi-journal-bookmark-fill"></i><span>Courses</span></a>
+            <a href="shop.html" class="bottom-nav__item active"><i class="bi bi-cart-fill"></i><span>Shop</span></a>
+            <a href="#blog" class="bottom-nav__item"><i class="bi bi-chat-square-text-fill"></i><span>Blog</span></a>
+            <a href="#donate" class="bottom-nav__item"><i class="bi bi-heart-fill"></i><span>Donate</span></a>
+        </nav>
+
+
+        <!-- Footer -->
+        <!-- ============================================= -->
+        <!-- Footer Section                                -->
+        <!-- ============================================= -->
+        <footer id="footer" class="site-footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <!-- Column 1: Brand & Tagline -->
+                    <div class="footer-column">
+                        <h3 class="footer-brand">AKF</h3>
+                        <p class="footer-tagline">A sanctuary for peace, wisdom, and connection in the digital age.</p>
+                    </div>
+
+                    <!-- Column 2: Quick Links -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Quick Links</h5>
+                        <ul class="footer-links">
+                            <li><a href="#hero">Home</a></li>
+                            <li><a href="#introduction">About Us</a></li>
+                            <li><a href="#courses">Courses</a></li>
+                            <li><a href="#blog">Blog</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 3: Support -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Support</h5>
+                        <ul class="footer-links">
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#donate">Donate</a></li>
+                            <li><a href="#">Community Guidelines</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 4: Follow Us -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Follow Us</h5>
+                        <div class="social-icons">
+                            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                            <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>© 2024 AKF. All Rights Reserved.</p>
+                    <div class="footer-legal-links">
+                        <a href="#">Privacy Policy</a>
+                        <span>•</span>
+                        <a href="#">Terms of Service Sammo</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Scripts -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <!-- AOS.js for Scroll Animations -->
+
+        <!-- Swiper.js JS -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script src="js/script.js"></script>
+        <script>
+
+
+        </script>
+    </body>
+
+</html>

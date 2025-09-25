@@ -20,6 +20,9 @@
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/responsive.css">
+
+
         <style>
             .course-tabs-slider-wrapper {
                 width: 100%;
@@ -196,7 +199,7 @@
                         </div>
 
                         <!-- Cart -->
-                        <a href="#" class="action-icon cart-icon" id="cart-toggle">
+                        <a href="ad-to-cat.html" class="action-icon cart-icon" id="cart-toggle">
                             <i class="bi bi-cart3"></i>
                             <span class="notification-badge">0</span>
                         </a>
@@ -258,15 +261,45 @@
 
 
                         <a href="#" class="btn-login">Login</a>
-                        <a href="#" class="action-icon profile-avatar">
-                            <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar">
-                        </a>
+
+                        <!-- Profile Avatar -->
+                        <div class="dropdown profile-dropdown-wrapper">
+                            <a href="#" class="action-icon profile-avatar" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar" class="rounded-circle profile-img">
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-end p-2 shadow-lg" aria-labelledby="profileDropdown">
+                                <!-- User Info -->
+                                <li class="px-3 py-2 border-bottom d-flex align-items-center">
+                                    <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" class="rounded-circle me-2" width="45" height="45" alt="Avatar">
+                                    <div>
+                                        <p class="mb-0 fw-bold name-text">Brinto Chakroborty Sammo</p>
+                                        <small class="text-muted">+8801750756133</small>
+                                    </div>
+                                </li>
+
+                                <!-- Links -->
+                                <li><a class="dropdown-item d-flex align-items-center" href="#"><img src="https://cdn.ostad.app/public/icons/video-add-line.svg" class="me-2 dropdown-item-svg "
+                                            width="18">Go To Class
+                                        Joining</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center" href="#"><img src="https://cdn.ostad.app/public/icons/book-2-line.svg" class="me-2 dropdown-item-svg"
+                                            width="18">My Courses</a>
+                                </li>
+                                <li><a class="dropdown-item d-flex align-items-center" href="#"><img src="https://cdn.ostad.app/public/icons/device-line.svg" class="me-2 dropdown-item-svg"
+                                            width="18">Device
+                                        Management</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center" href="#"><img src="https://cdn.ostad.app/public/icons/account-circle-line.svg" class="me-2 dropdown-item-svg"
+                                            width="18">Profile</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center text-danger" href="#"><img src="https://cdn.ostad.app/public/icons/logout-box-r-line.svg"
+                                            class="me-2 dropdown-item-svg" width="18">Logout</a></li>
+                            </ul>
+                        </div>
+
                         <button class="hamburger-menu" id="hamburger-toggle" aria-label="Toggle Menu">
                             <i class="bi bi-list"></i>
                         </button>
                     </div>
 
-                    <!-- Fullscreen Search Bar (HTML-এ এটিকে topbar__container এর শেষে রাখা ভালো) -->
                     <div class="fullscreen-search" id="fullscreen-search">
                         <input type="text" placeholder="Search here..." id="fullscreen-search-input" />
                         <button class="close-search" id="close-search-btn">×</button>
@@ -324,64 +357,167 @@
                     <h2 class="section-title bengali-text" data-aos="fade-up">
                         <i class="bi bi-broadcast"></i> Upcoming Live Courses
                     </h2>
-                    <!-- Course Filtering Tabs -->
-
-                    <div class="course-tabs-slider-wrapper" data-aos="fade-up" data-aos-delay="100">
-                        <div class="swiper course-tabs-swiper">
-                            <div class="swiper-wrapper group-category">
-                                <div class="swiper-slide"><button class="tab-btn " data-filter="all">All</button></div>
-                                <div class="swiper-slide"><button class="tab-btn" data-filter="web-dev">Sanskrit Education</button></div>
-                                <div class="swiper-slide"><button class="tab-btn" data-filter="design">Veda Education</button></div>
-                                <div class="swiper-slide"><button class="tab-btn" data-filter="testing">General Education</button></div>
-                                <div class="swiper-slide"><button class="tab-btn" data-filter="another-cat">Another Category</button></div>
-                                <div class="swiper-slide"><button class="tab-btn" data-filter="new-cat">New Category</button></div>
-                                <div class="swiper-slide"><button class="tab-btn" data-filter="testing">General Education</button></div>
-                                <div class="swiper-slide"><button class="tab-btn" data-filter="another-cat">Another Category</button></div>
-                                <div class="swiper-slide"><button class="tab-btn" data-filter="new-cat">New Category</button></div>
-
-                            </div>
-
-                            <!-- Navigation arrows -->
-                            <div class="swiper-button-prev course-tab-prev"></div>
-                            <div class="swiper-button-next course-tab-next"></div>
-
-                            <!-- Scrollbar -->
-                            <!-- <div class="swiper-scrollbar"></div> -->
-                        </div>
+                    <div class="d-lg-none mb-4 text-end">
+                        <button class="btn" id="mobile-filter-toggle" data-bs-toggle="collapse" data-bs-target="#filter-sidebar-content">
+                            <i class="bi bi-funnel-fill me-2"></i> Show Filters
+                        </button>
                     </div>
 
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="d-lg-block collapse" id="filter-sidebar-content" style="">
+                                <div class="filter-sidebar">
+                                    <div class="mb-4">
+                                        <h5 class="filter-group-title">Categories</h5>
+                                        <ul class="filter-list">
+                                            <li>
+                                                <div class="form-check"><input class="form-check-input" type="radio" name="categoryFilter" id="catAll" checked=""><label class="form-check-label"
+                                                        for="catAll">All category <span class="count">(8)</span></label></div>
+                                            </li>
+                                            <li>
+                                                <div class="form-check"><input class="form-check-input" type="radio" name="categoryFilter" id="catEdu"><label class="form-check-label"
+                                                        for="catEdu">Education <span class="count">(3)</span></label></div>
+                                            </li>
+                                            <li>
+                                                <div class="form-check"><input class="form-check-input" type="radio" name="categoryFilter" id="catSciFi"><label class="form-check-label"
+                                                        for="catSciFi">Science Fiction <span class="count">(2)</span></label></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="mb-4">
+                                        <h5 class="filter-group-title">Price</h5>
+                                        <ul class="filter-list">
+
+                                            <li>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="priceFilter" id="priceFree">
+                                                    <label class="form-check-label" for="priceFree">Free</label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="priceFilter" id="pricePaid">
+                                                    <label class="form-check-label" for="pricePaid">Paid</label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="priceFilter" id="priceDiscount">
+                                                    <label class="form-check-label" for="priceDiscount">Discount</label>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div>
+                                        <h5 class="filter-group-title">Ratings</h5>
+                                        <ul class="filter-list rating-filter">
+
+                                            <!-- 5 Stars -->
+                                            <li>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="ratingFilter" id="rating5">
+                                                    <label class="form-check-label" for="rating5">
+                                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                                    </label>
+                                                </div>
+                                            </li>
+
+                                            <!-- 4 Stars -->
+                                            <li>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="ratingFilter" id="rating4">
+                                                    <label class="form-check-label" for="rating4">
+                                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star"></i>
+                                                    </label>
+                                                </div>
+                                            </li>
+
+                                            <!-- 3 Stars -->
+                                            <li>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="ratingFilter" id="rating3">
+                                                    <label class="form-check-label" for="rating3">
+                                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i><i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                    </label>
+                                                </div>
+                                            </li>
+
+                                            <!-- 2 Stars -->
+                                            <li>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="ratingFilter" id="rating2">
+                                                    <label class="form-check-label" for="rating2">
+                                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star"></i><i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                    </label>
+                                                </div>
+                                            </li>
+
+                                            <!-- 1 Star -->
+                                            <li>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="ratingFilter" id="rating1">
+                                                    <label class="form-check-label" for="rating1">
+                                                        <i class="bi bi-star-fill"></i><i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i><i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                    </label>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
 
 
 
-                    <div class="courses-grid">
-                        <!-- Card 1 -->
-                        <a href="course_details.html" class="course-card" data-aos="fade-up" data-category="web-dev">
-                            <div class="card-thumbnail"><img src="images/course/unnamed.jpg" alt="Sanskrit Course"><span class="live-badge">LIVE</span></div>
-                            <div class="card-body">
-                                <h3 class="card-title">Full Stack Web with JavaScript (MERN)</h3>
-                                <p class="card-description">Master the MERN stack and build powerful, real-world web applications from scratch.</p>
+                        <!-- Course Filtering Tabs -->
+                        <div class="col-lg-9">
+                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+                                <p class="text-secondary mb-0">Showing 6 Of 8 Results</p>
+                                <div class="search-ebook"><i class="bi bi-search search-icon"></i><input type="text" placeholder="Search..."></div>
                             </div>
-                            <div class="card-footer"><span>See details <i class="bi bi-arrow-right"></i></span></div>
-                        </a>
-                        <!-- Card 2 -->
-                        <a href="course_details.html" class="course-card" data-aos="fade-up" data-delay="100" data-category="testing">
-                            <div class="card-thumbnail"><img src="images/course/Veda-Vyasa-e1514534326733.jpg" alt="General Education"><span class="live-badge">LIVE</span></div>
-                            <div class="card-body">
-                                <h3 class="card-title">SQA: Manual & Automated Testing</h3>
-                                <p class="card-description">Become a skilled Software Quality Assurance engineer with in-demand testing skills.</p>
+                            <div class="courses-grid">
+                                <!-- Card 1 -->
+                                <a href="course_details.html" class="course-card" data-aos="fade-up" data-category="web-dev">
+                                    <div class="card-thumbnail"><img src="images/course/unnamed.jpg" alt="Sanskrit Course"><span class="live-badge">LIVE</span></div>
+                                    <div class="card-body">
+                                        <h3 class="card-title">Full Stack Web with JavaScript (MERN)</h3>
+                                        <p class="card-description">Master the MERN stack and build powerful, real-world web applications from scratch.</p>
+                                    </div>
+                                    <div class="card-footer"><span>See details <i class="bi bi-arrow-right"></i></span></div>
+                                </a>
+                                <!-- Card 2 -->
+                                <a href="course_details.html" class="course-card" data-aos="fade-up" data-delay="100" data-category="testing">
+                                    <div class="card-thumbnail"><img src="images/course/Veda-Vyasa-e1514534326733.jpg" alt="General Education"><span class="live-badge">LIVE</span></div>
+                                    <div class="card-body">
+                                        <h3 class="card-title">SQA: Manual & Automated Testing</h3>
+                                        <p class="card-description">Become a skilled Software Quality Assurance engineer with in-demand testing skills.</p>
+                                    </div>
+                                    <div class="card-footer"><span>See details <i class="bi bi-arrow-right"></i></span></div>
+                                </a>
+                                <!-- Card 3 -->
+                                <a href="course_details.html" class="course-card" data-aos="fade-up" data-delay="200" data-category="design">
+                                    <div class="card-thumbnail"><img src="images/course/atarva-veda-01.jpg" alt="Veda Education"><span class="live-badge">LIVE</span></div>
+                                    <div class="card-body">
+                                        <h3 class="card-title">Freelancing with Graphic Design</h3>
+                                        <p class="card-description">Your complete blueprint to start a successful freelance career in graphic design.</p>
+                                    </div>
+                                    <div class="card-footer"><span>See details <i class="bi bi-arrow-right"></i></span></div>
+                                </a>
+                                <!-- Add more cards with correct data-category as needed -->
                             </div>
-                            <div class="card-footer"><span>See details <i class="bi bi-arrow-right"></i></span></div>
-                        </a>
-                        <!-- Card 3 -->
-                        <a href="course_details.html" class="course-card" data-aos="fade-up" data-delay="200" data-category="design">
-                            <div class="card-thumbnail"><img src="images/course/atarva-veda-01.jpg" alt="Veda Education"><span class="live-badge">LIVE</span></div>
-                            <div class="card-body">
-                                <h3 class="card-title">Freelancing with Graphic Design</h3>
-                                <p class="card-description">Your complete blueprint to start a successful freelance career in graphic design.</p>
-                            </div>
-                            <div class="card-footer"><span>See details <i class="bi bi-arrow-right"></i></span></div>
-                        </a>
-                        <!-- Add more cards with correct data-category as needed -->
+                        </div>
+
                     </div>
                 </div>
             </section>
@@ -568,7 +704,7 @@
                             <div class="download-buttons">
                                 <a href="#" class="download-btn"><i class="bi bi-google-play"></i> Android</a>
                                 <a href="#" class="download-btn"><i class="bi bi-apple"></i> iOS / macOS</a>
-                                <a href="#" class="download-btn"><i class="bi bi-windows"></i> Windows</a>
+                                <!-- <a href="#" class="download-btn"><i class="bi bi-windows"></i> Windows</a>X -->
                             </div>
                         </div>
                     </div>

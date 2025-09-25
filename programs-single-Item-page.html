@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Product Details</title>
-       <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600&display=swap" rel="stylesheet">
@@ -14,146 +14,10 @@
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
         <link rel="stylesheet" href="css/style.css">
-        <style>
-            /* Your provided theme variables */
-            :root {
-                --color-primary-dark: #161618;
-                --color-secondary-dark: #1e1e1e;
-                --color-accent-gold: #D4AF37;
-                --color-text-light: #f0f0f0;
-                --color-text-medium: #a0a0a0;
-                --glass-bg: rgba(30, 30, 30, 0.7);
-                --glass-border: 1px solid rgba(255, 255, 255, 0.1);
-                --font-primary: 'Poppins', sans-serif;
-                --soft-transition: all 0.3s ease-in-out;
-            }
-
-            .program-page-content {
-                padding-top: 100px;
-                background-color: var(--color-primary-dark);
-                color: var(--color-text-light);
-                font-family: var(--font-primary);
-            }
-
-            .program-page-title {
-                color: var(--color-text-light);
-                font-weight: 700;
-                margin-bottom: 2.5rem;
-                text-align: center;
-            }
-
-            .year-section {
-                margin-bottom: 3.5rem;
-            }
-
-            .year-title {
-                font-size: 1.8rem;
-                font-weight: 600;
-                color: var(--color-accent-gold);
-                margin-bottom: 1.5rem;
-                padding-bottom: 10px;
-                border-bottom: 1px solid var(--glass-border);
-            }
-
-            .program-card {
-                background: var(--glass-bg);
-                border: var(--glass-border);
-                border-radius: 12px;
-                overflow: hidden;
-                transition: var(--soft-transition);
-                backdrop-filter: blur(10px);
-                display: flex;
-                flex-direction: column;
-                height: 100%;
-                text-decoration: none;
-                /* For the <a> tag */
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            }
-
-            .btn-details-single-Item-page {
-                background-color: var(--color-accent-gold-dark);
-                color: #000;
-                border: none;
-                padding: 8px 16px;
-                border-radius: 6px;
-                cursor: pointer;
-                font-size: 14px;
-                transition: 0.3s ease;
-                opacity: 0;
-                /* Initially hidden */
-                visibility: hidden;
-                /* Prevent click before hover */
-                transform: translateY(10px);
-                /* Slide effect */
-            }
-
-            /* Show button on hover */
-            .program-card:hover .btn-details-single-Item-page {
-                opacity: 1;
-                visibility: visible;
-                transform: translateY(0);
-            }
+        <link rel="stylesheet" href="css/responsive.css">
 
 
 
-
-            .program-card:hover {
-                transform: translateY(-8px);
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-                border-color: rgba(212, 175, 55, 0.5);
-            }
-
-            .program-card-img {
-                aspect-ratio: 16 / 10;
-                overflow: hidden;
-            }
-
-            .program-card-img img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                transition: transform 0.4s ease;
-            }
-
-            .program-card:hover .program-card-img img {
-                transform: scale(1.05);
-            }
-
-            .program-card-body {
-                padding: 20px;
-                flex-grow: 1;
-            }
-
-            .program-card-title {
-                color: var(--color-text-light);
-                font-size: 1.2rem;
-                font-weight: 600;
-                margin-bottom: 8px;
-            }
-
-            .program-card-date {
-                color: var(--color-text-medium);
-                font-size: 0.9rem;
-            }
-
-            #load-more-programs {
-                background-color: transparent;
-                color: var(--color-text-medium);
-                border: 2px solid var(--color-text-medium);
-                font-weight: 600;
-                padding: 10px 30px;
-                border-radius: 50px;
-                transition: var(--soft-transition);
-            }
-
-            #load-more-programs:hover {
-                background-color: var(--color-accent-gold);
-                border-color: var(--color-accent-gold);
-                color: var(--color-primary-dark);
-                transform: scale(1.05);
-            }
-
-        </style>
     </head>
 
     <body>
@@ -169,8 +33,8 @@
                             <img src="images/bg.png" alt="Arya Kalyan Foundation Logo">
                         </a>
                     </div>
-                     <nav class="topbar__nav--desktop">
-                        <a href="index.html" >Home</a>
+                    <nav class="topbar__nav--desktop">
+                        <a href="index.html">Home</a>
                         <a href="course.html">Courses</a>
                         <a href="shop.html">Shop</a>
                         <a href="ebook.html">Ebook</a>
@@ -187,7 +51,7 @@
                         </div>
 
                         <!-- Cart -->
-                        <a href="#" class="action-icon cart-icon" id="cart-toggle">
+                        <a href="ad-to-cat.html" class="action-icon cart-icon" id="cart-toggle">
                             <i class="bi bi-cart3"></i>
                             <span class="notification-badge">0</span>
                         </a>
@@ -249,17 +113,46 @@
 
 
                         <a href="#" class="btn-login">Login</a>
-                        <a href="#" class="action-icon profile-avatar">
-                            <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar">
-                        </a>
+
+                        <!-- Profile Avatar -->
+                        <div class="dropdown profile-dropdown-wrapper">
+                            <a href="#" class="action-icon profile-avatar" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar" class="rounded-circle profile-img">
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-end p-2 shadow-lg" aria-labelledby="profileDropdown">
+                                <!-- User Info -->
+                                <li class="px-3 py-2 border-bottom d-flex align-items-center">
+                                    <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" class="rounded-circle me-2" width="45" height="45" alt="Avatar">
+                                    <div>
+                                        <p class="mb-0 fw-bold name-text">Brinto Chakroborty Sammo</p>
+                                        <small class="text-muted">+8801750756133</small>
+                                    </div>
+                                </li>
+
+                                <!-- Links -->
+                                <li><a class="dropdown-item d-flex align-items-center" href="#"><img src="https://cdn.ostad.app/public/icons/video-add-line.svg" class="me-2 dropdown-item-svg "
+                                            width="18">Go To Class
+                                        Joining</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center" href="#"><img src="https://cdn.ostad.app/public/icons/book-2-line.svg" class="me-2 dropdown-item-svg"
+                                            width="18">My Courses</a>
+                                </li>
+                                <li><a class="dropdown-item d-flex align-items-center" href="#"><img src="https://cdn.ostad.app/public/icons/device-line.svg" class="me-2 dropdown-item-svg"
+                                            width="18">Device
+                                        Management</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center" href="#"><img src="https://cdn.ostad.app/public/icons/account-circle-line.svg" class="me-2 dropdown-item-svg"
+                                            width="18">Profile</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center text-danger" href="#"><img src="https://cdn.ostad.app/public/icons/logout-box-r-line.svg"
+                                            class="me-2 dropdown-item-svg" width="18">Logout</a></li>
+                            </ul>
+                        </div>
+
                         <button class="hamburger-menu" id="hamburger-toggle" aria-label="Toggle Menu">
                             <i class="bi bi-list"></i>
                         </button>
                     </div>
 
-                    <!-- Fullscreen Search Bar (HTML-এ এটিকে topbar__container এর শেষে রাখা ভালো) -->
                     <div class="fullscreen-search" id="fullscreen-search">
-                        <i class="bi bi-search"></i>
                         <input type="text" placeholder="Search here..." id="fullscreen-search-input" />
                         <button class="close-search" id="close-search-btn">×</button>
                     </div>
@@ -534,28 +427,7 @@
                 // --- "Load More" Programs Logic ---
 
                 // Check on page load if there are any hidden sections to show
-                if ($('.hidden-program').length === 0) {
-                    $('#load-more-programs').hide();
-                }
 
-                $('#load-more-programs').on('click', function (e) {
-                    e.preventDefault();
-
-                    // Find the *next* hidden year section and show it
-                    const $nextSection = $('.hidden-program.d-none').first();
-
-                    if ($nextSection.length > 0) {
-                        $nextSection.removeClass('d-none').hide().slideDown();
-                        // We need to re-initialize AOS for the newly visible elements
-                        AOS.refresh();
-                    }
-
-                    // After showing, check if there are any more hidden sections left.
-                    // If not, hide the "Load More" button.
-                    if ($('.hidden-program.d-none').length === 0) {
-                        $(this).fadeOut();
-                    }
-                });
 
             });
 
