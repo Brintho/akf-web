@@ -387,6 +387,27 @@
                 }
             }
 
+            /* ছোট স্ক্রিনে ভিডিও display ছোট করা */
+            @media (max-width: 576px) {
+                .video-player-container {
+                    height: auto;
+                    /* container auto রাখুন */
+                    max-height: 200px;
+                    /* চাইলে max limit দিতে পারেন */
+                }
+
+                .video-player-container video#custom-player {
+                    height: 200px;
+                    /* মোবাইলের জন্য fixed video height */
+                    width: 100%;
+                    object-fit: cover;
+                    /* fit container nicely */
+                }
+
+                /* sidebar উপরে আনা */
+
+            }
+
         </style>
     </head>
 
@@ -829,6 +850,14 @@
                 $videoContainer.on('click', function (e) {
                     if ($(e.target).closest('.custom-controls').length) return;
                     $(this).toggleClass('controls-visible');
+                });
+
+                $(function () {
+                    $('#custom-controls .control-btn').on('click', function () {
+                        if (window.innerWidth <= 768) {
+                            $('#custom-controls').toggleClass('flex-column');
+                        }
+                    });
                 });
 
 
