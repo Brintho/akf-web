@@ -387,25 +387,68 @@
                 }
             }
 
-            /* ছোট স্ক্রিনে ভিডিও display ছোট করা */
+
             @media (max-width: 576px) {
                 .video-player-container {
                     height: auto;
-                    /* container auto রাখুন */
-                    max-height: 200px;
-                    /* চাইলে max limit দিতে পারেন */
+                    max-height: 250px;
+                    position: relative;
+
                 }
 
-                .video-player-container video#custom-player {
+                video#custom-player {
                     height: 200px;
-                    /* মোবাইলের জন্য fixed video height */
                     width: 100%;
                     object-fit: cover;
-                    /* fit container nicely */
                 }
 
-                /* sidebar উপরে আনা */
+                /* custom controls ছোট স্ক্রিনে ঠিক করা */
+                .custom-controls {
+                    flex-wrap: wrap;
+                    /* row overflow হলে wrap হবে */
+                    gap: 1px;
+                    padding: 1px;
+                }
 
+                .progress-bar-container {
+                    width: 100% !important;
+                    /* সম্পূর্ণ লেঙ্গ্থ দাও */
+                    height: 6px;
+                }
+
+
+                .time-display {
+                    font-size: 0.75rem;
+                    width: 50px;
+                }
+
+                .volume-group input.volume-slider {
+                    opacity: 0;
+                    width: 0;
+                    transition: opacity 0.2s ease, width 0.2s ease;
+                    pointer-events: none;
+                }
+
+                .control-btn:hover+.volume-slider,
+                .volume-group:hover .volume-slider {
+                    opacity: 1;
+                    width: 100px;
+                    /* চাইলে customize করতে পারো */
+                    pointer-events: auto;
+                }
+
+                .volume-group {
+                    display: flex;
+                    align-items: center;
+                    gap: 4px;
+                    overflow: hidden;
+                }
+
+                /* control-btn touch-friendly */
+                .control-btn {
+                    font-size: 1rem;
+                    padding: 0.25rem 0.5rem;
+                }
             }
 
         </style>
@@ -852,13 +895,34 @@
                     $(this).toggleClass('controls-visible');
                 });
 
-                $(function () {
-                    $('#custom-controls .control-btn').on('click', function () {
-                        if (window.innerWidth <= 768) {
-                            $('#custom-controls').toggleClass('flex-column');
-                        }
-                    });
+
+                $('#custom-controls .control-btn').on('click', function () {
+                    if (window.innerWidth <= 768) {
+                        $('#custom-controls').toggleClass('flex-column');
+                    }
                 });
+
+
+
+                const $fullscreenBtn = $('#fullscreen-btn');
+
+                $fullscreenBtn.on('click', () => {
+                    const container = $videoContainer[0];
+
+                    if (!document.fullscreenElement) {
+                        container.requestFullscreen().then(() => {
+                            // Mobile device check
+                            if (window.innerWidth <= 768) {
+                                $videoContainer.addClass('flex-column-fullscreen');
+                            }
+                        }).catch(() => { });
+                    } else {
+                        document.exitFullscreen().then(() => {
+                            $videoContainer.removeClass('flex-column-fullscreen');
+                        }).catch(() => { });
+                    }
+                });
+
 
 
             });
