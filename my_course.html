@@ -668,7 +668,6 @@
                 $(document).on('mouseup touchend', function (e) {
                     if (isDragging) {
                         isDragging = false;
-                        // final scrub on release
                         scrub(e);
                     }
                 });
@@ -693,7 +692,6 @@
                 });
 
                 player.addEventListener('volumechange', updateVolumeUI);
-                // initialize volume UI
                 player.volume = 1;
                 updateVolumeUI();
 
@@ -710,7 +708,6 @@
                 $('.lesson-list').on('click', '.lesson-item .lesson-content', function () {
                     const $li = $(this).closest('.lesson-item');
                     if ($li.hasClass('active')) {
-                        // toggle play/pause
                         if (player.paused) player.play();
                         else player.pause();
                         return;
@@ -720,7 +717,6 @@
                     const src = $li.data('video-src');
                     const poster = $li.data('poster') || '';
                     if (src) {
-                        const currentTime = 0;
                         player.pause();
                         player.src = src;
                         if (poster) player.poster = poster;
@@ -748,13 +744,12 @@
                     }
                 });
 
-                // ---------------- SETTINGS MENU (multi-level) ----------------
+                // Settings menu
                 function openSettings() {
                     $settingsShell.addClass('open').attr('aria-hidden', 'false');
                 }
                 function closeSettings() {
                     $settingsShell.removeClass('open').attr('aria-hidden', 'true');
-                    // ensure back to main
                     $menuSpeed.hide();
                     $menuQuality.hide();
                     $menuMain.show();
@@ -766,16 +761,12 @@
                     else openSettings();
                 });
 
-                // close clicking outside
                 $(document).on('click', function (e) {
-                    if ($(e.target).closest('#settings-shell, #settings-btn').length === 0) {
-                        closeSettings();
-                    }
+                    if ($(e.target).closest('#settings-shell, #settings-btn').length === 0) closeSettings();
                 });
 
                 $settingsClose.on('click', () => closeSettings());
 
-                // main menu item actions
                 $menuMain.on('click', '.settings-item', function () {
                     const action = $(this).data('action');
                     if (action === 'speed') {
@@ -787,7 +778,6 @@
                     }
                 });
 
-                // back buttons
                 $speedBack.on('click', function () {
                     $menuSpeed.hide(); $menuMain.show();
                 });
@@ -795,19 +785,16 @@
                     $menuQuality.hide(); $menuMain.show();
                 });
 
-                // speed selection
                 $speedList.on('click', 'button', function () {
                     $speedList.find('button').removeClass('active');
                     $(this).addClass('active');
                     const sp = parseFloat($(this).data('speed'));
                     if (!isNaN(sp) && isFinite(sp)) {
                         player.playbackRate = sp;
-                        // update main menu label
                         $menuMain.find('[data-action="speed"] .meta').text(sp + 'x');
                     }
                 });
 
-                // quality selection (UI only)
                 function showToast(txt) {
                     $uiToast.text(txt).addClass('show');
                     setTimeout(() => $uiToast.removeClass('show'), 1600);
@@ -816,38 +803,38 @@
                     $qualityList.find('button').removeClass('active');
                     $(this).addClass('active');
                     const q = $(this).data('quality');
-                    // UI simulation - display message
                     showToast('Quality set to: ' + (q === 'auto' ? 'Auto' : q + 'p'));
-                    // update main menu label
                     $menuMain.find('[data-action="quality"] .meta').text(q === 'auto' ? 'Auto' : q + 'p');
-
-                    // NOTE: to actually change quality you must provide multiple source files
-                    // and switch player.src accordingly while preserving time/playing state.
-                    // This is just the UI part.
-                    console.log('QUALITY SELECTED (UI only):', q);
                 });
 
-                // initialize speed active based on player.playbackRate
                 function setInitialSpeedUI() {
                     const current = player.playbackRate || 1;
                     $speedList.find('button').each(function () {
-                        if (parseFloat($(this).data('speed')) === current) {
-                            $(this).addClass('active');
-                        } else $(this).removeClass('active');
+                        if (parseFloat($(this).data('speed')) === current) $(this).addClass('active');
+                        else $(this).removeClass('active');
                     });
                     $menuMain.find('[data-action="speed"] .meta').text(current + 'x');
                 }
                 setInitialSpeedUI();
 
-                // keyboard: space to toggle
                 $(document).on('keydown', function (e) {
                     if (e.code === 'Space' && !$(e.target).is('input,textarea')) {
                         e.preventDefault();
                         if (player.paused) player.play(); else player.pause();
                     }
                 });
+
+                const $videoContainer = $('.video-player-container');
+
+                $videoContainer.on('click', function (e) {
+                    if ($(e.target).closest('.custom-controls').length) return;
+                    $(this).toggleClass('controls-visible');
+                });
+
+
             });
         </script>
+
     </body>
 
 </html>
