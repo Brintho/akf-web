@@ -28,18 +28,6 @@
             <!-- Custom CSS for User Dashboard (Dark Theme) -->
             <style>
                 /* Your provided theme variables */
-                :root {
-                    --color-primary-dark: #161618;
-                    --color-secondary-dark: #1e1e1e;
-                    --color-accent-gold: #D4AF37;
-                    --color-text-light: #f0f0f0;
-                    --color-text-medium: #a0a0a0;
-                    --glass-bg: rgba(30, 30, 30, 0.7);
-                    --glass-border: 1px solid rgba(255, 255, 255, 0.1);
-                    --font-primary: 'Poppins', sans-serif;
-                    --font-bengali: 'Hind Siliguri', sans-serif;
-                    --soft-transition: all 0.3s ease-in-out;
-                }
 
             </style>
 
@@ -71,7 +59,6 @@
                         </a>
                         <!-- Notification Bell -->
                         <!-- Notification Wrapper with Bootstrap Dropdown Functionality -->
-
                         <div class="notification-wrapper dropdown">
                             <!-- Bell icon acts as the dropdown toggle -->
                             <a href="#" class="action-icon notification-bell" id="notification-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
@@ -126,16 +113,18 @@
                             </div>
                         </div>
 
+
+
+
                         <a href="#" class="btn-login">Login</a>
 
                         <!-- Profile Avatar -->
                         <div class="dropdown profile-dropdown-wrapper">
-                            <a href="#" class="action-icon profile-avatar show" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="true">
+                            <a href="#" class="action-icon profile-avatar" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar" class="rounded-circle profile-img">
                             </a>
 
-                            <ul class="dropdown-menu dropdown-menu-end p-2 shadow-lg show" aria-labelledby="profileDropdown"
-                                style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(0px, 42px);" data-popper-placement="bottom-end">
+                            <ul class="dropdown-menu dropdown-menu-end p-2 shadow-lg" aria-labelledby="profileDropdown">
                                 <!-- User Info -->
                                 <li class="px-3 py-2 border-bottom d-flex align-items-center">
                                     <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" class="rounded-circle me-2" width="45" height="45" alt="Avatar">
@@ -167,7 +156,10 @@
                         </button>
                     </div>
 
-
+                    <div class="fullscreen-search" id="fullscreen-search">
+                        <input type="text" placeholder="Search here..." id="fullscreen-search-input" />
+                        <button class="close-search" id="close-search-btn">×</button>
+                    </div>
                 </div>
             </header>
 
