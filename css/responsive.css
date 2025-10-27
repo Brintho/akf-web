@@ -128,6 +128,23 @@
 }
 
 /* --- 768px Breakpoint --- */
+
+@media (min-width: 768px) {
+    .chat-sidebar {
+        width: 320px;
+        flex-shrink: 0;
+    }
+
+    .chat-window {
+        position: static;
+        transform: none;
+    }
+
+    .chat-header .back-btn {
+        display: none;
+    }
+}
+
 @media (max-width: 768px) {
 
     /* General */
@@ -332,6 +349,8 @@
     .donate-banner {
         padding: 40px 20px;
     }
+
+
 }
 
 /* --- 576px Breakpoint --- */

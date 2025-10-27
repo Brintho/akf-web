@@ -1,0 +1,479 @@
+<main id="main-content">
+    <!-- Custom CSS for User Dashboard (Dark Theme) -->
+    <style>
+        :root {
+            --color-primary-dark: #161618;
+            --color-secondary-dark: #1e1e1e;
+            --color-accent-gold: #D4AF37;
+            --color-text-light: #f0f0f0;
+            --color-text-medium: #a0a0a0;
+            --glass-bg: rgba(30, 30, 30, 0.85);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+            --font-primary: 'Poppins', sans-serif;
+            --soft-transition: all 0.3s ease-in-out;
+        }
+
+        .dashboard-page {
+            padding-top: 100px;
+        }
+
+        .dashboard-content-card.chat-container {
+            padding: 0;
+            display: flex;
+            height: 75vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* --- Sidebar --- */
+        .chat-sidebar {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--color-secondary-dark);
+            border-right: var(--glass-border);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .sidebar-search {
+            padding: 1rem;
+            border-bottom: var(--glass-border);
+        }
+
+        .sidebar-search .form-control {
+            background-color: var(--color-primary-dark);
+            border: var(--glass-border);
+            color: var(--color-text-light);
+        }
+
+        .conversation-list {
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .conversation-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            cursor: pointer;
+            border-bottom: var(--glass-border);
+        }
+
+        .conversation-item.active {
+            background-color: var(--glass-bg);
+            border-left: 3px solid var(--color-accent-gold);
+        }
+
+        .convo-avatar img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+        }
+
+        .convo-details .name {
+            font-weight: 600;
+            color: var(--color-text-light);
+        }
+
+        .convo-details .time {
+            font-size: 0.8rem;
+            color: var(--color-text-medium);
+        }
+
+        .convo-details .preview {
+            font-size: 0.9rem;
+            color: var(--color-text-medium);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* --- Chat Window --- */
+        .chat-window {
+            width: 100%;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--color-primary-dark);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 10;
+        }
+
+        .chat-window.active {
+            transform: translateX(0);
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            background-color: var(--color-secondary-dark);
+            border-bottom: var(--glass-border);
+        }
+
+        .chat-header .back-btn {
+            font-size: 1.5rem;
+            color: var(--color-text-light);
+        }
+
+        .chat-header .dropdown-toggle::after {
+            display: none;
+        }
+
+        .chat-header .dropdown-menu {
+            background-color: var(--color-secondary-dark);
+            border: var(--glass-border);
+        }
+
+        .chat-header .dropdown-item {
+            color: var(--color-text-light);
+        }
+
+        .chat-header .dropdown-item:hover {
+            background-color: var(--glass-bg);
+            color: var(--color-accent-gold);
+        }
+
+        .chat-body {
+            flex-grow: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column-reverse;
+        }
+
+        .message-group {
+            display: flex;
+            margin-bottom: 1rem;
+            flex-direction: column;
+            max-width: 80%;
+        }
+
+        .message-group.outgoing {
+            align-items: flex-end;
+            margin-left: auto;
+        }
+
+        .message-group.incoming {
+            align-items: flex-start;
+            margin-right: auto;
+        }
+
+        /* Message Bubble & Options */
+        .message-wrapper {
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+        }
+
+        .message-group.incoming .message-wrapper {
+            flex-direction: row;
+        }
+
+        .message-group.outgoing .message-wrapper {
+            flex-direction: row-reverse;
+        }
+
+        .message-bubble {
+            padding: 0.75rem 1rem;
+            border-radius: 18px;
+            color: var(--color-text-light);
+        }
+
+        .message-group.incoming .message-bubble {
+            background-color: var(--color-secondary-dark);
+            border-top-left-radius: 4px;
+        }
+
+        .message-group.outgoing .message-bubble {
+            background: linear-gradient(90deg, #8B5CF6, #6366F1);
+            border-top-right-radius: 4px;
+        }
+
+        .message-options .dropdown-toggle {
+            color: var(--color-text-medium);
+            text-decoration: none;
+            opacity: 0;
+            transition: var(--soft-transition);
+        }
+
+        .message-wrapper:hover .message-options .dropdown-toggle {
+            opacity: 1;
+        }
+
+        .message-options .dropdown-menu {
+            background-color: var(--color-secondary-dark);
+            border: var(--glass-border);
+        }
+
+        .message-options .dropdown-item {
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+        }
+
+        .message-options .dropdown-item:hover {
+            background-color: var(--glass-bg);
+        }
+
+        .message-time {
+            font-size: 0.75rem;
+            color: var(--color-text-medium);
+            margin-top: 0.25rem;
+        }
+
+        .chat-footer {
+            padding: 1rem 1.5rem;
+            background-color: var(--color-secondary-dark);
+            border-top: var(--glass-border);
+        }
+
+        .chat-footer .form-control {
+            background-color: var(--color-primary-dark);
+            border: var(--glass-border);
+            color: var(--color-text-light);
+            border-radius: 20px;
+        }
+
+        .btn-send,
+        .btn-attach {
+            background: none;
+            border: none;
+            color: var(--color-text-medium);
+            font-size: 1.5rem;
+        }
+
+        .btn-send {
+            background: linear-gradient(90deg, #8B5CF6, #6366F1);
+            color: #fff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        /* Desktop Layout */
+        @media (min-width: 768px) {
+            .chat-sidebar {
+                width: 320px;
+                flex-shrink: 0;
+            }
+
+            .chat-window {
+                position: static;
+                transform: none;
+            }
+
+            .chat-header .back-btn {
+                display: none;
+            }
+        }
+
+    </style>
+
+    <div class="dashboard-page">
+        <div class="container">
+            <!-- Profile Header and Sidebar remain the same -->
+            <!-- ... -->
+            <div class="row g-4">
+                <div class="col-lg-3">
+                    <!-- Your sidebar navigation here -->
+                </div>
+
+                <!-- Main Content Area -->
+                <div class="col-lg-9">
+                    <div class="dashboard-content-card chat-container" data-aos="fade-up" data-aos-delay="100">
+                        <!-- Left Sidebar -->
+                        <div class="chat-sidebar">
+                            <div class="sidebar-search">
+                                <input type="text" class="form-control" placeholder="Search...">
+                            </div>
+                            <div class="conversation-list">
+                                <div class="conversation-item" data-user-id="1">
+                                    <div class="convo-avatar"><img src="https://i.pravatar.cc/50?u=james" alt="Avatar"></div>
+                                    <div class="convo-details w-100">
+                                        <div class="d-flex justify-content-between"><span class="name">James Mariyati</span><span class="time">6h ago</span></div>
+                                        <p class="preview mb-0">hi sham da</p>
+                                    </div>
+                                </div>
+                                <div class="conversation-item active" data-user-id="2">
+                                    <div class="convo-avatar"><img src="https://i.pravatar.cc/50?u=john" alt="Avatar"></div>
+                                    <div class="convo-details w-100">
+                                        <div class="d-flex justify-content-between"><span class="name">John Doe</span><span class="time">23h ago</span></div>
+                                        <p class="preview mb-0">Hi Josel, Your issue have been fixed...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Chat Window -->
+                        <div class="chat-window">
+                            <!-- Header will be dynamically populated -->
+                            <div class="chat-header"></div>
+                            <!-- Body will be dynamically populated -->
+                            <div class="chat-body"></div>
+                            <!-- Footer for typing messages -->
+                            <div class="chat-footer">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="message-input" placeholder="Type something...">
+                                    <button class="btn btn-send" id="send-btn" type="button"><i class="bi bi-send-fill"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // --- CHAT DATA SIMULATION ---
+        const chatData = {
+            "1": {
+                name: "James Mariyati",
+                email: "instructor@example.com",
+                avatar: "https://i.pravatar.cc/50?u=james",
+                messages: [
+                    { type: 'incoming', text: 'hi sham da', time: '6 hours ago' }
+                ]
+            },
+            "2": {
+                name: "John Doe",
+                email: "admin@example.com",
+                avatar: "https://i.pravatar.cc/50?u=john",
+                messages: [
+                    { type: 'outgoing', text: 'Hi John, I have enrolled in your "Melody Guitar Beginner Course". I have watched two lesson and in my course list I can\'t see any progress. Can you please fix this issue. Thanks', time: '23 hours ago' },
+                    { type: 'incoming', text: 'Thanks for letting me know this issue. I will look into this issue and will fix this soon.', time: '23 hours ago' },
+                    { type: 'outgoing', text: 'Hi John, I can\'t log in to my account. Can you please check. Thanks.', time: '23 hours ago' },
+                    { type: 'incoming', text: 'Hi Josel, Your issue have been fixed. You can login to your account now.', time: '23 hours ago' }
+                ]
+            }
+        };
+
+        // --- FUNCTIONS ---
+        function loadChat(userId) {
+            const userData = chatData[userId];
+            if (!userData) return;
+
+            // 1. Update Header
+            const chatHeaderHtml = `
+                <button class="btn back-btn d-md-none" id="back-to-list"><i class="bi bi-arrow-left"></i></button>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown"><img src="${userData.avatar}" alt="Avatar" class="convo-avatar"></a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Block User</a></li>
+                        <li><a class="dropdown-item" href="#">Unblock User</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <p class="name mb-0">${userData.name}</p>
+                    <p class="email mb-0">${userData.email}</p>
+                </div>`;
+            $('.chat-header').html(chatHeaderHtml);
+
+            // 2. Update Body
+            let messagesHtml = '';
+            // Iterate in reverse to display correctly with flex-direction: column-reverse
+            [...userData.messages].reverse().forEach(msg => {
+                const optionsDropdown = msg.type === 'outgoing' ? `
+                    <div class="message-options dropdown">
+                        <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown"><i class="bi bi-three-dots-vertical"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#">Edit</a></li>
+                            <li><a class="dropdown-item text-danger" href="#">Delete</a></li>
+                        </ul>
+                    </div>` : '';
+
+                messagesHtml += `
+                    <div class="message-group ${msg.type}">
+                        <div class="message-wrapper">
+                            ${optionsDropdown}
+                            <div class="message-bubble">${msg.text}</div>
+                        </div>
+                        <span class="message-time">${msg.time}</span>
+                    </div>`;
+            });
+            $('.chat-body').html(`<div>${messagesHtml}</div>`);
+
+            // Scroll to the bottom of the chat
+            $('.chat-body').scrollTop($('.chat-body')[0].scrollHeight);
+        }
+
+        // --- EVENT HANDLERS ---
+
+        // Load initial active chat
+        const initialUserId = $('.conversation-item.active').data('user-id');
+        if (initialUserId) {
+            loadChat(initialUserId.toString());
+        }
+
+        // Click on a conversation in the sidebar
+        $('.conversation-item').on('click', function () {
+            const userId = $(this).data('user-id').toString();
+            $('.conversation-item').removeClass('active');
+            $(this).addClass('active');
+
+            loadChat(userId); // Load the new chat data
+
+            if (window.innerWidth < 768) {
+                $('.chat-window').addClass('active');
+            }
+        });
+
+        // Use event delegation for the back button since it's dynamically added
+        $('.chat-container').on('click', '#back-to-list', function () {
+            $('.chat-window').removeClass('active');
+        });
+
+        // Send a new message
+        $('#send-btn').on('click', function () {
+            const messageText = $('#message-input').val().trim();
+            if (!messageText) return;
+
+            const newMessageHtml = `
+                <div class="message-group outgoing">
+                    <div class="message-wrapper">
+                        <div class="message-options dropdown">
+                            <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown"><i class="bi bi-three-dots-vertical"></i></a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#">Edit</a></li>
+                                <li><a class="dropdown-item text-danger" href="#">Delete</a></li>
+                            </ul>
+                        </div>
+                        <div class="message-bubble">${$('<div/>').text(messageText).html()}</div>
+                    </div>
+                    <span class="message-time">Just now</span>
+                </div>`;
+
+            // Prepend because of column-reverse
+            $('.chat-body > div').prepend(newMessageHtml);
+            $('#message-input').val('');
+            $('.chat-body').scrollTop(0); // Scroll to bottom (top in this case)
+        });
+
+        $('#message-input').on('keypress', function (e) {
+            if (e.which === 13 && !e.shiftKey) { // Enter key
+                e.preventDefault();
+                $('#send-btn').trigger('click');
+            }
+        });
+    });
+</script>
+</body>
+
+</html>

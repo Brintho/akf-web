@@ -894,5 +894,261 @@ $(document).ready(function () {
 
 });
 
+// sms js
+
+$(document).ready(function () {
+    // --- CHAT DATA SIMULATION ---
+    const chatData = {
+        "1": {
+            name: "James Mariyati",
+            email: "instructor@example.com",
+            avatar: "https://i.pravatar.cc/50?u=james",
+            messages: [
+                { type: 'incoming', text: 'hi sham da', time: '6 hours ago' }
+            ]
+        },
+        "2": {
+            name: "John Doe",
+            email: "admin@example.com",
+            avatar: "https://i.pravatar.cc/50?u=john",
+            messages: [
+                { type: 'outgoing', text: 'Hi John, I have enrolled in your "Melody Guitar Beginner Course". I have watched two lesson and in my course list I can\'t see any progress. Can you please fix this issue. Thanks', time: '23 hours ago' },
+                { type: 'incoming', text: 'Thanks for letting me know this issue. I will look into this issue and will fix this soon.', time: '23 hours ago' },
+                { type: 'outgoing', text: 'Hi John, I can\'t log in to my account. Can you please check. Thanks.', time: '23 hours ago' },
+                { type: 'incoming', text: 'Hi Josel, Your issue have been fixed. You can login to your account now.', time: '23 hours ago' }
+            ]
+        }
+    };
+
+    // --- FUNCTIONS: LOAD CHAT ---
+    function loadChat(userId) {
+        const userData = chatData[userId];
+        if (!userData) return;
+
+        // 1. HEADER UPDATE
+        const chatHeaderHtml = `
+                        <button class="btn back-btn d-md-none" id="back-to-list">
+                            <i class="bi bi-arrow-left"></i>
+                         </button>
+                        <div class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
+                                <img src="${userData.avatar}" alt="Avatar" class="convo-avatar">
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Block User</a></li>
+                                <li><a class="dropdown-item" href="#">Unblock User</a></li>
+                            </ul>
+                         </div>
+                     <div>
+                        <p class="name mb-0">${userData.name}</p>
+                         <p class="email mb-0">${userData.email}</p>
+                    </div>`;
+
+        $('.chat-header').html(chatHeaderHtml);
+
+        // 2. BODY UPDATE
+        let messagesHtml = '';
+        [...userData.messages].reverse().forEach(msg => {
+            const optionsDropdown =
+                msg.type === 'outgoing'
+                    ? `
+                        <div class="message-options dropdown">
+                            <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
+                                <i class="bi bi-three-dots-vertical"></i>
+                             </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="#">Edit</a></li>
+                                     <li><a class="dropdown-item text-danger" href="#">Delete</a></li>
+                                </ul>
+                        </div>`
+                    : '';
+
+            messagesHtml += `
+            <div class="message-group ${msg.type}">
+                <div class="message-wrapper">
+                    ${optionsDropdown}
+                    <div class="message-bubble">${msg.text}</div>
+                </div>
+                <span class="message-time">${msg.time}</span>
+            </div>`;
+        });
+        $('.chat-body').html(`<div>${messagesHtml}</div>`);
+        $('.chat-body').scrollTop($('.chat-body')[0].scrollHeight);
+    }
+
+    // --- INITIAL ACTIVE CHAT LOAD ---
+    const initialUserId = $('.conversation-item.active').data('user-id');
+    if (initialUserId) {
+        loadChat(initialUserId.toString());
+    }
+
+    // --- CLICK ON SIDEBAR CHAT ITEM ---
+    $('.conversation-item').on('click', function () {
+        const userId = $(this).data('user-id').toString();
+        $('.conversation-item').removeClass('active');
+        $(this).addClass('active');
+
+        loadChat(userId);
+
+        if (window.innerWidth < 768) {
+            $('.chat-window').addClass('active');
+        }
+    });
+
+    // --- MOBILE BACK BUTTON ---
+    $('.chat-container').on('click', '#back-to-list', function () {
+        $('.chat-window').removeClass('active');
+    });
+
+    // ✅ FILE HANDLING
+    let selectedFiles = [];
+
+    $('#file-upload').on('change', function (e) {
+        const files = Array.from(e.target.files);
+        selectedFiles = [...selectedFiles, ...files];
+        showSelectedFiles();
+    });
+
+    function showSelectedFiles() {
+        const container = $('#selected-files');
+        container.html('');
+
+        selectedFiles.forEach((file, index) => {
+            const isImage = file.type.startsWith('image/');
+            const fileElement = $(`
+                    <div class="file-item" data-index="${index}" 
+                     style="display:flex; align-items:center; gap:6px; margin-bottom:5px;">
+                    ${isImage ? `<img src="${URL.createObjectURL(file)}" width="40" height="40" style="object-fit:cover; border-radius:4px;">` : `<i class="bi bi-file-earmark"></i>`}
+                     <a href="${URL.createObjectURL(file)}" download="${file.name}" style="text-decoration:none;">
+                        ${file.name}
+                        </a>
+                        <i class="bi bi-x-circle file-remove" style="cursor:pointer; color:red; font-size:16px;"></i>
+                     </div>`);
+            container.append(fileElement);
+        });
+    }
+
+    $(document).on('click', '.file-remove', function () {
+        const index = $(this).closest('.file-item').data('index');
+        selectedFiles.splice(index, 1);
+        showSelectedFiles();
+
+        const dataTransfer = new DataTransfer();
+        selectedFiles.forEach(file => dataTransfer.items.add(file));
+        $('#file-upload')[0].files = dataTransfer.files;
+    });
+
+    // ✅ SEND MESSAGE + FILES
+    // ✅ SEND MESSAGE + FILES
+    $('#send-btn').on('click', function () {
+        const messageText = $('#message-input').val().trim();
+
+        if (!messageText && selectedFiles.length === 0) return;
+
+        let attachmentsHtml = '';
+
+        selectedFiles.forEach(file => {
+            const isImage = file.type.startsWith('image/');
+            const fileURL = URL.createObjectURL(file);
+
+            if (isImage) {
+                // ইমেজ: শুধু ছোট thumbnail, ক্লিক করলে বড় হবে
+                attachmentsHtml += `
+                <div class="sent-file" style="margin-top:5px;">
+                    <img src="${fileURL}" class="chat-image" style="width:120px; cursor:pointer; border-radius:6px;">
+                </div>
+            `;
+            } else {
+                // অন্য ফাইল: download লিংক
+                attachmentsHtml += `
+                <div class="sent-file" style="margin-top:5px;">
+                    <i class="bi bi-paperclip"></i>
+                    <a href="${fileURL}" download="${file.name}" style="margin-left:5px;">
+                        ${file.name}
+                    </a>
+                </div>
+            `;
+            }
+        });
+
+        const newMessageHtml = `
+        <div class="message-group outgoing">
+            <div class="message-wrapper">
+                <div class="message-options dropdown">
+                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
+                        <i class="bi bi-three-dots-vertical"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#">Edit</a></li>
+                        <li><a class="dropdown-item text-danger" href="#">Delete</a></li>
+                    </ul>
+                </div>
+                <div class="message-bubble">
+                    ${messageText ? $('<div/>').text(messageText).html() : ''}
+                    ${attachmentsHtml}
+                </div>
+            </div>
+            <span class="message-time">Just now</span>
+        </div>
+    `;
+
+        $('.chat-body > div').prepend(newMessageHtml);
+        $('#message-input').val('');
+        $('#selected-files').html('');
+        const dataTransfer = new DataTransfer();
+        selectedFiles = [];
+        $('#file-upload')[0].files = dataTransfer.files;
+        $('.chat-body').scrollTop(0);
+
+        // ✅ AJAX SEND TO BACKEND
+        const formData = new FormData();
+        formData.append("message", messageText);
+        selectedFiles.forEach(file => {
+            formData.append("files[]", file);
+        });
+
+        $.ajax({
+            url: "/send-message", // তোমার backend route
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                console.log("Message sent:", response);
+            },
+            error: function (err) {
+                console.error("Send failed:", err);
+            }
+        });
+    });
+
+    // ✅ ইমেজ ক্লিক করলে বড় দেখানোর popup/lightbox
+    $(document).on('click', '.chat-image', function () {
+        const imgSrc = $(this).attr('src');
+        const modalHtml = `
+        <div class="image-modal-overlay"
+             style="position:fixed; top:0; left:0; width:100%; height:100%;
+             background:rgba(0,0,0,0.8); display:flex; justify-content:center;
+             align-items:center; z-index:9999; cursor:pointer;">
+            <img src="${imgSrc}" style="max-width:90%; max-height:90%; border-radius:8px;">
+        </div>
+    `;
+        $('body').append(modalHtml);
+    });
+
+    // Click anywhere to close
+    $(document).on('click', '.image-modal-overlay', function () {
+        $(this).remove();
+    });
+
+    $('#message-input').on('keypress', function (e) {
+        if (e.which === 13 && !e.shiftKey) {
+            e.preventDefault();
+            $('#send-btn').trigger('click');
+        }
+    });
+});
+
+
 
 

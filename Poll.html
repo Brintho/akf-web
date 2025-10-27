@@ -26,22 +26,7 @@
         <main id="main-content">
 
             <!-- Custom CSS for User Dashboard (Dark Theme) -->
-            <style>
-                /* Your provided theme variables */
-                :root {
-                    --color-primary-dark: #161618;
-                    --color-secondary-dark: #1e1e1e;
-                    --color-accent-gold: #D4AF37;
-                    --color-text-light: #f0f0f0;
-                    --color-text-medium: #a0a0a0;
-                    --glass-bg: rgba(30, 30, 30, 0.7);
-                    --glass-border: 1px solid rgba(255, 255, 255, 0.1);
-                    --font-primary: 'Poppins', sans-serif;
-                    --font-bengali: 'Hind Siliguri', sans-serif;
-                    --soft-transition: all 0.3s ease-in-out;
-                }
 
-            </style>
 
             <header class="topbar">
                 <div class="topbar__container">
@@ -51,7 +36,7 @@
                         </a>
                     </div>
                     <nav class="topbar__nav--desktop">
-                        <a href="index.html" class="active">Home</a>
+                        <a href="index.html">Home</a>
                         <a href="course.html">Courses</a>
                         <a href="shop.html">Shop</a>
                         <a href="ebook.html">Ebook</a>
@@ -71,7 +56,6 @@
                         </a>
                         <!-- Notification Bell -->
                         <!-- Notification Wrapper with Bootstrap Dropdown Functionality -->
-
                         <div class="notification-wrapper dropdown">
                             <!-- Bell icon acts as the dropdown toggle -->
                             <a href="#" class="action-icon notification-bell" id="notification-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
@@ -125,6 +109,7 @@
                                 </div>
                             </div>
                         </div>
+
 
                         <a href="#" class="btn-login">Login</a>
 
@@ -187,22 +172,22 @@
                             <div class="text-center text-md-start">
                                 <h2 class="profile-name">Marsden Holman</h2>
                                 <div class="profile-stats">
-                                    <span><i class="bi bi-patch-check-fill me-2"></i>verified</span>
+                                    <span><i class="bi bi-patch-check-fill me-2"></i> Verified</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="row g-4">
-                        <!-- 2. Sidebar Navigation -->
+                        <!-- Sidebar Navigation -->
                         <div class="col-lg-3">
                             <div class="dashboard-sidebar" data-aos="fade-right">
                                 <p class="sidebar-welcome-text px-3">WELCOME, MARSDEN HOLMAN</p>
                                 <ul class="nav flex-column sidebar-nav">
-                                    <li class="nav-item"><a class="nav-link active" href="my_profile.html"><i class="bi bi-person-circle"></i> My Profile</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="my_profile.html"><i class="bi bi-person-circle"></i> My Profile</a></li>
                                     <li class="nav-item"><a class="nav-link " href="my_course.html"><i class="bi bi-journal-bookmark-fill"></i> My Courses</a></li>
                                     <li class="nav-item"><a class="nav-link " href="my_ebook_profile.html"><i class="bi bi-book-half"></i> My Ebooks</a></li>
-                                    <li class="nav-item"><a class="nav-link " href="my_shop.html"><i class="bi bi-shop"></i> Shop</a></li>
+                                    <li class="nav-item"><a class="nav-link active" href="my_shop.html"><i class="bi bi-shop"></i> Shop</a></li>
                                     <li class="nav-item"><a class="nav-link " href="sms.html"><i class="bi bi-chat-dots-fill"></i> Message</a></li>
                                     <li class="nav-item"><a class="nav-link" href="donation_history.html"><i class="bi bi-clock-history"></i> Donation History</a></li>
                                     <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-box-arrow-left"></i> Logout</a></li>
@@ -210,173 +195,218 @@
                             </div>
                         </div>
 
-                        <!-- 3. Main Content Area -->
                         <div class="col-lg-9">
-                            <div class="dashboard-content-card" data-aos="fade-up" data-aos-delay="100">
-                                <h3 class="content-title">Membership Form</h3>
-                                <form class="row g-4">
-                                    <!-- Member Name -->
-                                    <div class="col-md-6">
-                                        <label class="form-label">Member Name</label>
-                                        <input type="text" class="form-control" placeholder="Enter your name">
-                                    </div>
+                            <!-- Custom CSS for the Unique Poll Component -->
+                            <style>
+                                .poll-wrapper {
+                                    background: var(--glass-bg);
+                                    border: var(--glass-border);
+                                    border-radius: 16px;
+                                    padding: 2rem;
+                                    backdrop-filter: blur(12px);
+                                }
 
-                                    <!-- Father's/Husband's Name -->
-                                    <div class="col-md-6">
-                                        <label class="form-label">Father’s/Husband’s Name</label>
-                                        <input type="text" class="form-control" placeholder="Enter father’s/husband’s name">
-                                    </div>
+                                .poll-question {
+                                    font-size: 1.5rem;
+                                    font-weight: 600;
+                                    color: var(--color-text-light);
+                                    margin-bottom: 2rem;
+                                    text-align: center;
+                                }
 
-                                    <!-- DOB -->
-                                    <div class="col-md-6">
-                                        <label class="form-label">Date of Birth</label>
-                                        <input type="date" class="form-control">
-                                    </div>
+                                .poll-options {
+                                    display: grid;
+                                    gap: 1rem;
+                                }
 
-                                    <!-- Nationality -->
-                                    <div class="col-md-6">
-                                        <label class="form-label">Nationality</label>
-                                        <input type="text" class="form-control" placeholder="Bangladeshi / Other">
-                                    </div>
+                                /* --- UNIQUE POLL OPTION DESIGN --- */
+                                .poll-option {
+                                    background-color: var(--color-secondary-dark);
+                                    border: 2px solid var(--bs-secondary-text-emphasis);
+                                    border-radius: 12px;
+                                    padding: 1rem;
+                                    display: flex;
+                                    align-items: center;
+                                    cursor: pointer;
+                                    transition: var(--soft-transition);
+                                    position: relative;
+                                    overflow: hidden;
+                                }
 
-                                    <!-- Gender -->
-                                    <div class="col-md-6">
-                                        <label class="form-label">Gender</label>
-                                        <select class="form-select">
-                                            <option>Female</option>
-                                            <option>Male</option>
-                                            <option>Other</option>
-                                        </select>
-                                    </div>
+                                .poll-option .progress-bar-fill {
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    height: 100%;
+                                    background: linear-gradient(90deg, rgb(93 83 12), rgb(93 83 12));
+                                    width: 0;
+                                    /* Starts at 0 width */
+                                    transition: width 1s ease-in-out;
+                                    z-index: 1;
+                                }
 
-                                    <!-- Marital Status -->
-                                    <div class="col-md-6">
-                                        <label class="form-label">Marital Status</label>
-                                        <select class="form-select">
-                                            <option>Married</option>
-                                            <option>Unmarried</option>
-                                        </select>
-                                    </div>
+                                /* --- WINNER STYLING --- */
+                                .poll-wrapper.voted .poll-option.winner .progress-bar-fill {
+                                    background: linear-gradient(90deg, rgb(93 83 12), rgb(93 83 12));
 
-                                    <!-- Blood Group -->
-                                    <div class="col-md-6">
-                                        <label class="form-label">Blood Group</label>
-                                        <input type="text" class="form-control" placeholder="A+, B+, O- etc.">
-                                    </div>
+                                    /* Red Gradient */
+                                }
 
-                                    <!-- Education -->
-                                    <div class="col-md-6">
-                                        <label class="form-label">Educational Qualification</label>
-                                        <input type="text" class="form-control" placeholder="SSC/HSC/Graduate">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Upload Your Photo</label>
-                                        <input type="file" class="form-control custom-file-input">
-                                    </div>
+                                .poll-option:hover {
+                                    border-color: var(--color-text-medium);
+                                }
 
-                                    <!-- Profession -->
-                                    <div class="col-md-6">
-                                        <label class="form-label">Profession</label>
-                                        <input type="text" class="form-control" placeholder="Your current profession">
-                                    </div>
+                                .poll-option.selected {
+                                    border-color: var(--tag-blue);
+                                    box-shadow: 0 0 20px rgba(96, 165, 250, 0.4);
+                                }
 
-                                    <!-- Permanent Address -->
-                                    <div class="col-md-12">
-                                        <label class="form-label">Permanent Address</label>
-                                        <textarea class="form-control" rows="2"></textarea>
-                                    </div>
+                                .poll-option-content {
+                                    display: flex;
+                                    align-items: center;
+                                    width: 100%;
+                                    position: relative;
+                                    z-index: 2;
+                                }
 
-                                    <!-- Current Address -->
-                                    <div class="col-md-12">
-                                        <label class="form-label">Current Address</label>
-                                        <textarea class="form-control" rows="2"></textarea>
-                                    </div>
+                                .poll-option-img {
+                                    width: 60px;
+                                    height: 60px;
+                                    object-fit: cover;
+                                    border-radius: 8px;
+                                    margin-right: 1rem;
+                                }
 
-                                    <!-- Mobile -->
-                                    <div class="col-md-6">
-                                        <label class="form-label">Mobile Number</label>
-                                        <input type="text" class="form-control" placeholder="01XXXXXXXXX">
-                                    </div>
+                                .poll-option-name {
+                                    font-weight: 500;
+                                    color: var(--color-text-light);
+                                    flex-grow: 1;
+                                }
 
-                                    <!-- Other Number -->
-                                    <div class="col-md-6">
-                                        <label class="form-label">Alternative Number</label>
-                                        <input type="text" class="form-control" placeholder="Optional">
-                                    </div>
+                                /* --- PERCENTAGE INSIDE BAR --- */
+                                .poll-option-percent {
 
-                                    <!-- Email -->
-                                    <div class="col-md-12">
-                                        <label class="form-label">Email</label>
-                                        <input type="email" class="form-control" placeholder="example@email.com">
-                                    </div>
+                                    font-size: 1.2rem;
+                                    font-weight: 700;
+                                    color: var(--color-text-light);
+                                    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 
-                                    <!-- NID/Passport -->
-                                    <div class="col-md-12">
-                                        <label class="form-label">NID/Passport/Birth Registration</label>
-                                        <input type="text" class="form-control" placeholder="Enter ID number">
-                                    </div>
+                                }
 
-                                    <!-- Why Join -->
-                                    <div class="col-md-12">
-                                        <label class="form-label">Why do you want to join this organization?</label>
-                                        <textarea class="form-control" rows="3"></textarea>
-                                    </div>
+                                /* Voted State */
+                                .poll-wrapper.voted .poll-option {
+                                    cursor: default;
+                                }
 
-                                    <!-- Skills -->
-                                    <div class="col-md-12">
-                                        <label class="form-label">What are your special skills?</label>
-                                        <textarea class="form-control" rows="2"></textarea>
-                                    </div>
+                                .poll-wrapper.voted .poll-option:hover {
+                                    border-color: var(--glass-border);
+                                }
 
-                                    <!-- Other Organization -->
-                                    <div class="col-md-12">
-                                        <label class="form-label">Are you associated with any other organization?</label>
-                                        <textarea class="form-control" rows="2"></textarea>
-                                    </div>
+                                .poll-wrapper.voted .poll-option.selected {
+                                    border-color: #d4af3787;
+                                    opacity: calc(50%);
+                                }
 
-                                    <!-- Thoughts -->
-                                    <div class="col-md-12">
-                                        <label class="form-label">What are your thoughts about the community?</label>
-                                        <textarea class="form-control" rows="3"></textarea>
-                                    </div>
+                                .poll-wrapper.voted .poll-option-percent {
+                                    opacity: 0;
+                                    z-index: 2;
+                                }
 
-                                    <!-- Expectations -->
-                                    <div class="col-md-12">
-                                        <label class="form-label">What are your expectations from this organization?</label>
-                                        <textarea class="form-control" rows="3"></textarea>
-                                    </div>
+                                .poll-wrapper .poll-option-percent {
+                                    opacity: 0;
+                                    /* z-index: 2; */
+                                }
 
-                                    <!-- Recommending Member -->
-                                    <div class="col-md-6">
-                                        <label class="form-label">Recommender's Name</label>
-                                        <input type="text" class="form-control" placeholder="Enter recommender's name">
-                                    </div>
+                                .poll-wrapper .poll-options.submitting .poll-option-percent {
+                                    opacity: 1;
+                                    /* z-index: 2; */
+                                }
 
-                                    <!-- Recommending Member Phone -->
-                                    <div class="col-md-6">
-                                        <label class="form-label">Recommender's Phone Number</label>
-                                        <input type="text" class="form-control" placeholder="01XXXXXXXXX">
-                                    </div>
+                                /* Beautiful Submit Button */
+                                .btn-submit-vote {
+                                    background: linear-gradient(90deg, #8B5CF6, #6366F1);
+                                    color: #fff;
+                                    font-weight: 600;
+                                    border: none;
+                                    padding: 14px 40px;
+                                    border-radius: 50px;
+                                    transition: var(--soft-transition);
+                                    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
+                                    font-size: 1.1rem;
+                                }
 
-                                    <!-- Declaration -->
-                                    <div class="col-12">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="declaration">
-                                            <label class="form-check-label" for="declaration">
-                                                I declare that all the information provided is true, and I agree to follow the organization's policies.
-                                            </label>
+                                .btn-submit-vote:hover:not(:disabled) {
+                                    transform: translateY(-3px);
+                                    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+                                }
+
+                                .btn-submit-vote:disabled {
+                                    background: var(--color-secondary-dark);
+                                    color: var(--color-text-medium);
+                                    cursor: not-allowed;
+                                    box-shadow: none;
+                                }
+
+                            </style>
+
+                            <div class="dashboard-content-card poll-wrapper" data-aos="fade-up" data-aos-delay="100">
+                                <h3 class="poll-question">Who is the strongest character?</h3>
+
+                                <div class="poll-options" id="poll-options">
+                                    <!-- Option 1 -->
+                                    <div class="poll-option" data-vote-id="goku">
+                                        <div class="progress-bar-fill" data-percentage="100"></div>
+                                        <div class="poll-option-content">
+                                            <img src="https://i.ibb.co/hLqK0D7/goku.png" alt="Goku" class="poll-option-img">
+                                            <span class="poll-option-name">Goku</span>
                                         </div>
+                                        <span class="poll-option-percent">100%</span>
                                     </div>
-
-                                    <!-- Submit Button -->
-                                    <div class="col-12 text-end">
-                                        <button type="submit" class="btn  px-4">Submit</button>
+                                    <!-- Option 2 -->
+                                    <div class="poll-option" data-vote-id="wang-ling">
+                                        <div class="progress-bar-fill" data-percentage="5"></div>
+                                        <div class="poll-option-content">
+                                            <img src="https://i.ibb.co/5cQz1gV/wang-ling.png" alt="Wang Ling" class="poll-option-img">
+                                            <span class="poll-option-name">Wang Ling</span>
+                                        </div>
+                                        <span class="poll-option-percent">5%</span>
                                     </div>
-                                </form>
+                                    <!-- Option 3 -->
+                                    <div class="poll-option" data-vote-id="zeno">
+                                        <div class="progress-bar-fill" data-percentage="15"></div>
+                                        <div class="poll-option-content">
+                                            <img src="https://i.ibb.co/TmgGvjW/zeno.png" alt="Zeno" class="poll-option-img">
+                                            <span class="poll-option-name">Zeno</span>
+                                        </div>
+                                        <span class="poll-option-percent">15%</span>
+                                    </div>
+                                    <!-- Option 4 -->
+                                    <div class="poll-option" data-vote-id="sun-wukong">
+                                        <div class="progress-bar-fill" data-percentage="12"></div>
+                                        <div class="poll-option-content">
+                                            <img src="https://i.ibb.co/fH11QyW/sun-wukong.png" alt="Sun Wukong" class="poll-option-img">
+                                            <span class="poll-option-name">Sun Wukong</span>
+                                        </div>
+                                        <span class="poll-option-percent">12%</span>
+                                    </div>
+                                </div>
 
+                                <div class="text-center mt-4">
+                                    <button class="btn btn-submit-vote" id="submit-vote-btn" disabled>Submit Vote</button>
+                                </div>
                             </div>
                         </div>
+
+                        <!-- Add the following script to your existing script tag or a new one -->
+
+
+
+                        <!-- Add the following script to your existing script tag or a new one -->
+
+
+
                     </div>
+
                 </div>
             </div>
         </main>
@@ -459,9 +489,50 @@
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script src="js/script.js"></script>
         <script>
+            $(document).ready(function () {
 
+                const $pollWrapper = $('.poll-wrapper');
+                const $pollOptions = $('.poll-option');
+                const $submitBtn = $('#submit-vote-btn');
 
+                // 1. Handle Option Selection
+                $pollOptions.on('click', function () {
+                    if ($pollWrapper.hasClass('voted')) return;
+                    $pollOptions.removeClass('selected');
+                    $(this).addClass('selected');
+                    $submitBtn.prop('disabled', false);
+                });
+
+                // 2. Handle Vote Submission
+                $submitBtn.on('click', function () {
+                    $('.poll-options').addClass('submitting');
+                    if ($(this).prop('disabled')) return;
+
+                    $pollWrapper.addClass('voted');
+
+                    let maxPercentage = 0;
+                    let $winner = null;
+
+                    // Animate the progress bars and find the winner
+                    $('.progress-bar-fill').each(function () {
+                        const percentage = $(this).data('percentage');
+                        if (percentage > maxPercentage) {
+                            maxPercentage = percentage;
+                            $winner = $(this).closest('.poll-option');
+                        }
+                        $(this).css('width', percentage + '%');
+                    });
+
+                    // Highlight the winner
+                    if ($winner) {
+                        $winner.addClass('winner');
+                    }
+
+                    $submitBtn.prop('disabled', true).text('Voted!');
+                });
+            });
         </script>
+
     </body>
 
 </html>

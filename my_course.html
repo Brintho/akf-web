@@ -2,1727 +2,346 @@
 <html lang="en">
 
     <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <title>Course Player - AKF</title>
-
-        <!-- Fonts & Icons -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
-
-        <style>
-            :root {
-                --color-primary-dark: #161618;
-                --color-secondary-dark: #1e1e1e;
-                --color-accent-gold: #D4AF37;
-                --color-text-light: #f0f0f0;
-                --color-text-medium: #a0a0a0;
-                --glass-bg: rgba(30, 30, 30, 0.7);
-                --glass-border: 1px solid rgba(255, 255, 255, 0.08);
-                --soft-transition: all 0.18s ease-in-out;
-            }
-
-            html,
-            body {
-                height: 100%;
-                margin: 0;
-                background: var(--color-primary-dark);
-                color: var(--color-text-light);
-                font-family: 'Poppins', sans-serif;
-            }
-
-            .course-player-page {
-                display: flex;
-                flex-direction: column;
-                height: 100vh;
-            }
-
-            /* Header */
-            .player-header {
-                padding: 1rem 1.25rem;
-                background: var(--color-secondary-dark);
-                border-bottom: var(--glass-border);
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-            }
-
-            .nav-btn {
-                background: var(--glass-bg);
-                border: var(--glass-border);
-                color: var(--color-text-light);
-                padding: .4rem .8rem;
-                border-radius: 8px;
-                text-decoration: none;
-            }
-
-            .nav-btn:hover {
-                background: var(--color-accent-gold);
-                color: var(--color-primary-dark);
-            }
-
-            /* Main */
-            .player-main-content {
-                display: flex;
-                flex: 1;
-                overflow: hidden;
-            }
-
-            @media (max-width:991.98px) {
-                .player-main-content {
-                    flex-direction: column;
-                }
-            }
-
-            /* Video area */
-            .video-player-container {
-                flex: 1;
-                background: #000;
-                position: relative;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                min-height: 320px;
-            }
-
-            video#custom-player {
-                width: 100%;
-                height: 100%;
-                object-fit: contain;
-                background: #000;
-            }
-
-            /* Controls bar */
-            .custom-controls {
-                position: absolute;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                padding: 10px 14px;
-                display: flex;
-                gap: 12px;
-                align-items: center;
-                background: linear-gradient(transparent, rgba(0, 0, 0, 0.78));
-                opacity: 0;
-                transition: opacity .22s ease;
-            }
-
-            .video-player-container:hover .custom-controls,
-            .video-player-container.controls-visible .custom-controls {
-                opacity: 1;
-            }
-
-            .control-btn {
-                background: none;
-                border: none;
-                color: #fff;
-                font-size: 1.25rem;
-                cursor: pointer;
-            }
-
-            .control-btn:hover {
-                transform: scale(1.06);
-            }
-
-            .time-display {
-                width: 64px;
-                text-align: center;
-                font-size: .9rem;
-                color: var(--color-text-light);
-            }
-
-            /* Progress */
-            .progress-bar-container {
-                flex: 1;
-                height: 8px;
-                background: rgba(255, 255, 255, 0.18);
-                border-radius: 8px;
-                position: relative;
-                cursor: pointer;
-                overflow: hidden;
-            }
-
-            .progress-bar-fill {
-                height: 100%;
-                width: 0%;
-                background: linear-gradient(90deg, var(--color-accent-gold), #f3d97a);
-                box-shadow: 0 0 10px rgba(212, 175, 55, 0.35);
-                transition: width .12s linear;
-            }
-
-            /* thumb as pseudo */
-            .progress-bar-fill::after {
-                content: '';
-                position: absolute;
-                right: -8px;
-                top: 50%;
-                transform: translateY(-50%);
-                width: 14px;
-                height: 14px;
-                border-radius: 50%;
-                background: #fff;
-                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-                opacity: 0;
-                transition: opacity .12s ease, right .12s linear;
-            }
-
-            .progress-bar-container:hover .progress-bar-fill::after {
-                opacity: 1;
-            }
-
-            /* Volume group */
-            .volume-group {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-            }
-
-            .volume-slider {
-                width: 110px;
-                accent-color: var(--color-accent-gold);
-            }
-
-            /* Settings menu (multi-level) */
-            .settings-shell {
-                position: absolute;
-                bottom: 64px;
-                right: 18px;
-                width: 220px;
-                background: var(--glass-bg);
-                border: var(--glass-border);
-                border-radius: 10px;
-                padding: 8px;
-                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
-                transform-origin: bottom right;
-                opacity: 0;
-                visibility: hidden;
-                transition: opacity .18s ease, transform .18s ease, visibility .18s;
-                z-index: 60;
-            }
-
-            .settings-shell.open {
-                opacity: 1;
-                visibility: visible;
-                transform: translateY(-6px) scale(1);
-            }
-
-            .settings-shell .menu-main,
-            .settings-shell .menu-sub {
-                min-height: 40px;
-            }
-
-            .settings-item {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 8px;
-                padding: 8px;
-                border-radius: 6px;
-                color: var(--color-text-light);
-                cursor: pointer;
-                transition: background .12s ease;
-            }
-
-            .settings-item:hover {
-                background: rgba(255, 255, 255, 0.03);
-            }
-
-            .settings-item .label {
-                display: flex;
-                gap: 8px;
-                align-items: center;
-            }
-
-            /* Submenu container - sliding */
-            .menu-sub {
-                position: relative;
-                overflow: hidden;
-                height: auto;
-            }
-
-            .sub-panel {
-                position: relative;
-                transition: transform .22s ease;
-                padding: 6px;
-            }
-
-            .sub-panel.hidden {
-                display: none;
-            }
-
-            .sub-list {
-                display: flex;
-                flex-direction: column;
-                gap: 6px;
-                padding: 6px;
-            }
-
-            .sub-list button {
-                text-align: left;
-                background: none;
-                border: none;
-                padding: 8px;
-                border-radius: 6px;
-                color: var(--color-text-light);
-                cursor: pointer;
-            }
-
-            .sub-list button.active {
-                background: var(--color-accent-gold);
-                color: var(--color-primary-dark);
-                font-weight: 600;
-            }
-
-            .settings-header {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 8px;
-                padding: 6px 4px;
-            }
-
-            .settings-back {
-                background: none;
-                border: none;
-                color: var(--color-text-light);
-                cursor: pointer;
-                font-size: 1rem;
-            }
-
-            /* Small toast message (for Quality simulation) */
-            .ui-toast {
-                position: absolute;
-                left: 50%;
-                top: 18px;
-                transform: translateX(-50%);
-                background: rgba(0, 0, 0, 0.6);
-                padding: 6px 12px;
-                border-radius: 999px;
-                color: #fff;
-                font-size: .9rem;
-                opacity: 0;
-                pointer-events: none;
-                transition: opacity .18s ease;
-                z-index: 90;
-            }
-
-            .ui-toast.show {
-                opacity: 1;
-            }
-
-            /* Sidebar / accordion & lessons */
-            .course-content-sidebar {
-                width: 100%;
-                background: var(--color-secondary-dark);
-                padding: 1rem;
-                overflow: auto;
-                flex-shrink: 0;
-                border-left: var(--glass-border);
-            }
-
-            @media (min-width:992px) {
-                .course-content-sidebar {
-                    width: 360px;
-                }
-            }
-
-            .course-accordion .accordion-button {
-                background: var(--glass-bg);
-                color: var(--color-text-light);
-                border-radius: 8px;
-            }
-
-            .lesson-list {
-                list-style: none;
-                padding: 0;
-                margin: 0;
-            }
-
-            .lesson-item {
-                display: flex;
-                gap: 10px;
-                align-items: center;
-                padding: .6rem;
-                border-radius: 8px;
-                cursor: pointer;
-                transition: var(--soft-transition);
-            }
-
-            .lesson-item.active {
-                background: linear-gradient(90deg, rgba(192, 132, 252, 0.08), rgba(96, 165, 250, 0.08));
-                border: 1px solid rgba(192, 132, 252, 0.18);
-            }
-
-            .lesson-checkbox {
-                width: 22px;
-                height: 22px;
-                border-radius: 4px;
-                background: var(--glass-bg);
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                border: 2px solid var(--color-text-medium);
-                color: transparent;
-            }
-
-            .lesson-item.watched .lesson-checkbox {
-                background: var(--color-accent-gold);
-                border-color: var(--color-accent-gold);
-                color: var(--color-primary-dark);
-            }
-
-            /* small responsiveness */
-            @media (max-width:700px) {
-                .settings-shell {
-                    right: 10px;
-                    width: 200px;
-                    bottom: 70px;
-                }
-
-                .volume-slider {
-                    width: 70px;
-                }
-            }
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Product Details</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/responsive.css">
 
 
-            @media (max-width: 576px) {
-                .video-player-container {
-                    height: auto;
-                    max-height: 250px;
-                    position: relative;
 
-                }
-
-                video#custom-player {
-                    height: 200px;
-                    width: 100%;
-                    object-fit: cover;
-                }
-
-                /* custom controls ছোট স্ক্রিনে ঠিক করা */
-                .custom-controls {
-                    flex-wrap: wrap;
-                    /* row overflow হলে wrap হবে */
-                    gap: 1px;
-                    padding: 1px;
-                }
-
-                .progress-bar-container {
-                    width: 100% !important;
-                    /* সম্পূর্ণ লেঙ্গ্থ দাও */
-                    height: 6px;
-                }
-
-
-                .time-display {
-                    font-size: 0.75rem;
-                    width: 50px;
-                }
-
-                .volume-group input.volume-slider {
-                    opacity: 0;
-                    width: 0;
-                    transition: opacity 0.2s ease, width 0.2s ease;
-                    pointer-events: none;
-                }
-
-                .control-btn:hover+.volume-slider,
-                .volume-group:hover .volume-slider {
-                    opacity: 1;
-                    width: 100px;
-                    /* চাইলে customize করতে পারো */
-                    pointer-events: auto;
-                }
-
-                .volume-group {
-                    display: flex;
-                    align-items: center;
-                    gap: 4px;
-                    overflow: hidden;
-                }
-
-                /* control-btn touch-friendly */
-                .control-btn {
-                    font-size: 1rem;
-                    padding: 0.25rem 0.5rem;
-                }
-            }
-
-        </style>
     </head>
 
-    <body>
-        <div class="course-player-page">
-            <!-- Header -->
-            <header class="player-header">
-                <div class="d-flex align-items-center gap-3">
-                    <a href="#" class="nav-btn"><i class="bi bi-arrow-left"></i></a>
-                    <strong class="d-none d-md-inline">The Complete Python Bootcamp</strong>
-                </div>
 
-                <div class="d-flex align-items-center gap-2">
-                    <a class="nav-btn" href="#">My Courses <i class="bi bi-arrow-right"></i></a>
+    <body class="">
+        <!-- Consistent Header, same as other pages -->
+        <main id="main-content">
+
+            <!-- Custom CSS for User Dashboard (Dark Theme) -->
+
+
+            <header class="topbar">
+                <div class="topbar__container">
+                    <div class="topbar__logo">
+                        <a href="index.html">
+                            <img src="images/bg.png" alt="Arya Kalyan Foundation Logo">
+                        </a>
+                    </div>
+                    <nav class="topbar__nav--desktop">
+                        <a href="index.html">Home</a>
+                        <a href="course.html">Courses</a>
+                        <a href="shop.html">Shop</a>
+                        <a href="ebook.html">Ebook</a>
+                        <a href="events.html">Events</a>
+                        <a href="our_programs.html">Our Programs</a>
+                        <a href="blog.html">Blog</a>
+                        <a href="about.html">About Us</a>
+                        <a href="#donate">Donate</a>
+                    </nav>
+                    <div class="topbar__actions">
+
+
+                        <!-- Cart -->
+                        <a href="ad-to-cat.html" class="action-icon cart-icon" id="cart-toggle">
+                            <i class="bi bi-cart3"></i>
+                            <span class="notification-badge">0</span>
+                        </a>
+                        <!-- Notification Bell -->
+                        <!-- Notification Wrapper with Bootstrap Dropdown Functionality -->
+                        <div class="notification-wrapper dropdown">
+                            <!-- Bell icon acts as the dropdown toggle -->
+                            <a href="#" class="action-icon notification-bell" id="notification-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                <i class="bi bi-bell"></i>
+                                <span class="notification-badge">3</span>
+                            </a>
+
+                            <!-- Dropdown menu with responsive enhancements -->
+                            <div class="notification-dropdown dropdown-menu dropdown-menu-dark dropdown-menu-end" id="notification-dropdown" style="min-width: 340px;">
+                                <div class="notification-header">
+                                    <h4>Notifications</h4>
+                                    <button class="mark-all-read">Mark all as read</button>
+                                </div>
+                                <!-- Scrollable list for mobile -->
+                                <div class="notification-list" style="max-height: 70vh; overflow-y: auto;">
+                                    <!-- Notification Item 1 -->
+                                    <a href="#" class="notification-item unread">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">Your class on <strong>Module 17</strong> has started.</p>
+                                            <small class="notification-meta">12 hours ago • Full Stack Web Development</small>
+                                        </div>
+                                    </a>
+                                    <!-- Notification Item 2 -->
+                                    <a href="#" class="notification-item unread">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">Your class will start at 12:00 PM</p>
+                                            <small class="notification-meta"><span class="live-badge-small">LIVE</span> 10 hours ago • Full Stack Web Development</small>
+                                        </div>
+                                    </a>
+                                    <!-- Notification Item 3 -->
+                                    <a href="#" class="notification-item">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">Your assignment has been graded.</p>
+                                            <small class="notification-meta">1 day ago • Veda Education</small>
+                                        </div>
+                                    </a>
+                                    <!-- Add more notifications here to test scrolling -->
+                                    <a href="#" class="notification-item">
+                                        <span class="status-dot"></span>
+                                        <div class="notification-content">
+                                            <p class="notification-text">A new article has been published in the blog.</p>
+                                            <small class="notification-meta">2 days ago • Insights & Articles</small>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="notification-footer">
+                                    <a href="#" class="see-all-btn">See All Notifications</a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <a href="#" class="btn-login">Login</a>
+
+                        <!-- Profile Avatar -->
+                        <div class="dropdown profile-dropdown-wrapper">
+                            <a href="#" class="action-icon profile-avatar show" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="true">
+                                <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar" class="rounded-circle profile-img">
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-end p-2 shadow-lg show" aria-labelledby="profileDropdown"
+                                style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(0px, 42px);" data-popper-placement="bottom-end">
+                                <!-- User Info -->
+                                <li class="px-3 py-2 border-bottom d-flex align-items-center">
+                                    <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" class="rounded-circle me-2" width="45" height="45" alt="Avatar">
+                                    <div>
+                                        <p class="mb-0 fw-bold name-text">Brinto Chakroborty Sammo</p>
+                                        <small class="text-muted">+8801750756133</small>
+                                    </div>
+                                </li>
+
+                                <!-- Links -->
+                                <li><a class="dropdown-item d-flex align-items-center" href="#"><img src="https://cdn.ostad.app/public/icons/video-add-line.svg" class="me-2 dropdown-item-svg "
+                                            width="18">Go To Class
+                                        Joining</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center" href="#"><img src="https://cdn.ostad.app/public/icons/book-2-line.svg" class="me-2 dropdown-item-svg"
+                                            width="18">My Courses</a>
+                                </li>
+                                <li><a class="dropdown-item d-flex align-items-center" href="#"><img src="https://cdn.ostad.app/public/icons/device-line.svg" class="me-2 dropdown-item-svg"
+                                            width="18">Device
+                                        Management</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center" href="#"><img src="https://cdn.ostad.app/public/icons/account-circle-line.svg" class="me-2 dropdown-item-svg"
+                                            width="18">Profile</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center text-danger" href="#"><img src="https://cdn.ostad.app/public/icons/logout-box-r-line.svg"
+                                            class="me-2 dropdown-item-svg" width="18">Logout</a></li>
+                            </ul>
+                        </div>
+
+                        <button class="hamburger-menu" id="hamburger-toggle" aria-label="Toggle Menu">
+                            <i class="bi bi-list"></i>
+                        </button>
+                    </div>
+
+
                 </div>
             </header>
 
-            <!-- Main -->
-            <div class="player-main-content">
-                <!-- Video area -->
-                <div class="video-player-container">
-                    <video id="custom-player" poster="https://i.ibb.co/6y45r3H/video-placeholder.png" preload="metadata">
-                        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-                    </video>
-
-                    <!-- Controls -->
-                    <div class="custom-controls">
-                        <button class="control-btn" id="play-pause-btn" title="Play / Pause"><i class="bi bi-play-fill"></i></button>
-
-                        <div class="time-display" id="current-time">00:00</div>
-
-                        <div class="progress-bar-container" id="progress-bar-container" aria-label="Progress">
-                            <div class="progress-bar-fill" id="progress-bar-fill"></div>
+            <div class="dashboard-page">
+                <div class="container">
+                    <!-- 1. Profile Header Section -->
+                    <div class="profile-header mb-5">
+                        <div class="profile-banner" data-aos="fade-in">
+                            <svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,138.7C672,128,768,160,864,176C960,192,1056,192,1152,181.3C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+                                    fill="rgba(255,255,255,0.05)"></path>
+                            </svg>
                         </div>
-
-                        <div class="time-display" id="duration">00:00</div>
-
-                        <!-- Volume group -->
-                        <div class="volume-group">
-                            <button class="control-btn" id="mute-btn" title="Mute / Unmute"><i class="bi bi-volume-up-fill"></i></button>
-                            <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.01" value="1" />
-                        </div>
-
-                        <!-- Settings (gear) -->
-                        <div style="position:relative;">
-                            <button class="control-btn" id="settings-btn" title="Settings"><i class="bi bi-gear-fill"></i></button>
-
-                            <!-- Settings shell -->
-                            <div class="settings-shell" id="settings-shell" aria-hidden="true">
-                                <div class="settings-header">
-                                    <div style="font-weight:600">Settings</div>
-                                    <button class="settings-back" id="settings-close" title="Close">&times;</button>
-                                </div>
-
-                                <!-- MAIN MENU -->
-                                <div class="menu-main" id="menu-main">
-                                    <div class="settings-item" data-action="speed">
-                                        <div class="label"><i class="bi bi-tachometer"></i>
-                                            <div>Playback Speed</div>
-                                        </div>
-                                        <div class="meta text-muted">1x</div>
-                                    </div>
-                                    <div class="settings-item" data-action="quality">
-                                        <div class="label"><i class="bi bi-camera-video"></i>
-                                            <div>Quality</div>
-                                        </div>
-                                        <div class="meta text-muted">Auto</div>
-                                    </div>
-                                </div>
-
-                                <!-- SUB MENU: SPEED -->
-                                <div class="menu-sub" id="menu-speed" style="display:none;">
-                                    <div class="settings-header">
-                                        <button class="settings-back" id="speed-back"><i class="bi bi-chevron-left"></i> Back</button>
-                                        <div style="font-weight:600">Playback Speed</div>
-                                        <div style="width:28px"></div>
-                                    </div>
-                                    <div class="sub-panel" id="speed-panel">
-                                        <div class="sub-list" id="speed-list">
-                                            <!-- buttons injected / or static -->
-                                            <button data-speed="0.5">0.5x</button>
-                                            <button data-speed="0.75">0.75x</button>
-                                            <button data-speed="1" class="active">1x (Normal)</button>
-                                            <button data-speed="1.25">1.25x</button>
-                                            <button data-speed="1.5">1.5x</button>
-                                            <button data-speed="2">2x</button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- SUB MENU: QUALITY -->
-                                <div class="menu-sub" id="menu-quality" style="display:none;">
-                                    <div class="settings-header">
-                                        <button class="settings-back" id="quality-back"><i class="bi bi-chevron-left"></i> Back</button>
-                                        <div style="font-weight:600">Quality </div>
-                                        <div style="width:28px"></div>
-                                    </div>
-                                    <div class="sub-panel" id="quality-panel">
-                                        <div class="sub-list" id="quality-list">
-                                            <button data-quality="auto" class="active">Auto</button>
-                                            <button data-quality="1080">1080p</button>
-                                            <button data-quality="720">720p</button>
-                                            <button data-quality="480">480p</button>
-                                        </div>
-                                    </div>
+                        <div class="profile-header-card d-flex flex-column flex-md-row align-items-center gap-4" data-aos="fade-up">
+                            <img src="https://i.ibb.co/hZntY5k/avatar-hijab.png" alt="User Avatar" class="profile-avatar-dashbord">
+                            <div class="text-center text-md-start">
+                                <h2 class="profile-name">Marsden Holman</h2>
+                                <div class="profile-stats">
+                                    <span><i class="bi bi-patch-check-fill me-2"></i> Verified</span>
                                 </div>
                             </div>
-                            <!-- end settings shell -->
                         </div>
-
-                        <!-- Fullscreen -->
-                        <button class="control-btn" id="fullscreen-btn" title="Fullscreen"><i class="bi bi-fullscreen"></i></button>
                     </div>
 
-                    <!-- UI toast (for quality simulation messages) -->
-                    <div class="ui-toast" id="ui-toast" role="status" aria-live="polite"></div>
+                    <div class="row g-4">
+                        <!-- 2. Sidebar Navigation -->
+                        <div class="col-lg-3">
+                            <div class="dashboard-sidebar" data-aos="fade-right">
+                                <p class="sidebar-welcome-text px-3">WELCOME, MARSDEN HOLMAN</p>
+                                <ul class="nav flex-column sidebar-nav">
+                                    <li class="nav-item"><a class="nav-link " href="my_profile.html"><i class="bi bi-person-circle"></i> My Profile</a></li>
+                                    <li class="nav-item"><a class="nav-link active" href="my_course.html"><i class="bi bi-journal-bookmark-fill"></i> My Courses</a></li>
+                                    <li class="nav-item"><a class="nav-link " href="my_ebook_profile.html"><i class="bi bi-book-half"></i> My Ebooks</a></li>
+                                    <li class="nav-item"><a class="nav-link " href="my_shop.html"><i class="bi bi-shop"></i> Shop</a></li>
+                                    <li class="nav-item"><a class="nav-link " href="sms.html"><i class="bi bi-chat-dots-fill"></i> Message</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="donation_history.html"><i class="bi bi-clock-history"></i> Donation History</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-box-arrow-left"></i> Logout</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- 3. Main Content Area -->
+                        <div class="col-lg-9">
+                            <div class="dashboard-content-card" data-aos="fade-up" data-aos-delay="100">
+                                <h3 class="content-title">My Course</h3>
+                                <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-3 g-4">
+                                    <!-- Ebook Card 1 -->
+                                    <div class="col">
+                                        <div class="ebook-card">
+                                            <div class="ebook-card-img position-relative">
+                                                <img src="images/course/Veda-Vyasa-e1514534326733.jpg" alt="Course Cover">
+                                                <span class="badge bg-danger position-absolute top-0 start-0 m-2">LIVE</span>
+                                            </div>
+                                            <div class="ebook-card-body">
+                                                <div class="ebook-author">
+                                                    <img src="https://i.pravatar.cc/50?u=course1" alt="Instructor">
+                                                    <span>John Doe</span>
+                                                </div>
+                                                <p class="ebook-title">SQA: Manual & Automated Testing</p>
+                                                <button class="btn btn-read-now w-100 mt-3">Start Now</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="ebook-card">
+                                            <div class="ebook-card-img position-relative">
+                                                <img src="images/course/web-dev-bootcamp.jpg" alt="Course Cover">
+                                                <span class="badge bg-danger position-absolute top-0 start-0 m-2">LIVE</span>
+                                            </div>
+                                            <div class="ebook-card-body">
+                                                <div class="ebook-author">
+                                                    <img src="https://i.pravatar.cc/50?u=course2" alt="Instructor">
+                                                    <span>Jane Smith</span>
+                                                </div>
+                                                <p class="ebook-title">Web Development Bootcamp</p>
+                                                <button class="btn btn-read-now w-100 mt-3">Start Now</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="ebook-card">
+                                            <div class="ebook-card-img position-relative">
+                                                <img src="images/course/python-mastery.jpg" alt="Course Cover">
+                                                <span class="badge bg-danger position-absolute top-0 start-0 m-2">LIVE</span>
+                                            </div>
+                                            <div class="ebook-card-body">
+                                                <div class="ebook-author">
+                                                    <img src="https://i.pravatar.cc/50?u=course3" alt="Instructor">
+                                                    <span>Mike Johnson</span>
+                                                </div>
+                                                <p class="ebook-title">Python Mastery: Beginner to Advanced</p>
+                                                <button class="btn btn-read-now w-100 mt-3">Start Now</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Add more ebook cards as needed -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- Reusing the same mobile nav and footer -->
+        <nav class="bottom-nav">
+            <a href="index.html" class="bottom-nav__item"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
+            <a href="events.html" class="bottom-nav__item"><i class="bi bi-calendar-event-fill"></i><span>Events</span></a>
+            <a href="course.html" class="bottom-nav__item "><i class="bi bi-journal-bookmark-fill"></i><span>Courses</span></a>
+            <a href="shop.html" class="bottom-nav__item active"><i class="bi bi-cart-fill"></i><span>Shop</span></a>
+            <a href="#blog" class="bottom-nav__item"><i class="bi bi-chat-square-text-fill"></i><span>Blog</span></a>
+            <a href="#donate" class="bottom-nav__item"><i class="bi bi-heart-fill"></i><span>Donate</span></a>
+        </nav>
+
+
+        <!-- Footer -->
+        <!-- ============================================= -->
+        <!-- Footer Section                                -->
+        <!-- ============================================= -->
+        <footer id="footer" class="site-footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <!-- Column 1: Brand & Tagline -->
+                    <div class="footer-column">
+                        <h3 class="footer-brand">AKF</h3>
+                        <p class="footer-tagline">A sanctuary for peace, wisdom, and connection in the digital age.</p>
+                    </div>
+
+                    <!-- Column 2: Quick Links -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Quick Links</h5>
+                        <ul class="footer-links">
+                            <li><a href="#hero">Home</a></li>
+                            <li><a href="#introduction">About Us</a></li>
+                            <li><a href="#courses">Courses</a></li>
+                            <li><a href="#blog">Blog</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 3: Support -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Support</h5>
+                        <ul class="footer-links">
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#donate">Donate</a></li>
+                            <li><a href="#">Community Guidelines</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 4: Follow Us -->
+                    <div class="footer-column">
+                        <h5 class="footer-heading">Follow Us</h5>
+                        <div class="social-icons">
+                            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                            <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Sidebar -->
-                <aside class="course-content-sidebar">
-                    <h3 class="sidebar-title">Course content</h3>
-
-                    <!-- Module 1 -->
-                    <div class="accordion course-accordion mb-2" id="courseAccordion1">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="heading1">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
-                                    Module 1: Introduction
-                                </button>
-                            </h2>
-                            <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1" data-bs-parent="#courseAccordion1">
-                                <div class="accordion-body p-0">
-                                    <ul class="lesson-list p-2">
-                                        <li class="lesson-item active" data-video-src="https://www.w3schools.com/html/mov_bbb.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 1</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:05</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="https://www.w3schools.com/html/movie.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 2</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:08</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 3</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:10</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                <div class="footer-bottom">
+                    <p>© 2024 AKF. All Rights Reserved.</p>
+                    <div class="footer-legal-links">
+                        <a href="#">Privacy Policy</a>
+                        <span>•</span>
+                        <a href="#">Terms of Service Sammo</a>
                     </div>
-
-                    <!-- Module 2 -->
-                    <div class="accordion course-accordion mb-2" id="courseAccordion2">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="heading2">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                                    Module 2: Basics
-                                </button>
-                            </h2>
-                            <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2" data-bs-parent="#courseAccordion2">
-                                <div class="accordion-body p-0">
-                                    <ul class="lesson-list p-2">
-                                        <li class="lesson-item" data-video-src="https://www.w3schools.com/html/movie.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 1</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:06</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="https://www.w3schools.com/html/mov_bbb.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 2</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:07</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 3</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:09</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Module 3 -->
-                    <div class="accordion course-accordion mb-2" id="courseAccordion3">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="heading3">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
-                                    Module 3: Intermediate
-                                </button>
-                            </h2>
-                            <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3" data-bs-parent="#courseAccordion3">
-                                <div class="accordion-body p-0">
-                                    <ul class="lesson-list p-2">
-                                        <li class="lesson-item" data-video-src="https://www.w3schools.com/html/movie.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 1</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:08</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="https://www.w3schools.com/html/mov_bbb.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 2</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:07</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 3</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:10</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Module 4 -->
-                    <div class="accordion course-accordion mb-2" id="courseAccordion4">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="heading4">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
-                                    Module 4: Advanced
-                                </button>
-                            </h2>
-                            <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4" data-bs-parent="#courseAccordion4">
-                                <div class="accordion-body p-0">
-                                    <ul class="lesson-list p-2">
-                                        <li class="lesson-item" data-video-src="https://www.w3schools.com/html/mov_bbb.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 1</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:12</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="https://www.w3schools.com/html/movie.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 2</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:10</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 3</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:11</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Module 1 -->
-                    <div class="accordion course-accordion mb-2" id="courseAccordion1">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="heading1">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
-                                    Module 1: Introduction
-                                </button>
-                            </h2>
-                            <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1" data-bs-parent="#courseAccordion1">
-                                <div class="accordion-body p-0">
-                                    <ul class="lesson-list p-2">
-                                        <li class="lesson-item active" data-video-src="https://www.w3schools.com/html/mov_bbb.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 1</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:05</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="https://www.w3schools.com/html/movie.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 2</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:08</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 3</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:10</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Module 2 -->
-                    <div class="accordion course-accordion mb-2" id="courseAccordion2">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="heading2">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                                    Module 2: Basics
-                                </button>
-                            </h2>
-                            <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2" data-bs-parent="#courseAccordion2">
-                                <div class="accordion-body p-0">
-                                    <ul class="lesson-list p-2">
-                                        <li class="lesson-item" data-video-src="https://www.w3schools.com/html/movie.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 1</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:06</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="https://www.w3schools.com/html/mov_bbb.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 2</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:07</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 3</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:09</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Module 3 -->
-                    <div class="accordion course-accordion mb-2" id="courseAccordion3">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="heading3">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
-                                    Module 3: Intermediate
-                                </button>
-                            </h2>
-                            <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3" data-bs-parent="#courseAccordion3">
-                                <div class="accordion-body p-0">
-                                    <ul class="lesson-list p-2">
-                                        <li class="lesson-item" data-video-src="https://www.w3schools.com/html/movie.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 1</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:08</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="https://www.w3schools.com/html/mov_bbb.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 2</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:07</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 3</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:10</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Module 4 -->
-                    <div class="accordion course-accordion mb-2" id="courseAccordion4">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="heading4">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
-                                    Module 4: Advanced
-                                </button>
-                            </h2>
-                            <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4" data-bs-parent="#courseAccordion4">
-                                <div class="accordion-body p-0">
-                                    <ul class="lesson-list p-2">
-                                        <li class="lesson-item" data-video-src="https://www.w3schools.com/html/mov_bbb.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 1</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:12</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="https://www.w3schools.com/html/movie.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 2</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:10</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 3</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:11</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Module 1 -->
-                    <div class="accordion course-accordion mb-2" id="courseAccordion1">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="heading1">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
-                                    Module 1: Introduction
-                                </button>
-                            </h2>
-                            <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1" data-bs-parent="#courseAccordion1">
-                                <div class="accordion-body p-0">
-                                    <ul class="lesson-list p-2">
-                                        <li class="lesson-item active" data-video-src="https://www.w3schools.com/html/mov_bbb.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 1</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:05</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="https://www.w3schools.com/html/movie.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 2</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:08</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 3</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:10</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Module 2 -->
-                    <div class="accordion course-accordion mb-2" id="courseAccordion2">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="heading2">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                                    Module 2: Basics
-                                </button>
-                            </h2>
-                            <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2" data-bs-parent="#courseAccordion2">
-                                <div class="accordion-body p-0">
-                                    <ul class="lesson-list p-2">
-                                        <li class="lesson-item" data-video-src="https://www.w3schools.com/html/movie.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 1</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:06</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="https://www.w3schools.com/html/mov_bbb.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 2</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:07</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 3</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:09</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Module 3 -->
-                    <div class="accordion course-accordion mb-2" id="courseAccordion3">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="heading3">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
-                                    Module 3: Intermediate
-                                </button>
-                            </h2>
-                            <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3" data-bs-parent="#courseAccordion3">
-                                <div class="accordion-body p-0">
-                                    <ul class="lesson-list p-2">
-                                        <li class="lesson-item" data-video-src="https://www.w3schools.com/html/movie.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 1</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:08</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="https://www.w3schools.com/html/mov_bbb.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 2</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:07</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 3</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:10</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Module 4 -->
-                    <div class="accordion course-accordion mb-2" id="courseAccordion4">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="heading4">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
-                                    Module 4: Advanced
-                                </button>
-                            </h2>
-                            <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4" data-bs-parent="#courseAccordion4">
-                                <div class="accordion-body p-0">
-                                    <ul class="lesson-list p-2">
-                                        <li class="lesson-item" data-video-src="https://www.w3schools.com/html/mov_bbb.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 1</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:12</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="https://www.w3schools.com/html/movie.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 2</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:10</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 3</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:11</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Module 1 -->
-                    <div class="accordion course-accordion mb-2" id="courseAccordion1">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="heading1">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
-                                    Module 1: Introduction
-                                </button>
-                            </h2>
-                            <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1" data-bs-parent="#courseAccordion1">
-                                <div class="accordion-body p-0">
-                                    <ul class="lesson-list p-2">
-                                        <li class="lesson-item active" data-video-src="https://www.w3schools.com/html/mov_bbb.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 1</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:05</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="https://www.w3schools.com/html/movie.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 2</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:08</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 3</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:10</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Module 2 -->
-                    <div class="accordion course-accordion mb-2" id="courseAccordion2">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="heading2">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                                    Module 2: Basics
-                                </button>
-                            </h2>
-                            <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2" data-bs-parent="#courseAccordion2">
-                                <div class="accordion-body p-0">
-                                    <ul class="lesson-list p-2">
-                                        <li class="lesson-item" data-video-src="https://www.w3schools.com/html/movie.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 1</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:06</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="https://www.w3schools.com/html/mov_bbb.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 2</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:07</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 3</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:09</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Module 3 -->
-                    <div class="accordion course-accordion mb-2" id="courseAccordion3">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="heading3">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
-                                    Module 3: Intermediate
-                                </button>
-                            </h2>
-                            <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3" data-bs-parent="#courseAccordion3">
-                                <div class="accordion-body p-0">
-                                    <ul class="lesson-list p-2">
-                                        <li class="lesson-item" data-video-src="https://www.w3schools.com/html/movie.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 1</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:08</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="https://www.w3schools.com/html/mov_bbb.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 2</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:07</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 3</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:10</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Module 4 -->
-                    <div class="accordion course-accordion mb-2" id="courseAccordion4">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="heading4">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
-                                    Module 4: Advanced
-                                </button>
-                            </h2>
-                            <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4" data-bs-parent="#courseAccordion4">
-                                <div class="accordion-body p-0">
-                                    <ul class="lesson-list p-2">
-                                        <li class="lesson-item" data-video-src="https://www.w3schools.com/html/mov_bbb.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 1</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:12</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="https://www.w3schools.com/html/movie.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 2</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:10</span>
-                                            </div>
-                                        </li>
-                                        <li class="lesson-item" data-video-src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" data-poster="">
-                                            <div class="lesson-checkbox" role="checkbox" aria-checked="false" title="Mark as complete"><i class="bi bi-check"></i></div>
-                                            <div class="lesson-content d-flex align-items-center justify-content-between w-100">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="bi bi-play-circle-fill lesson-play-icon"></i>
-                                                    <div>
-                                                        <p class="lesson-title mb-0">Lesson 3</p>
-                                                    </div>
-                                                </div>
-                                                <span class="lesson-duration">00:11</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
-                </aside>
+                </div>
             </div>
-        </div>
+        </footer>
 
         <!-- Scripts -->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <!-- AOS.js for Scroll Animations -->
+
+        <!-- Swiper.js JS -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script src="js/script.js"></script>
         <script>
-            $(function () {
-                // Elements
-                const player = $('#custom-player')[0];
-                const $playBtn = $('#play-pause-btn');
-                const $playIcon = $('#play-pause-btn i');
-                const $progressContainer = $('#progress-bar-container');
-                const $progressFill = $('#progress-bar-fill');
-                const $currentTime = $('#current-time');
-                const $duration = $('#duration');
-                const $muteBtn = $('#mute-btn');
-                const $muteIcon = $('#mute-btn i');
-                const $volumeSlider = $('#volume-slider');
-                const $fullscreen = $('#fullscreen-btn');
-
-                // Settings elements
-                const $settingsBtn = $('#settings-btn');
-                const $settingsShell = $('#settings-shell');
-                const $menuMain = $('#menu-main');
-                const $menuSpeed = $('#menu-speed');
-                const $menuQuality = $('#menu-quality');
-                const $speedList = $('#speed-list');
-                const $qualityList = $('#quality-list');
-                const $speedBack = $('#speed-back');
-                const $qualityBack = $('#quality-back');
-                const $settingsClose = $('#settings-close');
-                const $uiToast = $('#ui-toast');
-
-                // state
-                let isDragging = false;
-
-                // --- Basic player controls ---
-                function formatTime(t) {
-                    if (isNaN(t)) return '00:00';
-                    const m = Math.floor(t / 60);
-                    const s = Math.floor(t % 60);
-                    return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
-                }
-
-                function updatePlayIcon() {
-                    const cls = player.paused ? 'bi-play-fill' : 'bi-pause-fill';
-                    $playIcon.removeClass('bi-play-fill bi-pause-fill').addClass(cls);
-                }
-
-                $playBtn.on('click', () => {
-                    if (player.paused) player.play();
-                    else player.pause();
-                });
-                $('#custom-player').on('click', () => {
-                    if (player.paused) player.play();
-                    else player.pause();
-                });
-
-                player.addEventListener('play', updatePlayIcon);
-                player.addEventListener('pause', updatePlayIcon);
-
-                player.addEventListener('loadedmetadata', () => {
-                    $duration.text(formatTime(player.duration));
-                });
-
-                // Progress update
-                player.addEventListener('timeupdate', () => {
-                    if (!isDragging && isFinite(player.duration)) {
-                        const pct = (player.currentTime / player.duration) * 100;
-                        $progressFill.css('width', pct + '%');
-                    }
-                    $currentTime.text(formatTime(player.currentTime));
-                });
-
-                // Scrub
-                function scrub(e) {
-                    const pageX = e.pageX || (e.originalEvent.touches && e.originalEvent.touches[0].pageX);
-                    if (pageX === undefined) return;
-                    const left = $progressContainer.offset().left;
-                    const w = $progressContainer.width();
-                    let x = pageX - left;
-                    x = Math.max(0, Math.min(w, x));
-                    const pct = (x / w) * 100;
-                    $progressFill.css('width', pct + '%');
-                    if (isFinite(player.duration)) {
-                        player.currentTime = (pct / 100) * player.duration;
-                    }
-                }
-
-                $progressContainer.on('mousedown touchstart', function (e) {
-                    e.preventDefault();
-                    isDragging = true;
-                    scrub(e);
-                });
-                $(document).on('mousemove touchmove', function (e) {
-                    if (isDragging) {
-                        e.preventDefault();
-                        scrub(e);
-                    }
-                });
-                $(document).on('mouseup touchend', function (e) {
-                    if (isDragging) {
-                        isDragging = false;
-                        scrub(e);
-                    }
-                });
-
-                // Volume & mute
-                function updateVolumeUI() {
-                    const isMuted = player.muted || player.volume === 0;
-                    const cls = isMuted ? 'bi-volume-mute-fill' : 'bi-volume-up-fill';
-                    $muteIcon.removeClass('bi-volume-up-fill bi-volume-mute-fill').addClass(cls);
-                    $volumeSlider.val(player.volume);
-                }
-
-                $muteBtn.on('click', () => {
-                    player.muted = !player.muted;
-                    updateVolumeUI();
-                });
-
-                $volumeSlider.on('input', function () {
-                    player.volume = parseFloat($(this).val());
-                    if (player.volume > 0) player.muted = false;
-                    updateVolumeUI();
-                });
-
-                player.addEventListener('volumechange', updateVolumeUI);
-                player.volume = 1;
-                updateVolumeUI();
-
-                // fullscreen
-                $fullscreen.on('click', () => {
-                    if (!document.fullscreenElement) {
-                        $('.video-player-container')[0].requestFullscreen().catch(() => { });
-                    } else {
-                        document.exitFullscreen().catch(() => { });
-                    }
-                });
-
-                // Lessons click
-                $('.lesson-list').on('click', '.lesson-item .lesson-content', function () {
-                    const $li = $(this).closest('.lesson-item');
-                    if ($li.hasClass('active')) {
-                        if (player.paused) player.play();
-                        else player.pause();
-                        return;
-                    }
-                    $('.lesson-item').removeClass('active');
-                    $li.addClass('active');
-                    const src = $li.data('video-src');
-                    const poster = $li.data('poster') || '';
-                    if (src) {
-                        player.pause();
-                        player.src = src;
-                        if (poster) player.poster = poster;
-                        player.load();
-                        player.play();
-                    }
-                });
-
-                // Checkbox toggle
-                $('.lesson-list').on('click', '.lesson-checkbox', function (e) {
-                    e.stopPropagation();
-                    const $li = $(this).closest('.lesson-item');
-                    $li.toggleClass('watched');
-                    const is = $li.hasClass('watched');
-                    $(this).attr('aria-checked', String(is));
-                });
-
-                // Auto next
-                player.addEventListener('ended', () => {
-                    const $current = $('.lesson-item.active');
-                    $current.addClass('watched').find('.lesson-checkbox').attr('aria-checked', 'true');
-                    const $next = $current.next('.lesson-item');
-                    if ($next.length) {
-                        $next.find('.lesson-content').trigger('click');
-                    }
-                });
-
-                // Settings menu
-                function openSettings() {
-                    $settingsShell.addClass('open').attr('aria-hidden', 'false');
-                }
-                function closeSettings() {
-                    $settingsShell.removeClass('open').attr('aria-hidden', 'true');
-                    $menuSpeed.hide();
-                    $menuQuality.hide();
-                    $menuMain.show();
-                }
-
-                $settingsBtn.on('click', function (e) {
-                    e.stopPropagation();
-                    if ($settingsShell.hasClass('open')) closeSettings();
-                    else openSettings();
-                });
-
-                $(document).on('click', function (e) {
-                    if ($(e.target).closest('#settings-shell, #settings-btn').length === 0) closeSettings();
-                });
-
-                $settingsClose.on('click', () => closeSettings());
-
-                $menuMain.on('click', '.settings-item', function () {
-                    const action = $(this).data('action');
-                    if (action === 'speed') {
-                        $menuMain.hide();
-                        $menuSpeed.show();
-                    } else if (action === 'quality') {
-                        $menuMain.hide();
-                        $menuQuality.show();
-                    }
-                });
-
-                $speedBack.on('click', function () {
-                    $menuSpeed.hide(); $menuMain.show();
-                });
-                $qualityBack.on('click', function () {
-                    $menuQuality.hide(); $menuMain.show();
-                });
-
-                $speedList.on('click', 'button', function () {
-                    $speedList.find('button').removeClass('active');
-                    $(this).addClass('active');
-                    const sp = parseFloat($(this).data('speed'));
-                    if (!isNaN(sp) && isFinite(sp)) {
-                        player.playbackRate = sp;
-                        $menuMain.find('[data-action="speed"] .meta').text(sp + 'x');
-                    }
-                });
-
-                function showToast(txt) {
-                    $uiToast.text(txt).addClass('show');
-                    setTimeout(() => $uiToast.removeClass('show'), 1600);
-                }
-                $qualityList.on('click', 'button', function () {
-                    $qualityList.find('button').removeClass('active');
-                    $(this).addClass('active');
-                    const q = $(this).data('quality');
-                    showToast('Quality set to: ' + (q === 'auto' ? 'Auto' : q + 'p'));
-                    $menuMain.find('[data-action="quality"] .meta').text(q === 'auto' ? 'Auto' : q + 'p');
-                });
-
-                function setInitialSpeedUI() {
-                    const current = player.playbackRate || 1;
-                    $speedList.find('button').each(function () {
-                        if (parseFloat($(this).data('speed')) === current) $(this).addClass('active');
-                        else $(this).removeClass('active');
-                    });
-                    $menuMain.find('[data-action="speed"] .meta').text(current + 'x');
-                }
-                setInitialSpeedUI();
-
-                $(document).on('keydown', function (e) {
-                    if (e.code === 'Space' && !$(e.target).is('input,textarea')) {
-                        e.preventDefault();
-                        if (player.paused) player.play(); else player.pause();
-                    }
-                });
-
-                const $videoContainer = $('.video-player-container');
-
-                $videoContainer.on('click', function (e) {
-                    if ($(e.target).closest('.custom-controls').length) return;
-                    $(this).toggleClass('controls-visible');
-                });
 
 
-                $('#custom-controls .control-btn').on('click', function () {
-                    if (window.innerWidth <= 768) {
-                        $('#custom-controls').toggleClass('flex-column');
-                    }
-                });
-
-
-
-                const $fullscreenBtn = $('#fullscreen-btn');
-
-                $fullscreenBtn.on('click', () => {
-                    const container = $videoContainer[0];
-
-                    if (!document.fullscreenElement) {
-                        container.requestFullscreen().then(() => {
-                            // Mobile device check
-                            if (window.innerWidth <= 768) {
-                                $videoContainer.addClass('flex-column-fullscreen');
-                            }
-                        }).catch(() => { });
-                    } else {
-                        document.exitFullscreen().then(() => {
-                            $videoContainer.removeClass('flex-column-fullscreen');
-                        }).catch(() => { });
-                    }
-                });
-
-
-
-            });
         </script>
-
     </body>
 
 </html>

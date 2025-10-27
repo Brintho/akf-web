@@ -26,22 +26,7 @@
         <main id="main-content">
 
             <!-- Custom CSS for User Dashboard (Dark Theme) -->
-            <style>
-                /* Your provided theme variables */
-                :root {
-                    --color-primary-dark: #161618;
-                    --color-secondary-dark: #1e1e1e;
-                    --color-accent-gold: #D4AF37;
-                    --color-text-light: #f0f0f0;
-                    --color-text-medium: #a0a0a0;
-                    --glass-bg: rgba(30, 30, 30, 0.7);
-                    --glass-border: 1px solid rgba(255, 255, 255, 0.1);
-                    --font-primary: 'Poppins', sans-serif;
-                    --font-bengali: 'Hind Siliguri', sans-serif;
-                    --soft-transition: all 0.3s ease-in-out;
-                }
 
-            </style>
 
             <header class="topbar">
                 <div class="topbar__container">
@@ -51,7 +36,7 @@
                         </a>
                     </div>
                     <nav class="topbar__nav--desktop">
-                        <a href="index.html" class="active">Home</a>
+                        <a href="index.html">Home</a>
                         <a href="course.html">Courses</a>
                         <a href="shop.html">Shop</a>
                         <a href="ebook.html">Ebook</a>
@@ -71,7 +56,6 @@
                         </a>
                         <!-- Notification Bell -->
                         <!-- Notification Wrapper with Bootstrap Dropdown Functionality -->
-
                         <div class="notification-wrapper dropdown">
                             <!-- Bell icon acts as the dropdown toggle -->
                             <a href="#" class="action-icon notification-bell" id="notification-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
@@ -125,6 +109,7 @@
                                 </div>
                             </div>
                         </div>
+
 
                         <a href="#" class="btn-login">Login</a>
 
@@ -187,196 +172,78 @@
                             <div class="text-center text-md-start">
                                 <h2 class="profile-name">Marsden Holman</h2>
                                 <div class="profile-stats">
-                                    <span><i class="bi bi-patch-check-fill me-2"></i>verified</span>
+                                    <span><i class="bi bi-patch-check-fill me-2"></i> Verified</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="row g-4">
-                        <!-- 2. Sidebar Navigation -->
+                        <!-- Sidebar Navigation -->
                         <div class="col-lg-3">
                             <div class="dashboard-sidebar" data-aos="fade-right">
                                 <p class="sidebar-welcome-text px-3">WELCOME, MARSDEN HOLMAN</p>
                                 <ul class="nav flex-column sidebar-nav">
-                                    <li class="nav-item"><a class="nav-link active" href="my_profile.html"><i class="bi bi-person-circle"></i> My Profile</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="my_profile.html"><i class="bi bi-person-circle"></i> My Profile</a></li>
                                     <li class="nav-item"><a class="nav-link " href="my_course.html"><i class="bi bi-journal-bookmark-fill"></i> My Courses</a></li>
                                     <li class="nav-item"><a class="nav-link " href="my_ebook_profile.html"><i class="bi bi-book-half"></i> My Ebooks</a></li>
                                     <li class="nav-item"><a class="nav-link " href="my_shop.html"><i class="bi bi-shop"></i> Shop</a></li>
                                     <li class="nav-item"><a class="nav-link " href="sms.html"><i class="bi bi-chat-dots-fill"></i> Message</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="donation_history.html"><i class="bi bi-clock-history"></i> Donation History</a></li>
+                                    <li class="nav-item"><a class="nav-link active" href="donation_history.html"><i class="bi bi-clock-history"></i> Donation History</a></li>
                                     <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-box-arrow-left"></i> Logout</a></li>
                                 </ul>
                             </div>
                         </div>
 
-                        <!-- 3. Main Content Area -->
+                        <!-- Main Content Area -->
                         <div class="col-lg-9">
+
+
                             <div class="dashboard-content-card" data-aos="fade-up" data-aos-delay="100">
-                                <h3 class="content-title">Membership Form</h3>
-                                <form class="row g-4">
-                                    <!-- Member Name -->
-                                    <div class="col-md-6">
-                                        <label class="form-label">Member Name</label>
-                                        <input type="text" class="form-control" placeholder="Enter your name">
-                                    </div>
+                                <h3 class="content-title">My Shop</h3>
+                                <div class="table-responsive">
+                                    <table class="table align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th style="min-width: 300px;">Title</th>
+                                                <th>Amount</th>
+                                                <th>Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Product 1 -->
+                                            <tr>
+                                                <td>
+                                                    <span class="product-title-in-table">SQA: Manual & Automated Testing</span>
+                                                </td>
+                                                <td>$49</td>
+                                                <td>2025-10-15</td>
+                                            </tr>
 
-                                    <!-- Father's/Husband's Name -->
-                                    <div class="col-md-6">
-                                        <label class="form-label">Father’s/Husband’s Name</label>
-                                        <input type="text" class="form-control" placeholder="Enter father’s/husband’s name">
-                                    </div>
+                                            <!-- Product 2 -->
+                                            <tr>
+                                                <td>
+                                                    <span class="product-title-in-table">Web Development Bootcamp</span>
+                                                </td>
+                                                <td>$99</td>
+                                                <td>2025-10-20</td>
+                                            </tr>
 
-                                    <!-- DOB -->
-                                    <div class="col-md-6">
-                                        <label class="form-label">Date of Birth</label>
-                                        <input type="date" class="form-control">
-                                    </div>
-
-                                    <!-- Nationality -->
-                                    <div class="col-md-6">
-                                        <label class="form-label">Nationality</label>
-                                        <input type="text" class="form-control" placeholder="Bangladeshi / Other">
-                                    </div>
-
-                                    <!-- Gender -->
-                                    <div class="col-md-6">
-                                        <label class="form-label">Gender</label>
-                                        <select class="form-select">
-                                            <option>Female</option>
-                                            <option>Male</option>
-                                            <option>Other</option>
-                                        </select>
-                                    </div>
-
-                                    <!-- Marital Status -->
-                                    <div class="col-md-6">
-                                        <label class="form-label">Marital Status</label>
-                                        <select class="form-select">
-                                            <option>Married</option>
-                                            <option>Unmarried</option>
-                                        </select>
-                                    </div>
-
-                                    <!-- Blood Group -->
-                                    <div class="col-md-6">
-                                        <label class="form-label">Blood Group</label>
-                                        <input type="text" class="form-control" placeholder="A+, B+, O- etc.">
-                                    </div>
-
-                                    <!-- Education -->
-                                    <div class="col-md-6">
-                                        <label class="form-label">Educational Qualification</label>
-                                        <input type="text" class="form-control" placeholder="SSC/HSC/Graduate">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Upload Your Photo</label>
-                                        <input type="file" class="form-control custom-file-input">
-                                    </div>
-
-                                    <!-- Profession -->
-                                    <div class="col-md-6">
-                                        <label class="form-label">Profession</label>
-                                        <input type="text" class="form-control" placeholder="Your current profession">
-                                    </div>
-
-                                    <!-- Permanent Address -->
-                                    <div class="col-md-12">
-                                        <label class="form-label">Permanent Address</label>
-                                        <textarea class="form-control" rows="2"></textarea>
-                                    </div>
-
-                                    <!-- Current Address -->
-                                    <div class="col-md-12">
-                                        <label class="form-label">Current Address</label>
-                                        <textarea class="form-control" rows="2"></textarea>
-                                    </div>
-
-                                    <!-- Mobile -->
-                                    <div class="col-md-6">
-                                        <label class="form-label">Mobile Number</label>
-                                        <input type="text" class="form-control" placeholder="01XXXXXXXXX">
-                                    </div>
-
-                                    <!-- Other Number -->
-                                    <div class="col-md-6">
-                                        <label class="form-label">Alternative Number</label>
-                                        <input type="text" class="form-control" placeholder="Optional">
-                                    </div>
-
-                                    <!-- Email -->
-                                    <div class="col-md-12">
-                                        <label class="form-label">Email</label>
-                                        <input type="email" class="form-control" placeholder="example@email.com">
-                                    </div>
-
-                                    <!-- NID/Passport -->
-                                    <div class="col-md-12">
-                                        <label class="form-label">NID/Passport/Birth Registration</label>
-                                        <input type="text" class="form-control" placeholder="Enter ID number">
-                                    </div>
-
-                                    <!-- Why Join -->
-                                    <div class="col-md-12">
-                                        <label class="form-label">Why do you want to join this organization?</label>
-                                        <textarea class="form-control" rows="3"></textarea>
-                                    </div>
-
-                                    <!-- Skills -->
-                                    <div class="col-md-12">
-                                        <label class="form-label">What are your special skills?</label>
-                                        <textarea class="form-control" rows="2"></textarea>
-                                    </div>
-
-                                    <!-- Other Organization -->
-                                    <div class="col-md-12">
-                                        <label class="form-label">Are you associated with any other organization?</label>
-                                        <textarea class="form-control" rows="2"></textarea>
-                                    </div>
-
-                                    <!-- Thoughts -->
-                                    <div class="col-md-12">
-                                        <label class="form-label">What are your thoughts about the community?</label>
-                                        <textarea class="form-control" rows="3"></textarea>
-                                    </div>
-
-                                    <!-- Expectations -->
-                                    <div class="col-md-12">
-                                        <label class="form-label">What are your expectations from this organization?</label>
-                                        <textarea class="form-control" rows="3"></textarea>
-                                    </div>
-
-                                    <!-- Recommending Member -->
-                                    <div class="col-md-6">
-                                        <label class="form-label">Recommender's Name</label>
-                                        <input type="text" class="form-control" placeholder="Enter recommender's name">
-                                    </div>
-
-                                    <!-- Recommending Member Phone -->
-                                    <div class="col-md-6">
-                                        <label class="form-label">Recommender's Phone Number</label>
-                                        <input type="text" class="form-control" placeholder="01XXXXXXXXX">
-                                    </div>
-
-                                    <!-- Declaration -->
-                                    <div class="col-12">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="declaration">
-                                            <label class="form-check-label" for="declaration">
-                                                I declare that all the information provided is true, and I agree to follow the organization's policies.
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <!-- Submit Button -->
-                                    <div class="col-12 text-end">
-                                        <button type="submit" class="btn  px-4">Submit</button>
-                                    </div>
-                                </form>
-
+                                            <!-- Product 3 -->
+                                            <tr>
+                                                <td>
+                                                    <span class="product-title-in-table">Python Mastery: Beginner to Advanced</span>
+                                                </td>
+                                                <td>$79</td>
+                                                <td>2025-10-25</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </main>
